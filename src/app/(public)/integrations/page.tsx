@@ -26,8 +26,8 @@ export default function IntegrationsPage() {
       <CTASection
         title="Ready to automate your workflows?"
         description="Let's build a reliable integration architecture that scales with your enterprise."
-        primaryAction={{ label: 'Discuss Your Stack', href: '/contact' }}
-        secondaryAction={{ label: 'Explore Case Studies', href: '/case-studies' }}
+        primaryCTA={{ label: 'Discuss Your Stack', href: '/contact' }}
+        secondaryCTA={{ label: 'Explore Case Studies', href: '/case-studies' }}
       />
     </main>
   )

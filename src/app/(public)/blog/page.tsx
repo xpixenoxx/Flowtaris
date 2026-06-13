@@ -93,6 +93,8 @@ const FEATURED_POST = POSTS[0]
 const REGULAR_POSTS = POSTS.slice(1)
 
 export default function BlogsPage() {
+  if (!FEATURED_POST) return null;
+  
   return (
     <main className="bg-white min-h-screen font-sans selection:bg-[#E8A020] selection:text-white">
       {/* Hero & Featured Post */}

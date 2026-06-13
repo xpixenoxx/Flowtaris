@@ -73,6 +73,8 @@ export default function ERPIntegrationsPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  if (!activeTab) return null;
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)
     if (el) {

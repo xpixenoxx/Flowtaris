@@ -113,6 +113,8 @@ export default function BlogPost() {
   const slug = params?.slug as string
   const post = POSTS.find(p => p.id === slug) || POSTS[0]
   
+  if (!post) return null
+  
   return (
     <main className="bg-white min-h-screen font-sans text-slate-800">
       

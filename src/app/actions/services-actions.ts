@@ -164,13 +164,20 @@ export async function upsertErpArchitectureMain(
   id: string | null,
   data: Pick<ServicesErpArchitectureMain, 'small_description'>
 ) {
-  const supabase = await createClient()
-  if (id) {
-    const { error } = await supabase.from('services_erp_architecture_main').update(data).eq('id', id)
-    if (error) throw new Error(error.message)
-  } else {
-    const { error } = await supabase.from('services_erp_architecture_main').insert([{ ...data, service_id: serviceId }])
-    if (error) throw new Error(error.message)
+  try {
+    const supabase = await createClient()
+    if (id) {
+      const { error } = await supabase.from('services_erp_architecture_main').update(data).eq('id', id)
+      if (error) return { error: error.message }
+    } else {
+      const { error } = await supabase.from('services_erp_architecture_main').insert([{ ...data, service_id: serviceId }])
+      if (error) return { error: error.message }
+    }
+    revalidatePath('/admin/services')
+    revalidatePath('/')
+    return { error: null }
+  } catch (err: any) {
+    return { error: err.message || 'Server error' }
   }
 }
 
@@ -181,24 +188,45 @@ export async function addErpArchitectureCard(
   serviceId: string,
   data: Pick<ServicesErpArchitectureCard, 'title' | 'description' | 'tags' | 'priority'>
 ) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('services_erp_architecture_cards').insert([{ ...data, service_id: serviceId }])
-  if (error) throw new Error(error.message)
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from('services_erp_architecture_cards').insert([{ ...data, service_id: serviceId }])
+    if (error) return { error: error.message }
+    revalidatePath('/admin/services')
+    revalidatePath('/')
+    return { error: null }
+  } catch (err: any) {
+    return { error: err.message || 'Server error' }
+  }
 }
 
 export async function updateErpArchitectureCard(
   id: string,
   data: Pick<ServicesErpArchitectureCard, 'title' | 'description' | 'tags' | 'priority'>
 ) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('services_erp_architecture_cards').update(data).eq('id', id)
-  if (error) throw new Error(error.message)
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from('services_erp_architecture_cards').update(data).eq('id', id)
+    if (error) return { error: error.message }
+    revalidatePath('/admin/services')
+    revalidatePath('/')
+    return { error: null }
+  } catch (err: any) {
+    return { error: err.message || 'Server error' }
+  }
 }
 
 export async function deleteErpArchitectureCard(id: string) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('services_erp_architecture_cards').delete().eq('id', id)
-  if (error) throw new Error(error.message)
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from('services_erp_architecture_cards').delete().eq('id', id)
+    if (error) return { error: error.message }
+    revalidatePath('/admin/services')
+    revalidatePath('/')
+    return { error: null }
+  } catch (err: any) {
+    return { error: err.message || 'Server error' }
+  }
 }
 
 // ==========================================

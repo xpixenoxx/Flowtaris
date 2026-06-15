@@ -40,7 +40,18 @@ export function DynamicServiceClient({
   const heroDesc = hero?.normal_description || 'We engineer unified data models, automate complex financials, and deploy scalable ERP architectures.'
 
   return (
-    <main className="bg-white">
+    <main 
+      className="bg-white"
+      style={{
+        '--selection-bg': bgColor,
+      } as React.CSSProperties}
+    >
+      <style dangerouslySetInnerHTML={{__html: `
+        main ::selection {
+          background-color: var(--selection-bg);
+          color: white;
+        }
+      `}} />
 
       {/* ─────────────────────────────────────────────────────────────────────────────
           1. THE HERO SECTION
@@ -117,8 +128,18 @@ export function DynamicServiceClient({
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {whyChoose.map((benefit: any, i: number) => (
-                <div key={i} className="bg-white p-8 border border-slate-200 rounded-[8px] hover:shadow-xl hover:border-transparent hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-[#F4F5FF] flex items-center justify-center mb-6 text-blue-600 rounded-[4px] group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <div 
+                  key={i} 
+                  className="bg-white p-8 border border-slate-200 rounded-[8px] hover:shadow-xl hover:border-transparent hover:-translate-y-1 transition-all duration-300 group"
+                  style={{ '--hover-bg': bgColor } as React.CSSProperties}
+                >
+                  <div 
+                    className="w-12 h-12 flex items-center justify-center mb-6 rounded-[4px] transition-colors group-hover:!bg-[var(--hover-bg)] group-hover:!text-white"
+                    style={{ 
+                      backgroundColor: `${bgColor}15`,
+                      color: bgColor
+                    }}
+                  >
                     <Database className="w-6 h-6" />
                   </div>
                   <h3 className="text-[20px] font-bold text-[#141736] mb-3">{benefit.main_description}</h3>
@@ -134,7 +155,11 @@ export function DynamicServiceClient({
           4. BUSINESS SUITE
           ───────────────────────────────────────────────────────────────────────────── */}
       {businessItems.length > 0 && (
-        <section id="features" className="py-28 relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
+        <section 
+          id="features" 
+          className="py-28 relative overflow-hidden transition-colors duration-500"
+          style={{ backgroundColor: bgColor }}
+        >
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16 relative z-10">
             <div className="mb-16 text-center">
               <h2 className="text-[36px] md:text-[46px] font-bold text-white mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
@@ -190,6 +215,96 @@ export function DynamicServiceClient({
                   )}
                 </AnimatePresence>
               </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          5. ERP ARCHITECTURE / METHODOLOGY
+          ───────────────────────────────────────────────────────────────────────────── */}
+      {erpCards?.length > 0 && (
+        <section id="methodology" className="py-28 bg-[#F8FAFC] border-t border-slate-200">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+            
+            <div className="mb-20">
+              <h2 className="text-[36px] md:text-[46px] font-bold text-[#141736] mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
+                {erpMain?.main_description || 'Engineering Excellence'}
+              </h2>
+              <div className="w-16 h-1 bg-[#FFD166] mb-8" />
+              <p className="text-slate-600 text-[18px] leading-relaxed max-w-3xl">
+                {erpMain?.small_description || 'We approach implementations as a strategic business transformation, ensuring maximum user adoption and immediate ROI.'}
+              </p>
+            </div>
+
+            <div className="space-y-12">
+              {erpCards.map((step: any, idx: number) => (
+                <div key={idx} className="bg-white rounded-[12px] shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row group hover:shadow-xl transition-shadow duration-300">
+                  <div 
+                    className="md:w-32 flex flex-col items-center justify-center p-8 text-white transition-colors"
+                    style={{ backgroundColor: bgColor }}
+                  >
+                    <span className="text-[40px] font-black tracking-tighter opacity-80" style={{ fontFamily: 'var(--font-sora)' }}>
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  
+                  <div className="p-10 lg:p-12 flex-1 flex flex-col justify-center">
+                    <h3 className="text-[24px] font-bold text-[#141736] mb-4" style={{ fontFamily: 'var(--font-sora)' }}>
+                      {step.title}
+                    </h3>
+                    <p className="text-slate-600 text-[16px] leading-relaxed mb-8 max-w-4xl whitespace-pre-wrap">
+                      {step.description}
+                    </p>
+                    
+                    {step.features && (
+                      <div className="flex flex-wrap gap-4">
+                        {step.features.split(',').map((feature: string, i: number) => (
+                          <div key={i} className="flex items-center gap-2 bg-[#F8FAFC] border border-slate-200 rounded-[4px] px-4 py-2">
+                            <Check className="w-4 h-4" style={{ color: bgColor }} />
+                            <span className="text-[13px] font-bold text-slate-700">{feature.trim()}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          6. DEEP MODULE EXPERTISE
+          ───────────────────────────────────────────────────────────────────────────── */}
+      {deepModules?.length > 0 && (
+        <section className="py-28 bg-white border-t border-slate-200">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
+            <div className="text-center mb-20">
+              <h2 className="text-[36px] md:text-[46px] font-bold text-[#141736] mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
+                Holistic Expertise
+              </h2>
+              <div className="w-16 h-1 bg-[#FFD166] mx-auto mb-6" />
+              <p className="text-slate-600 text-[18px] leading-relaxed max-w-3xl mx-auto">
+                Comprehensive capabilities across the entire technology stack.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {deepModules.map((module: any, idx: number) => (
+                <div 
+                  key={idx} 
+                  className="p-10 border border-slate-200 rounded-[8px] transition-colors group hover:shadow-sm"
+                  style={{ backgroundColor: `${bgColor}08` }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = bgColor; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                >
+                  <Globe className="w-10 h-10 mb-6 group-hover:scale-110 transition-transform" style={{ color: bgColor }} />
+                  <h3 className="text-[18px] font-bold text-[#141736] mb-4">{module.title}</h3>
+                  <p className="text-slate-600 text-[14px] leading-relaxed">{module.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

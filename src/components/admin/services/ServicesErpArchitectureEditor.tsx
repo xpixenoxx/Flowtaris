@@ -21,8 +21,12 @@ function ErpMainEditor({ serviceId, initialData }: { serviceId: string; initialD
     setSaving(true)
     setMsg('')
     try {
-      await upsertErpArchitectureMain(serviceId, initialData?.id ?? null, { small_description: smallDesc || null })
-      setMsg('Saved!')
+      const res = await upsertErpArchitectureMain(serviceId, initialData?.id ?? null, { small_description: smallDesc || null })
+      if (res && res.error) {
+        setMsg(`Error: ${res.error}`)
+      } else {
+        setMsg('Saved!')
+      }
     } catch (err: unknown) {
       setMsg(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {
@@ -121,10 +125,14 @@ function CardRow({
     setSaving(true)
     setMsg('')
     try {
-      await updateErpArchitectureCard(card.id, { title, description: description || null, tags, priority })
-      setMsg('Saved!')
-      setEditing(false)
-      onPriorityChange(card.id, priority)
+      const res = await updateErpArchitectureCard(card.id, { title, description: description || null, tags, priority })
+      if (res && res.error) {
+        setMsg(`Error: ${res.error}`)
+      } else {
+        setMsg('Saved!')
+        setEditing(false)
+        onPriorityChange(card.id, priority)
+      }
     } catch (err: unknown) {
       setMsg(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {
@@ -136,10 +144,15 @@ function CardRow({
     if (!confirm('Delete this ERP card?')) return
     setDeleting(true)
     try {
-      await deleteErpArchitectureCard(card.id)
-      onDeleted()
+      const res = await deleteErpArchitectureCard(card.id)
+      if (res && res.error) {
+        setMsg(`Error: ${res.error}`)
+      } else {
+        onDeleted()
+      }
     } catch (err: unknown) {
       setMsg(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
+    } finally {
       setDeleting(false)
     }
   }
@@ -221,11 +234,15 @@ function AddCardForm({ serviceId, onAdded }: { serviceId: string; onAdded: () =>
     setSaving(true)
     setMsg('')
     try {
-      await addErpArchitectureCard(serviceId, { title, description: description || null, tags, priority })
-      setMsg('Added!')
-      setTitle(''); setDescription(''); setTags([]); setPriority(0)
-      setOpen(false)
-      onAdded()
+      const res = await addErpArchitectureCard(serviceId, { title, description: description || null, tags, priority })
+      if (res && res.error) {
+        setMsg(`Error: ${res.error}`)
+      } else {
+        setMsg('Added!')
+        setTitle(''); setDescription(''); setTags([]); setPriority(0)
+        setOpen(false)
+        onAdded()
+      }
     } catch (err: unknown) {
       setMsg(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
     } finally {

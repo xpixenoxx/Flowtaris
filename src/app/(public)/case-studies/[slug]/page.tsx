@@ -71,20 +71,18 @@ export default async function CaseStudyPage({
     ? moreCases
     : FALLBACK_STUDIES.filter((f) => f.slug !== slug).slice(0, 2)
 
-  // Use generated image if present, else fallback
-  // In a real app we'd fetch this from cs.cover_image_url
-  const heroImage = "/images/cs_hero_cover.png"
+  const heroImage = cs.cover_image_url || "/images/cs_hero_cover.png"
 
   return (
     <>
-      <CaseStudyHero 
+      <CaseStudyHero
         title={cs.title}
         outcomeSummary={cs.outcome_summary}
         metrics={metrics}
         coverImage={heroImage}
       />
 
-      <CaseStudyBody 
+      <CaseStudyBody
         clientSituation={cs.client_situation}
         solutionApproach={cs.solution_approach}
         outcomeSummary={cs.outcome_summary}

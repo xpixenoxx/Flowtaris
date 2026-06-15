@@ -1,17 +1,8 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Eye } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { ServicesSectionTabs } from '@/components/admin/services/ServicesSectionTabs'
-import { CaseStudyHeroEditor } from '@/components/admin/case-studies/CaseStudyHeroEditor'
-import { CaseStudySimpleListEditor } from '@/components/admin/case-studies/CaseStudySimpleListEditor'
-import { CaseStudyTopicsEditor } from '@/components/admin/case-studies/CaseStudyTopicsEditor'
-
-import {
-  addCaseStudyIndustry, updateCaseStudyIndustry, deleteCaseStudyIndustry,
-  addCaseStudySolution, updateCaseStudySolution, deleteCaseStudySolution,
-  addCaseStudyTechStack, updateCaseStudyTechStack, deleteCaseStudyTechStack
-} from '@/app/actions/case-studies-actions'
+import { CaseStudyEditor } from '@/components/admin/CaseStudyEditor'
 
 export const revalidate = 0
 
@@ -23,7 +14,6 @@ export default async function AdminCaseStudyDetailPage({
   const { slug } = await params
   const supabase = await createClient()
 
-  // Fetch parent
   const { data: caseStudy } = await supabase
     .from('case_studies')
     .select('*')
@@ -31,129 +21,53 @@ export default async function AdminCaseStudyDetailPage({
     .maybeSingle()
 
   if (!caseStudy) notFound()
-  const csId = caseStudy.id
-
-  // Fetch all content
-  const [
-    { data: heroData },
-    { data: industryData },
-    { data: solutionsData },
-    { data: techStackData },
-    { data: topicsData },
-  ] = await Promise.all([
-    supabase.from('case_studies_hero').select('*').eq('case_study_id', csId).limit(1).maybeSingle(),
-    supabase.from('case_studies_industry').select('*').eq('case_study_id', csId).order('created_at', { ascending: true }),
-    supabase.from('case_studies_solutions').select('*').eq('case_study_id', csId).order('created_at', { ascending: true }),
-    supabase.from('case_studies_tech_stack').select('*').eq('case_study_id', csId).order('created_at', { ascending: true }),
-    supabase.from('case_studies_topics').select('*').eq('case_study_id', csId).order('created_at', { ascending: true }),
-  ])
-
-  const tabs = [
-    { id: 'hero',         label: 'Hero' },
-    { id: 'industry',     label: 'Industry',             badge: String(industryData?.length ?? 0) },
-    { id: 'solutions',    label: 'Solutions Delivered',  badge: String(solutionsData?.length ?? 0) },
-    { id: 'tech-stack',   label: 'Technology Stack',     badge: String(techStackData?.length ?? 0) },
-    { id: 'topics',       label: 'Topics',               badge: String(topicsData?.length ?? 0) },
-  ]
 
   return (
     <div className="space-y-6">
       {/* Back + Page header */}
-      <div>
-        <Link
-          href="/admin/case-studies"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-700 mb-4 transition-colors group"
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <Link
+            href="/admin/case-studies"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-700 mb-4 transition-colors group"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            All Case Studies
+          </Link>
+          <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
+            {caseStudy.title}
+          </h1>
+          <p className="text-slate-400 mt-0.5 text-xs font-mono">/case-studies/{caseStudy.slug}</p>
+          <div className="flex items-center gap-2 mt-2">
+            <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${
+              caseStudy.status === 'published'
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                : 'bg-slate-100 text-slate-500 border border-slate-200'
+            }`}>
+              {caseStudy.status === 'published' ? '● Published' : '○ Draft'}
+            </span>
+            {caseStudy.is_featured && (
+              <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-gold-50 text-gold-700 border border-gold-200">
+                ★ Featured
+              </span>
+            )}
+          </div>
+        </div>
+        <a
+          href={`/case-studies/${caseStudy.slug}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 text-sm font-medium text-navy-900 border border-slate-200 hover:bg-slate-50 px-4 py-2.5 rounded-xl transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-          All Case Studies
-        </Link>
-        <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
-          {caseStudy.title}
-        </h1>
-        <p className="text-slate-400 mt-0.5 text-xs font-mono">/case-studies/{caseStudy.slug}</p>
-        <p className="text-slate-500 mt-1 text-sm">
-          Manage the content architecture of this case study.
-        </p>
+          <Eye className="w-4 h-4" />
+          Preview Live Page
+        </a>
       </div>
 
-      {/* Tabbed sections (Re-using ServicesSectionTabs UI) */}
-      <ServicesSectionTabs tabs={tabs}>
-        {/* ── 1. HERO ───────────────────────────────────────── */}
-        <div>
-          <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Hero Section</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Edit the hero headline, description, and cover image.
-            </p>
-          </div>
-          <CaseStudyHeroEditor caseStudyId={csId} initialData={heroData ?? null} />
-        </div>
-
-        {/* ── 2. INDUSTRY ───────────────────────────────────── */}
-        <div>
-          <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Industry Type</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Add, edit, or remove associated industries.
-            </p>
-          </div>
-          <CaseStudySimpleListEditor
-            caseStudyId={csId}
-            items={industryData ?? []}
-            itemName="Industry"
-            addAction={addCaseStudyIndustry}
-            updateAction={updateCaseStudyIndustry}
-            deleteAction={deleteCaseStudyIndustry}
-          />
-        </div>
-
-        {/* ── 3. SOLUTIONS ──────────────────────────────────── */}
-        <div>
-          <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Solutions Delivered</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              List the solutions implemented in this case study.
-            </p>
-          </div>
-          <CaseStudySimpleListEditor
-            caseStudyId={csId}
-            items={solutionsData ?? []}
-            itemName="Solution"
-            addAction={addCaseStudySolution}
-            updateAction={updateCaseStudySolution}
-            deleteAction={deleteCaseStudySolution}
-          />
-        </div>
-
-        {/* ── 4. TECH STACK ─────────────────────────────────── */}
-        <div>
-          <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Technology Stack</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Specify the platforms and tools used.
-            </p>
-          </div>
-          <CaseStudySimpleListEditor
-            caseStudyId={csId}
-            items={techStackData ?? []}
-            itemName="Technology"
-            addAction={addCaseStudyTechStack}
-            updateAction={updateCaseStudyTechStack}
-            deleteAction={deleteCaseStudyTechStack}
-          />
-        </div>
-
-        {/* ── 5. TOPICS ─────────────────────────────────────── */}
-        <div>
-          <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Narrative Topics</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Add detailed sections like "Client Situation", "Solution Approach", or "Outcome".
-            </p>
-          </div>
-          <CaseStudyTopicsEditor caseStudyId={csId} items={topicsData ?? []} />
-        </div>
-      </ServicesSectionTabs>
+      {/* Primary Editor */}
+      <div className="admin-card p-0 overflow-hidden">
+        <CaseStudyEditor caseStudy={caseStudy} />
+      </div>
     </div>
   )
 }

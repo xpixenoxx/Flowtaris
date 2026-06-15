@@ -60,7 +60,7 @@ export function InteractiveCaseList({ cases }: { cases: any[] }) {
                   <div className="flex-1 max-w-3xl">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {(cs.platforms as string[])?.slice(0, 3).map((p) => (
-                        <Badge key={p} variant="slate" className="text-slate-600 border-slate-200 bg-transparent">{p}</Badge>
+                        <Badge key={p} variant="slate" className="text-slate-800 font-bold border-slate-300 bg-white shadow-sm px-3 py-1 text-xs">{p}</Badge>
                       ))}
                     </div>
                     <h3 

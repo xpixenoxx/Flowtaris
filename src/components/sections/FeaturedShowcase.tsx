@@ -58,9 +58,9 @@ export function FeaturedShowcase({ featured }: { featured: any[] }) {
                 {/* Content */}
                 <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end pointer-events-none">
                   <div className="flex flex-wrap gap-2 mb-4">
-                    <Badge variant="gold">Featured</Badge>
+                    <Badge variant="gold" className="font-extrabold uppercase tracking-widest text-[10px] px-3 py-1 shadow-sm border-gold-500 bg-gold-50 text-gold-700">Featured</Badge>
                     {(cs.platforms as string[])?.map((p) => (
-                      <Badge key={p} variant="slate" className="text-slate-600 border-slate-200 bg-slate-50/80">{p}</Badge>
+                      <Badge key={p} variant="slate" className="text-slate-800 font-bold border-slate-300 bg-white shadow-sm px-3 py-1 text-xs">{p}</Badge>
                     ))}
                   </div>
 

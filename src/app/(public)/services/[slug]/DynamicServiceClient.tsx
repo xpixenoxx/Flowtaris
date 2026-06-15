@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, Database, Zap, Globe, ShieldCheck, BarChart3, ArrowUpRight, Code } from 'lucide-react'
+import * as Icons from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function DynamicServiceClient({
@@ -95,15 +95,15 @@ export function DynamicServiceClient({
                 <div className="relative w-full max-w-[450px] aspect-square">
                   <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
                     className="absolute top-0 right-10 w-64 h-64 rounded-full bg-[#141736]/40 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <BarChart3 className="w-16 h-16 text-white opacity-90" strokeWidth={1} />
+                    <Icons.BarChart3 className="w-16 h-16 text-white opacity-90" strokeWidth={1} />
                   </motion.div>
                   <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
                     className="absolute bottom-10 left-0 w-56 h-56 rounded-full bg-[#FFD166]/80 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <Database className="w-16 h-16 text-[#141736] opacity-90" strokeWidth={1} />
+                    <Icons.Database className="w-16 h-16 text-[#141736] opacity-90" strokeWidth={1} />
                   </motion.div>
                   <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.4 }}
                     className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <ShieldCheck className="w-12 h-12 text-white opacity-90" strokeWidth={1} />
+                    <Icons.ShieldCheck className="w-12 h-12 text-white opacity-90" strokeWidth={1} />
                   </motion.div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export function DynamicServiceClient({
       {/* ─────────────────────────────────────────────────────────────────────────────
           3. BENEFITS (WHY CHOOSE)
           ───────────────────────────────────────────────────────────────────────────── */}
-      {whyChoose.length > 0 && (
+      {whyChoose?.length > 0 && (
         <section id="benefits" className="py-24 bg-white">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
             <div className="mb-16 text-center">
@@ -127,25 +127,28 @@ export function DynamicServiceClient({
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {whyChoose.map((benefit: any, i: number) => (
-                <div 
-                  key={i} 
-                  className="bg-white p-8 border border-slate-200 rounded-[8px] hover:shadow-xl hover:border-transparent hover:-translate-y-1 transition-all duration-300 group"
-                  style={{ '--hover-bg': bgColor } as React.CSSProperties}
-                >
+              {whyChoose.map((benefit: any, i: number) => {
+                const IconComp = (Icons as any)[benefit.icon || 'Database'] || Icons.Database
+                return (
                   <div 
-                    className="w-12 h-12 flex items-center justify-center mb-6 rounded-[4px] transition-colors group-hover:!bg-[var(--hover-bg)] group-hover:!text-white"
-                    style={{ 
-                      backgroundColor: `${bgColor}15`,
-                      color: bgColor
-                    }}
+                    key={i} 
+                    className="bg-white p-8 border border-slate-200 rounded-[8px] hover:shadow-xl hover:border-transparent hover:-translate-y-1 transition-all duration-300 group"
+                    style={{ '--hover-bg': bgColor } as React.CSSProperties}
                   >
-                    <Database className="w-6 h-6" />
+                    <div 
+                      className="w-12 h-12 flex items-center justify-center mb-6 rounded-[4px] transition-colors group-hover:!bg-[var(--hover-bg)] group-hover:!text-white"
+                      style={{ 
+                        backgroundColor: `${bgColor}15`,
+                        color: bgColor
+                      }}
+                    >
+                      <IconComp className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-[20px] font-bold text-[#141736] mb-3">{benefit.main_description}</h3>
+                    <p className="text-slate-600 leading-relaxed text-[15px]">{benefit.small_description}</p>
                   </div>
-                  <h3 className="text-[20px] font-bold text-[#141736] mb-3">{benefit.main_description}</h3>
-                  <p className="text-slate-600 leading-relaxed text-[15px]">{benefit.small_description}</p>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>
@@ -154,7 +157,7 @@ export function DynamicServiceClient({
       {/* ─────────────────────────────────────────────────────────────────────────────
           4. BUSINESS SUITE
           ───────────────────────────────────────────────────────────────────────────── */}
-      {businessItems.length > 0 && (
+      {businessItems?.length > 0 && (
         <section 
           id="features" 
           className="py-28 relative overflow-hidden transition-colors duration-500"
@@ -203,7 +206,7 @@ export function DynamicServiceClient({
                       <h3 className="text-[28px] font-bold text-[#141736] mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
                         {activeTab.title}
                       </h3>
-                      <p className="text-slate-600 text-[16px] leading-relaxed mb-10">
+                      <p className="text-slate-600 text-[16px] leading-relaxed mb-10 whitespace-pre-wrap">
                         {activeTab.description}
                       </p>
                       {activeTab.image_url && (
@@ -232,7 +235,7 @@ export function DynamicServiceClient({
                 {erpMain?.main_description || 'Engineering Excellence'}
               </h2>
               <div className="w-16 h-1 bg-[#FFD166] mb-8" />
-              <p className="text-slate-600 text-[18px] leading-relaxed max-w-3xl">
+              <p className="text-slate-600 text-[18px] leading-relaxed max-w-3xl whitespace-pre-wrap">
                 {erpMain?.small_description || 'We approach implementations as a strategic business transformation, ensuring maximum user adoption and immediate ROI.'}
               </p>
             </div>
@@ -257,11 +260,11 @@ export function DynamicServiceClient({
                       {step.description}
                     </p>
                     
-                    {step.features && (
+                    {step.tags && step.tags.length > 0 && (
                       <div className="flex flex-wrap gap-4">
-                        {step.features.split(',').map((feature: string, i: number) => (
+                        {step.tags.map((feature: string, i: number) => (
                           <div key={i} className="flex items-center gap-2 bg-[#F8FAFC] border border-slate-200 rounded-[4px] px-4 py-2">
-                            <Check className="w-4 h-4" style={{ color: bgColor }} />
+                            <Icons.Check className="w-4 h-4" style={{ color: bgColor }} />
                             <span className="text-[13px] font-bold text-slate-700">{feature.trim()}</span>
                           </div>
                         ))}
@@ -292,19 +295,22 @@ export function DynamicServiceClient({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {deepModules.map((module: any, idx: number) => (
-                <div 
-                  key={idx} 
-                  className="p-10 border border-slate-200 rounded-[8px] transition-colors group hover:shadow-sm"
-                  style={{ backgroundColor: `${bgColor}08` }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = bgColor; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; }}
-                >
-                  <Globe className="w-10 h-10 mb-6 group-hover:scale-110 transition-transform" style={{ color: bgColor }} />
-                  <h3 className="text-[18px] font-bold text-[#141736] mb-4">{module.title}</h3>
-                  <p className="text-slate-600 text-[14px] leading-relaxed">{module.description}</p>
-                </div>
-              ))}
+              {deepModules.map((module: any, idx: number) => {
+                const IconComp = (Icons as any)[module.icon || 'Globe'] || Icons.Globe
+                return (
+                  <div 
+                    key={idx} 
+                    className="p-10 border border-slate-200 rounded-[8px] transition-colors group hover:shadow-sm"
+                    style={{ backgroundColor: `${bgColor}08` }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = bgColor; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                  >
+                    <IconComp className="w-10 h-10 mb-6 group-hover:scale-110 transition-transform" style={{ color: bgColor }} />
+                    <h3 className="text-[18px] font-bold text-[#141736] mb-4">{module.title}</h3>
+                    <p className="text-slate-600 text-[14px] leading-relaxed">{module.small_description}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -313,3 +319,4 @@ export function DynamicServiceClient({
     </main>
   )
 }
+

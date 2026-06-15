@@ -32,7 +32,7 @@ export function HeroSection({ title, description, technologies }: HeroSectionPro
 
           {/* Left Content */}
           <div className="max-w-xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
               {title || "ERP Implementation for Companies Outgrowing Chaos"}
             </h1>
             <p className="text-xl text-gray-600 mb-10 leading-relaxed">

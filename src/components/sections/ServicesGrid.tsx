@@ -148,66 +148,63 @@ export function ServicesGrid({ dynamicServices = [] }: { dynamicServices?: any[]
     : services;
 
   return (
-    <section className="section bg-white">
-      <div className="container-content">
-        <AnimatedSection className="mb-14">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="h-px w-6 bg-gold-500" />
-            <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-gold-500"
-                  style={{ fontFamily: 'var(--font-jetbrains)' }}>
-              What We Deliver
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-navy-900 max-w-2xl"
-              style={{ fontFamily: 'var(--font-sora)' }}>
-            Enterprise Expertise Across Every Platform Your Business Runs On
-          </h2>
-        </AnimatedSection>        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {displayServices.map((service) => {
-            const Visual = service.Visual
+    <section className="bg-[#FAFAFA] py-24 relative">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+        <div className="flex items-center gap-3 mb-16">
+          <div className="h-[1px] w-8 bg-[#E8A020]" />
+          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#E8A020]">
+            Core Portfolio
+          </span>
+        </div>
+
+        {/* Elite Institutional Grid System */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayServices.map((service, index) => {
             return (
-              <Link
-                key={service.href}
+              <Link 
+                key={index}
                 href={service.href}
-                className="h-full group card p-6 flex flex-col hover:-translate-y-1 hover:border-gold-300 transition-all duration-300"
+                className="group flex flex-col h-full bg-white border border-slate-200 p-10 md:p-14 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(10,22,40,0.08)] hover:-translate-y-1 relative overflow-hidden min-h-[460px] rounded-2xl"
+                style={{ '--brand-color': service.color } as React.CSSProperties}
               >
-                {/* Visual */}
-                <div className="w-20 h-20 rounded-2xl bg-navy-950 border border-navy-800
-                                flex items-center justify-center mb-6 shrink-0
-                                shadow-inner relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,160,32,0.1),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <Visual />
+                {/* Subtle top border accent on hover */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--brand-color)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Numbering */}
+                <div className="flex justify-between items-start mb-16 relative z-10">
+                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-[0.2em] group-hover:text-[var(--brand-color)] transition-colors duration-500">
+                    No. {`0${index + 1}`.slice(-2)}
+                  </span>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-base font-bold text-navy-900 mb-2 group-hover:text-navy-700
-                                transition-colors duration-150"
-                    style={{ fontFamily: 'var(--font-sora)' }}>
-                  {service.label}
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed flex-1 mb-4">
-                  {service.description}
-                </p>
+                <div className="flex-1 relative z-10">
+                  <h2 className="text-3xl font-light text-[#0A1628] mb-6 leading-tight group-hover:text-[var(--brand-color)] transition-colors duration-500" style={{ fontFamily: 'var(--font-sora)' }}>
+                    {service.label}
+                  </h2>
+                  <p className="text-sm text-slate-500 font-light leading-relaxed max-w-[95%] mb-8">
+                    {service.description}
+                  </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {service.tags.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-mono uppercase tracking-[0.1em]
-                                 px-2 py-0.5 rounded bg-navy-50 text-navy-500 border border-navy-100"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {service.tags.map((tag: string) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-mono uppercase tracking-[0.1em] px-2.5 py-1 bg-slate-50 text-slate-500 border border-slate-200 transition-colors duration-500 group-hover:border-[var(--brand-color)]/20"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* CTA */}
-                <div className="flex items-center gap-1.5 text-gold-500 text-sm font-semibold
-                                group-hover:gap-2.5 transition-all duration-200"
-                     style={{ fontFamily: 'var(--font-sora)' }}>
-                  Learn More
-                  <ArrowRight className="w-4 h-4" />
+                {/* Footer CTA */}
+                <div className="mt-16 flex items-center gap-4 relative z-10">
+                  <div className="h-[1px] w-8 group-hover:w-12 bg-slate-300 group-hover:bg-[var(--brand-color)] transition-all duration-500 ease-out" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-[var(--brand-color)] transition-colors duration-500">
+                    Explore Configuration
+                  </span>
                 </div>
               </Link>
             )

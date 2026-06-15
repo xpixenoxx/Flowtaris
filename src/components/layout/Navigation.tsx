@@ -20,7 +20,7 @@ const NAV_LINKS = [
 // ─────────────────────────────────────────────────────────────────────────────
 // The Ultra-Premium "Command Center" Mega Menu (Flowtaris Brand Colors)
 // ─────────────────────────────────────────────────────────────────────────────
-function CommandCenterMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: () => void }) {
+function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter: () => void, onLeave: () => void, dynamicServices?: any[] }) {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -53,16 +53,33 @@ function CommandCenterMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave:
 
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
 
-  const SERVICES = [
-    { title: 'NetSuite Consulting', icon: Database, desc: 'Implementation and custom scripting.', detailTitle: 'NetSuite Mastery', detailDesc: 'Full-cycle implementation, SuiteScript 2.0 customization, and Advanced RevRec deployment.', color: '#4F46E5' },
-    { title: 'Coupa Consulting', icon: ShoppingCart, desc: 'BSM implementation and optimization.', detailTitle: 'Spend Optimization', detailDesc: 'Architecting Procure-to-Pay pipelines and supplier management for maximum ROI.', color: '#E11D48' },
-    { title: 'ERP Integrations', icon: ArrowLeftRight, desc: 'Seamless system connectivity.', detailTitle: 'Robust Data Pipelines', detailDesc: 'MuleSoft & Boomi integrations ensuring real-time bidirectional syncing across your stack.', color: '#E8A020' },
-    { title: 'Managed Support', icon: ShieldCheck, desc: 'Dedicated post-go-live administration.', detailTitle: '24/7 Administration', detailDesc: 'Continuous system optimization, stringent security audits, and dedicated SLA support.', color: '#059669' },
-    { title: 'AI & Automation', icon: Cpu, desc: 'Intelligent workflow automation.', detailTitle: 'Workflow Automation', detailDesc: 'Injecting predictive analytics and RPA into legacy processes to drastically reduce manual effort.', color: '#7C3AED' },
-    { title: 'SAP & Workday', icon: Briefcase, desc: 'Enterprise ecosystem management.', detailTitle: 'Enterprise Scale', detailDesc: 'Expertise navigating complex S/4HANA migrations and Workday HCM deployments securely.', color: '#0284C7' },
-  ]
+  const iconMap = [Database, ShoppingCart, ArrowLeftRight, ShieldCheck, Cpu, Briefcase];
 
-  const activeService = hoveredIdx !== null ? SERVICES[hoveredIdx] : null
+  // Map dynamic services to the format needed
+  const displayServices = dynamicServices.length > 0 
+    ? dynamicServices.slice(0, 6).map((ds, idx) => {
+        const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+        return {
+          title: ds.name,
+          href: `/services/${ds.slug}`,
+          num: `0${idx + 1}`.slice(-2),
+          color: heroData?.color || '#E8A020',
+          desc: heroData?.normal_description?.slice(0, 50) + '...' || 'Enterprise architecture and integration solutions.',
+          detailTitle: ds.name,
+          detailDesc: heroData?.normal_description || 'Scalable architecture and implementations.',
+          icon: iconMap[idx % iconMap.length]
+        }
+      })
+    : [
+      { title: 'NetSuite Consulting', icon: Database, desc: 'Implementation and custom scripting.', detailTitle: 'NetSuite Mastery', detailDesc: 'Full-cycle implementation, SuiteScript 2.0 customization, and Advanced RevRec deployment.', color: '#4F46E5', href: '/services/netsuite-consulting' },
+      { title: 'Coupa Consulting', icon: ShoppingCart, desc: 'BSM implementation and optimization.', detailTitle: 'Spend Optimization', detailDesc: 'Architecting Procure-to-Pay pipelines and supplier management for maximum ROI.', color: '#E11D48', href: '/services/coupa-consulting' },
+      { title: 'ERP Integrations', icon: ArrowLeftRight, desc: 'Seamless system connectivity.', detailTitle: 'Robust Data Pipelines', detailDesc: 'MuleSoft & Boomi integrations ensuring real-time bidirectional syncing across your stack.', color: '#E8A020', href: '/services/erp-integrations' },
+      { title: 'Managed Support', icon: ShieldCheck, desc: 'Dedicated post-go-live administration.', detailTitle: '24/7 Administration', detailDesc: 'Continuous system optimization, stringent security audits, and dedicated SLA support.', color: '#059669', href: '/services/managed-support' },
+      { title: 'AI & Automation', icon: Cpu, desc: 'Intelligent workflow automation.', detailTitle: 'Workflow Automation', detailDesc: 'Injecting predictive analytics and RPA into legacy processes to drastically reduce manual effort.', color: '#7C3AED', href: '/services/ai-automation' },
+      { title: 'SAP & Workday', icon: Briefcase, desc: 'Enterprise ecosystem management.', detailTitle: 'Enterprise Scale', detailDesc: 'Expertise navigating complex S/4HANA migrations and Workday HCM deployments securely.', color: '#0284C7', href: '/services/sap-workday' },
+    ]
+
+  const activeService = hoveredIdx !== null ? displayServices[hoveredIdx] : null
 
   return (
     <motion.div
@@ -137,10 +154,10 @@ function CommandCenterMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave:
         className="flex-[1.5] grid grid-cols-2 grid-rows-3 gap-2 relative z-10"
         onMouseLeave={() => setHoveredIdx(null)}
       >
-        {SERVICES.map((item, idx) => (
+        {displayServices.map((item, idx) => (
           <motion.div key={idx} variants={itemVariants} className="relative group" onMouseEnter={() => setHoveredIdx(idx)}>
             <Link
-              href={`/services#${item.title.toLowerCase().replace(/ /g, '-').replace('&', 'and')}`}
+              href={item.href}
               className="absolute inset-0 rounded-[20px] bg-white/60 hover:bg-white border border-slate-200/60 p-4 flex gap-4 items-center group-hover:-translate-y-[3px] group-hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08),0_0_0_1px_rgba(232,160,32,0.2)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
               style={{
                 borderColor: hoveredIdx === idx ? `${item.color}40` : '',
@@ -343,7 +360,7 @@ function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: 
 // ─────────────────────────────────────────────────────────────────────────────
 // Main Navigation Component
 // ─────────────────────────────────────────────────────────────────────────────
-export function Navigation() {
+export function Navigation({ dynamicServices = [] }: { dynamicServices?: any[] }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -471,7 +488,7 @@ export function Navigation() {
         <AnimatePresence>
           {activeMenu === 'services' && (
             <div className="absolute left-0 right-0 top-0 pointer-events-none h-screen">
-              <CommandCenterMenu onEnter={() => handleMouseEnter('services')} onLeave={handleMouseLeave} />
+              <CommandCenterMenu onEnter={() => handleMouseEnter('services')} onLeave={handleMouseLeave} dynamicServices={dynamicServices} />
             </div>
           )}
           {activeMenu === 'integrations' && (

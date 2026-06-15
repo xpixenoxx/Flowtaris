@@ -77,14 +77,14 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <CaseStudyHero 
+      <CaseStudyHero
         title={cs.title}
         outcomeSummary={cs.outcome_summary}
         metrics={metrics}
         coverImage={heroImage}
       />
 
-      <CaseStudyBody 
+      <CaseStudyBody
         clientSituation={cs.client_situation}
         solutionApproach={cs.solution_approach}
         outcomeSummary={cs.outcome_summary}

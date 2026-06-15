@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ShieldCheck, MessageCircle, ScanLine } from 'lucide-react';
+import { ShieldCheck, MessageCircle, ScanLine, Sparkles } from 'lucide-react';
 import { WhyChooseUsCard, WhyChooseUsSector } from '@/types/database';
 
 export function WhyChooseUsSection({ sectors, cards }: { sectors: WhyChooseUsSector[], cards: WhyChooseUsCard[] }) {
@@ -13,24 +13,35 @@ export function WhyChooseUsSection({ sectors, cards }: { sectors: WhyChooseUsSec
 
   // Ensure activeTabId is valid
   const currentTabId = activeTabId && sectors.find(s => s.id === activeTabId) ? activeTabId : sectors[0]!.id;
-  
+
   // Find the card for the current sector
   const activeCard = cards.find(c => c.sector_id === currentTabId) || cards[0];
 
   return (
-    <section className="bg-[#FAFAFA] py-24 font-sans">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section className="bg-[#FAFAFA] pt-8 pb-24 font-sans">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+        {/* Section Heading */}
+        <div className="mb-16 text-center relative max-w-4xl mx-auto">
+          <h2 className="relative inline-block text-5xl md:text-6xl lg:text-[72px] font-black tracking-[0.05em] uppercase" style={{ fontFamily: 'var(--font-sora)' }}>
+            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#E8A020] via-[#F3C456] to-[#E8A020] drop-shadow-sm">
+              Why Choose Us
+            </span>
+            
+            {/* Striking Underline */}
+            <div className="absolute -bottom-4 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-[#E8A020] to-transparent rounded-full opacity-60 shadow-[0_0_15px_rgba(232,160,32,0.4)]" />
+          </h2>
+        </div>
+
         {/* Tabs */}
-        <div className="flex overflow-x-auto hide-scrollbar mb-16 border-b border-gray-200">
+        <div className="flex justify-center overflow-x-auto hide-scrollbar mb-16 border-b border-gray-200">
           {sectors.map((sector) => (
             <button
               key={sector.id}
               onClick={() => setActiveTabId(sector.id)}
-              className={`whitespace-nowrap px-8 py-5 text-xl font-bold transition-all relative ${
-                currentTabId === sector.id
+              className={`whitespace-nowrap px-8 py-5 text-xl font-bold transition-all relative ${currentTabId === sector.id
                   ? 'text-gray-900'
                   : 'text-gray-400 hover:text-gray-600'
-              }`}
+                }`}
             >
               {sector.name}
               {currentTabId === sector.id && (
@@ -51,10 +62,6 @@ export function WhyChooseUsSection({ sectors, cards }: { sectors: WhyChooseUsSec
             <p className="text-gray-600 text-[17px] leading-relaxed mb-12">
               {activeCard?.small_description || 'Keep a clear record...'}
             </p>
-            <button className="flex items-center text-gray-900 font-bold hover:text-gray-600 gap-3 group transition-colors">
-              <ScanLine className="w-5 h-5" />
-              Track every batch and serial
-            </button>
           </div>
 
           {/* Right Image Container */}
@@ -70,19 +77,6 @@ export function WhyChooseUsSection({ sectors, cards }: { sectors: WhyChooseUsSec
             ) : (
               <div className="w-full h-full bg-slate-200" />
             )}
-            
-            {/* Stat Cards - Floating between columns */}
-            <div className="absolute left-6 bottom-16 lg:-left-24 flex flex-col gap-6 z-20">
-              <div className="bg-white/90 backdrop-blur-md px-8 py-7 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 w-64 transform transition-transform hover:scale-105">
-                <div className="text-[40px] font-black text-gray-900 mb-1 leading-none tracking-tight">-40%</div>
-                <div className="text-gray-600 text-[15px] font-medium leading-tight">manual data entry</div>
-              </div>
-              <div className="bg-white/90 backdrop-blur-md px-8 py-7 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 w-64 transform transition-transform hover:scale-105">
-                <div className="text-[40px] font-black text-gray-900 mb-1 leading-none tracking-tight">-30%</div>
-                <div className="text-gray-600 text-[15px] font-medium leading-tight">stock discrepancies</div>
-              </div>
-            </div>
-
 
           </div>
         </div>

@@ -7,18 +7,18 @@ import { Cpu, Workflow, Box, ShieldCheck, Database, Cloud } from 'lucide-react';
 const iconMap = [Cpu, Workflow, Box, ShieldCheck, Database, Cloud];
 
 export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?: any[] }) {
-  const displayServices = dynamicServices.length > 0 
+  const displayServices = dynamicServices.length > 0
     ? dynamicServices.map((ds, idx) => {
-        const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
-        return {
-          title: ds.name,
-          href: `/services/${ds.slug}`,
-          num: `0${idx + 1}`.slice(-2),
-          color: heroData?.color || '#E8A020',
-          description: heroData?.normal_description || 'Comprehensive architecture, consulting, and seamless integration solutions designed specifically for scale and high performance.',
-          Icon: iconMap[idx % iconMap.length]
-        }
-      })
+      const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+      return {
+        title: ds.name,
+        href: `/services/${ds.slug}`,
+        num: `0${idx + 1}`.slice(-2),
+        color: heroData?.color || '#E8A020',
+        description: heroData?.normal_description || 'Comprehensive architecture, consulting, and seamless integration solutions designed specifically for scale and high performance.',
+        Icon: iconMap[idx % iconMap.length]
+      }
+    })
     : [];
 
   return (
@@ -26,12 +26,9 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
           <div className="max-w-3xl">
-            <p className="text-[10px] font-medium tracking-[0.3em] uppercase text-slate-500 mb-6" style={{ fontFamily: 'var(--font-jetbrains)' }}>
-              // Institutional Capabilities
-            </p>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-light text-[#0A1628] leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-sora)' }}>
-              Engineering precision for the <span className="text-slate-400">modern enterprise.</span>
-            </h2>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-[#0A1628] leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-sora)' }}>
+              Our Service <span className="text-slate-400">for modern enterprise.</span>
+            </h1>
           </div>
           <p className="text-slate-500 max-w-sm text-sm leading-relaxed lg:pb-3 font-light">
             Sleek, powerful architecture for the modern web. We translate complex requirements into flawless execution.
@@ -42,7 +39,7 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
         <div className="bg-[#FAFAFA] border-t border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-slate-200">
             {displayServices.map((service, index) => (
-              <Link 
+              <Link
                 key={index}
                 href={service.href}
                 className="group flex flex-col h-full p-10 md:p-14 transition-all duration-700 hover:brightness-110 relative overflow-hidden min-h-[420px]"

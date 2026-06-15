@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { CheckCircle2 } from 'lucide-react'
 
@@ -81,6 +81,19 @@ export function HowWeWorkSection() {
   // Spotlight & Hover State
   const [mouseState, setMouseState] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+      },
+      { threshold: 0.2 } // Starts playing when 20% of section is visible
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -95,8 +108,8 @@ export function HowWeWorkSection() {
     let animationFrameId: number
 
     const tick = () => {
-      // Pause progress if the user is hovering to read the card
-      if (isHovered) {
+      // Pause progress if the user is hovering to read the card or if section is not in view
+      if (isHovered || !isInView) {
         startTime += 16.66 // approximate frame time shift
         animationFrameId = requestAnimationFrame(tick)
         return
@@ -116,10 +129,10 @@ export function HowWeWorkSection() {
 
     animationFrameId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(animationFrameId)
-  }, [activeStep, isHovered]) // Restarts cleanly if user manually clicks a step
+  }, [activeStep, isHovered, isInView]) // Restarts cleanly if user manually clicks a step
 
   return (
-    <section className="bg-slate-50 border-t border-slate-200 overflow-hidden font-sans relative z-10 w-full py-24 md:py-32">
+    <section ref={sectionRef} className="bg-slate-50 border-t border-slate-200 overflow-hidden font-sans relative z-10 w-full py-24 md:py-32">
 
       {/* 100/100 Continuous Floating Keyframes */}
       <style>{`

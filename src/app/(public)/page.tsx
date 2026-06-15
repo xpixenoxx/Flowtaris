@@ -59,7 +59,7 @@ export default async function HomePage() {
   // Fetch dynamic services and their hero colors
   const { data: rawServices } = await supabase
     .from('services')
-    .select('id, name, slug, priority, services_hero(color)')
+    .select('id, name, slug, priority, services_hero(color, normal_description)')
     .order('priority', { ascending: false })
 
   return (

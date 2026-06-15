@@ -49,12 +49,34 @@ const services = [
   },
 ];
 
-const CARD_COUNT = services.length;
+const CARD_COUNT = 6; // Max display or based on array
 const SCROLL_PER_CARD = 400; // px of scroll to reveal each card
 
-export function ServiceScrollStack() {
+export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?: any[] }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // Map dynamic services to the UI format. Fallback to hardcoded if empty.
+  const displayServices = dynamicServices.length > 0 
+    ? dynamicServices.map((ds, idx) => {
+        const parts = ds.name.split(' ');
+        const label = parts[0];
+        const sub = parts.slice(1).join(' ');
+        // Extract color from the joined services_hero array if it exists
+        const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+        
+        return {
+          label: label || ds.name,
+          sub: sub || '',
+          href: `/services/${ds.slug}`,
+          num: `0${idx + 1}`.slice(-2),
+          gradient: null, // We will use inline background color instead of gradient class
+          color: heroData?.color || '#141736', // Default fallback color
+        }
+      })
+    : services.map(s => ({ ...s, color: null })); // Add empty color to static so type matches
+
+  const cardCount = displayServices.length;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -72,7 +94,7 @@ export function ServiceScrollStack() {
 
       // Calculate which card should be active based on scroll distance
       const idx = Math.min(
-        CARD_COUNT - 1,
+        cardCount - 1,
         Math.floor(scrolled / SCROLL_PER_CARD)
       );
       setActiveIndex(idx);
@@ -93,7 +115,7 @@ export function ServiceScrollStack() {
   }, []);
 
   // Total height = enough scroll runway for each card + one viewport to unpin
-  const totalHeight = CARD_COUNT * SCROLL_PER_CARD + viewportH;
+  const totalHeight = cardCount * SCROLL_PER_CARD + viewportH;
 
   return (
     <section
@@ -131,7 +153,7 @@ export function ServiceScrollStack() {
 
         {/* Card Stack Area */}
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative mt-4" style={{ height: 'calc(100vh - 220px)' }}>
-          {services.map((service, index) => {
+          {displayServices.map((service, index) => {
             const isVisible = index <= activeIndex;
             const isBehind = index < activeIndex;
             const depthBehind = activeIndex - index;
@@ -154,7 +176,7 @@ export function ServiceScrollStack() {
                   group absolute inset-0
                   flex items-center overflow-hidden
                   rounded-[28px] md:rounded-[36px]
-                  bg-gradient-to-br ${service.gradient}
+                  ${service.gradient ? `bg-gradient-to-br ${service.gradient}` : ''}
                   shadow-2xl shadow-black/50
                   transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
                   ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
@@ -163,6 +185,7 @@ export function ServiceScrollStack() {
                   zIndex: index + 1,
                   transform: cardTransform,
                   transformOrigin: 'top center',
+                  backgroundColor: service.color || undefined
                 }}
               >
                 {/* Subtle grain */}
@@ -202,7 +225,7 @@ export function ServiceScrollStack() {
 
           {/* Progress dots */}
           <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3">
-            {services.map((_, index) => (
+            {displayServices.map((_, index) => (
               <div
                 key={index}
                 className={`

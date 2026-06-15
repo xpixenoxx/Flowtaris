@@ -63,6 +63,16 @@ const BENEFITS = [
 export default function NetsuiteConsultingPage() {
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [scrolled, setScrolled] = useState(false)
+  const [dbHero, setDbHero] = useState<any>(null)
+
+  useEffect(() => {
+    // Fetch dynamic hero config from the database
+    import('@/app/actions/services-actions').then((m) => {
+      m.getServiceHeroBySlug('netsuite-consulting').then(data => {
+        if (data) setDbHero(data)
+      }).catch(console.error)
+    })
+  }, [])
 
   // Scroll detection for sticky nav
   useEffect(() => {
@@ -89,7 +99,10 @@ export default function NetsuiteConsultingPage() {
       {/* ─────────────────────────────────────────────────────────────────────────────
           1. THE HERO SECTION
           ───────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative pt-[100px] pb-24 overflow-hidden bg-[#7A84F2]">
+      <section 
+        className="relative pt-[100px] pb-24 overflow-hidden transition-colors duration-500"
+        style={{ backgroundColor: dbHero?.color || '#7A84F2' }}
+      >
         {/* Subtle mesh background */}
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
@@ -104,13 +117,13 @@ export default function NetsuiteConsultingPage() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <h1 className="text-[42px] lg:text-[56px] font-extrabold text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
-                Scale Without Limitations
+                {dbHero?.hero_description || 'Scale Without Limitations'}
               </h1>
 
               <div className="w-16 h-1 bg-[#FFD166] mb-8" />
 
-              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light">
-                Unlock the full potential of your enterprise with our world-class NetSuite consulting. We engineer unified data models, automate complex financials, and deploy scalable ERP architectures.
+              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light whitespace-pre-wrap">
+                {dbHero?.normal_description || 'Unlock the full potential of your enterprise with our world-class NetSuite consulting. We engineer unified data models, automate complex financials, and deploy scalable ERP architectures.'}
               </p>
 
               <div className="flex flex-wrap items-center gap-4">

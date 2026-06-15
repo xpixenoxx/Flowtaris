@@ -1,0 +1,1 @@
+ALTER TABLE services_hero ADD COLUMN IF NOT EXISTS color TEXT DEFAULT '#0f172a';

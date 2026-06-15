@@ -62,7 +62,7 @@ export async function updateServicePriorities(updates: { id: string, priority: n
 export async function upsertServicesHero(
   serviceId: string,
   id: string | null,
-  data: Pick<ServicesHero, 'hero_description' | 'normal_description'>
+  data: Pick<ServicesHero, 'hero_description' | 'normal_description' | 'color'>
 ) {
   const supabase = await createClient()
   if (id) {
@@ -72,6 +72,16 @@ export async function upsertServicesHero(
     const { error } = await supabase.from('services_hero').insert([{ ...data, service_id: serviceId }])
     if (error) throw new Error(error.message)
   }
+}
+
+export async function getServiceHeroBySlug(slug: string) {
+  const supabase = await createClient()
+  const { data: service } = await supabase.from('services').select('id').eq('slug', slug).single()
+  
+  if (!service) return null
+  
+  const { data: hero } = await supabase.from('services_hero').select('*').eq('service_id', service.id).single()
+  return hero
 }
 
 // ==========================================

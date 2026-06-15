@@ -14,6 +14,7 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
   const [message, setMessage] = useState('')
   const [heroDesc, setHeroDesc] = useState(initialData?.hero_description ?? '')
   const [normalDesc, setNormalDesc] = useState(initialData?.normal_description ?? '')
+  const [color, setColor] = useState(initialData?.color ?? '#0f172a')
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -23,6 +24,7 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
       await upsertServicesHero(serviceId, initialData?.id ?? null, {
         hero_description: heroDesc,
         normal_description: normalDesc || null,
+        color,
       })
       setMessage('Saved successfully!')
     } catch (err: unknown) {
@@ -61,6 +63,28 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
           className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
           placeholder="e.g. We architect and deploy mission-critical ERP systems..."
         />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+          Hero Background Color
+        </label>
+        <p className="text-xs text-slate-400 mb-2">Select the background color for this service's hero section.</p>
+        <div className="flex items-center gap-3">
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            className="w-12 h-10 p-1 rounded border border-slate-200 cursor-pointer bg-white"
+          />
+          <input
+            type="text"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            className="rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase w-28 text-center"
+            placeholder="#000000"
+          />
+        </div>
       </div>
 
       <div className="flex items-center gap-4 pt-1">

@@ -56,6 +56,12 @@ export default async function HomePage() {
     .select('*')
     .order('priority', { ascending: false })
 
+  // Fetch dynamic services and their hero colors
+  const { data: rawServices } = await supabase
+    .from('services')
+    .select('id, name, slug, priority, services_hero(color)')
+    .order('priority', { ascending: false })
+
   return (
     <>
       {/* Organization schema - global */}
@@ -69,7 +75,7 @@ export default async function HomePage() {
         description={heroData?.small_description ?? undefined} 
         technologies={technologies || []}
       />
-      <ServiceScrollStack />
+      <ServiceScrollStack dynamicServices={rawServices || []} />
       <WhyChooseUsSection sectors={wcuSectors || []} cards={wcuCards || []} />
       <CapabilitiesBanner />
 

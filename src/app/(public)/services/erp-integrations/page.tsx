@@ -63,6 +63,16 @@ const BENEFITS = [
 export default function ERPIntegrationsPage() {
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [scrolled, setScrolled] = useState(false)
+  const [dbHero, setDbHero] = useState<any>(null)
+
+  useEffect(() => {
+    // Fetch dynamic hero config from the database
+    import('@/app/actions/services-actions').then((m) => {
+      m.getServiceHeroBySlug('erp-integrations').then(data => {
+        if (data) setDbHero(data)
+      }).catch(console.error)
+    })
+  }, [])
 
   // Scroll detection for sticky nav
   useEffect(() => {
@@ -89,7 +99,10 @@ export default function ERPIntegrationsPage() {
       {/* ─────────────────────────────────────────────────────────────────────────────
           1. THE HERO SECTION
           ───────────────────────────────────────────────────────────────────────────── */}
-      <section className="relative pt-[100px] pb-24 overflow-hidden bg-[#E8A020]">
+      <section 
+        className="relative pt-[100px] pb-24 overflow-hidden transition-colors duration-500"
+        style={{ backgroundColor: dbHero?.color || '#E8A020' }}
+      >
         {/* Subtle mesh background */}
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
@@ -104,13 +117,13 @@ export default function ERPIntegrationsPage() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <h1 className="text-[42px] lg:text-[56px] font-extrabold text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
-                Seamless Enterprise Connectivity
+                {dbHero?.hero_description || 'Seamless Enterprise Connectivity'}
               </h1>
 
               <div className="w-16 h-1 bg-white/50 mb-8" />
 
-              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light">
-                Break down data silos and accelerate operations. We engineer robust, bidirectional data pipelines bridging NetSuite, Coupa, Salesforce, and Workday using enterprise iPaaS platforms.
+              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light whitespace-pre-wrap">
+                {dbHero?.normal_description || `Break down data silos and accelerate operations. We engineer robust, bidirectional data pipelines bridging NetSuite, Coupa, Salesforce, and Workday using enterprise iPaaS platforms.`}
               </p>
 
               <div className="flex flex-wrap items-center gap-4">

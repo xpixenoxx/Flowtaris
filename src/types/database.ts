@@ -38,6 +38,7 @@ export type ServicesHero = {
   service_id: string;
   hero_description: string;
   normal_description: string | null;
+  color: string;
   created_at: string;
   updated_at: string;
 };

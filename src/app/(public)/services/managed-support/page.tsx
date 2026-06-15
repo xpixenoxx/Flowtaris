@@ -63,6 +63,16 @@ const BENEFITS = [
 export default function ManagedSupportPage() {
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [scrolled, setScrolled] = useState(false)
+  const [dbHero, setDbHero] = useState<any>(null)
+
+  useEffect(() => {
+    // Fetch dynamic hero config from the database
+    import('@/app/actions/services-actions').then((m) => {
+      m.getServiceHeroBySlug('managed-support').then(data => {
+        if (data) setDbHero(data)
+      }).catch(console.error)
+    })
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,7 +94,10 @@ export default function ManagedSupportPage() {
 
   return (
     <main className="bg-white selection:bg-[#059669] selection:text-white">
-      <section className="relative pt-[100px] pb-24 overflow-hidden bg-[#059669]">
+      <section 
+        className="relative pt-[100px] pb-24 overflow-hidden transition-colors duration-500"
+        style={{ backgroundColor: dbHero?.color || '#059669' }}
+      >
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-16 relative z-10">
@@ -96,11 +109,11 @@ export default function ManagedSupportPage() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <h1 className="text-[42px] lg:text-[56px] font-extrabold text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
-                Always-On Enterprise Support
+                {dbHero?.hero_description || 'Always-On Enterprise Support'}
               </h1>
               <div className="w-16 h-1 bg-white/50 mb-8" />
-              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light">
-                Protect your ERP investment. Flowtaris provides dedicated administration, rigorous release testing, and lightning-fast incident resolution for complex enterprise environments.
+              <p className="text-[18px] text-white/90 leading-relaxed mb-10 max-w-2xl font-light whitespace-pre-wrap">
+                {dbHero?.normal_description || `Protect your ERP investment. Flowtaris provides dedicated administration, rigorous release testing, and lightning-fast incident resolution for complex enterprise environments.`}
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-[4px] bg-[#141736] text-white font-bold text-[15px] hover:bg-[#0B0D1F] transition-colors border border-transparent shadow-lg">

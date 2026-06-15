@@ -130,7 +130,23 @@ const services = [
   },
 ]
 
-export function ServicesGrid() {
+export function ServicesGrid({ dynamicServices = [] }: { dynamicServices?: any[] }) {
+  const visualKeys = Object.keys(ServiceVisuals) as (keyof typeof ServiceVisuals)[];
+
+  const displayServices = dynamicServices.length > 0
+    ? dynamicServices.map((ds, idx) => {
+        const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+        const visualKey = visualKeys[idx % visualKeys.length];
+        return {
+          Visual: ServiceVisuals[visualKey],
+          label: ds.name,
+          href: `/services/${ds.slug}`,
+          description: heroData?.normal_description || 'Enterprise implementation and custom consulting.',
+          tags: ['Consulting', 'Implementation', 'Support'],
+        }
+      })
+    : services;
+
   return (
     <section className="section bg-white">
       <div className="container-content">
@@ -147,7 +163,7 @@ export function ServicesGrid() {
             Enterprise Expertise Across Every Platform Your Business Runs On
           </h2>
         </AnimatedSection>        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((service) => {
+          {displayServices.map((service) => {
             const Visual = service.Visual
             return (
               <Link
@@ -175,7 +191,7 @@ export function ServicesGrid() {
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {service.tags.map((tag) => (
+                  {service.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="text-[10px] font-mono uppercase tracking-[0.1em]

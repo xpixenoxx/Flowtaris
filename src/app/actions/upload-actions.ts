@@ -13,9 +13,11 @@ export async function uploadAsset(formData: FormData): Promise<string> {
   const fileExt = file.name.split('.').pop()
   const fileName = `${crypto.randomUUID()}.${fileExt}`
 
+  const buffer = await file.arrayBuffer()
+
   const { data, error } = await supabase.storage
     .from('assets')
-    .upload(fileName, file, {
+    .upload(fileName, buffer, {
       contentType: file.type,
       upsert: false
     })
@@ -46,9 +48,11 @@ export async function uploadImage(formData: FormData): Promise<{ publicUrl: stri
     const fileName = `${crypto.randomUUID()}.${fileExt}`
     const filePath = folder ? `${folder}/${fileName}` : fileName
 
+    const buffer = await file.arrayBuffer()
+
     const { error } = await supabase.storage
       .from(bucket)
-      .upload(filePath, file, {
+      .upload(filePath, buffer, {
         contentType: file.type,
         upsert: false
       })

@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import Image from 'next/image'
 import { ArrowRight, Activity, GitMerge, Database, Workflow, Server, Zap, Layers, Cpu } from 'lucide-react'
 import { createClient } from '@/utils/supabase/server'

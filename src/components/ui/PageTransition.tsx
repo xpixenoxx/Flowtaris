@@ -143,7 +143,7 @@ export interface TransitionLinkProps extends React.ComponentPropsWithoutRef<type
   children: React.ReactNode
 }
 
-export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
+export const Link = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
   ({ href, onClick, children, ...props }, ref) => {
     const { navigate } = useTransitionContext()
 
@@ -165,10 +165,7 @@ export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>
     )
   }
 )
-TransitionLink.displayName = 'TransitionLink'
-
-// Alias for drop-in replacement
-export { TransitionLink as Link }
+Link.displayName = 'Link'
 
 // 4. PageTransition Curtain Component
 export function PageTransition() {

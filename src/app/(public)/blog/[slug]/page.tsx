@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { FAQAccordion } from './FAQAccordion'

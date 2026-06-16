@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Sora, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { ToastProvider } from '@/components/ui/Toast'
 import { CustomCursor } from '@/components/ui/CustomCursor'
-import { PageTransition } from '@/components/ui/PageTransition'
+import { PageTransition, PageTransitionProvider } from '@/components/ui/PageTransition'
 import { Analytics } from '@/components/analytics/Analytics'
 import { CookieConsent } from '@/components/analytics/CookieConsent'
 import { ServiceWorkerRegistration } from '@/app/sw'
@@ -94,23 +94,25 @@ export default function RootLayout({
       className={`${sora.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="font-body antialiased">
-        <CustomCursor />
-        <PageTransition />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4
-                     focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg
-                     focus:bg-gold-500 focus:text-white focus:font-semibold
-                     focus:text-sm focus:shadow-lg"
-        >
-          Skip to main content
-        </a>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
-        <Analytics />
-        <CookieConsent />
-        <ServiceWorkerRegistration />
+        <PageTransitionProvider>
+          <CustomCursor />
+          <PageTransition />
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4
+                       focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg
+                       focus:bg-gold-500 focus:text-white focus:font-semibold
+                       focus:text-sm focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
+          <ToastProvider>
+            {children}
+          </ToastProvider>
+          <Analytics />
+          <CookieConsent />
+          <ServiceWorkerRegistration />
+        </PageTransitionProvider>
       </body>
     </html>
   )

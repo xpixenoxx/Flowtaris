@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { NAV_SERVICES, NAV_INDUSTRIES, SITE_EMAIL } from '@/lib/constants/navigation'
 import { ArrowRight } from 'lucide-react'

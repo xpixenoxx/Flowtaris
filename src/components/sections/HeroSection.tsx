@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import Image from 'next/image'
 import CardSwap, { Card } from '@/components/ui/CardSwap'
 

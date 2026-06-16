@@ -33,7 +33,7 @@ export function WhyChooseUsSection({ sectors, cards }: { sectors: WhyChooseUsSec
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center overflow-x-auto hide-scrollbar mb-16 border-b border-gray-200">
+        <div className="flex justify-start md:justify-center overflow-x-auto hide-scrollbar mb-16 border-b border-gray-200 w-full px-4 md:px-0">
           {sectors.map((sector) => (
             <button
               key={sector.id}

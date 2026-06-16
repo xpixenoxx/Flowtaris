@@ -68,15 +68,17 @@ export default async function AboutPage() {
               {heroDescription}
             </p>
           </div>
-          {/* Right: Team Photo */}
-          <div className="w-full aspect-[4/3] lg:aspect-square relative rounded-[2rem] overflow-hidden shadow-sm">
-            <Image 
-              src={heroImage} 
-              alt="Flowtaris Team" 
-              fill 
-              className="object-cover"
-              priority
-            />
+          {/* Right: Team Photo / Logo Card */}
+          <div className="w-full aspect-square relative rounded-[2rem] overflow-hidden border border-slate-100 bg-white shadow-sm flex items-center justify-center p-8 md:p-16">
+            <div className="relative w-full h-full">
+              <Image 
+                src={heroImage} 
+                alt="Flowtaris Team" 
+                fill 
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>

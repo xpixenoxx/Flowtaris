@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import { ArrowRight } from 'lucide-react'
 
 export function FinanceCTA() {

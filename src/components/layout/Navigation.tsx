@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
+import { Link } from '@/components/ui/PageTransition'
 import Image from 'next/image'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, Variants, useReducedMotion } from 'framer-motion'
 import {
@@ -10,6 +10,7 @@ import {
   Box, Layers, ShoppingCart, Globe, Briefcase, Command, MessageCircle,
   Cpu, Network, Lock, Zap
 } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 
@@ -66,13 +67,20 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
   const displayServices = dynamicServices.length > 0
     ? dynamicServices.slice(0, 6).map((ds, idx) => {
       const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+      const formattedTitle = ds.name
+        ? ds.name
+            .replace(/\bcoupa\b/gi, 'Coupa')
+            .replace(/\bnetsuite\b/gi, 'NetSuite')
+            .replace(/\bconsulting\b/gi, 'Consulting')
+            .replace(/\bimplementation\b/gi, 'Implementation')
+        : '';
       return {
-        title: ds.name,
+        title: formattedTitle || ds.name,
         href: `/services/${ds.slug}`,
         num: `0${idx + 1}`.slice(-2),
         color: heroData?.color || '#E8A020',
         desc: heroData?.normal_description?.slice(0, 50) + '...' || 'Enterprise architecture and integration solutions.',
-        detailTitle: ds.name,
+        detailTitle: formattedTitle || ds.name,
         detailDesc: heroData?.normal_description || 'Scalable architecture and implementations.',
         icon: iconMap[idx % iconMap.length]
       }
@@ -377,6 +385,13 @@ export function Navigation({ dynamicServices = [], settings = { company_name: 'F
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const navTimer = useRef<NodeJS.Timeout | null>(null)
+  const pathname = usePathname()
+
+  // Close mobile drawer and mega menus on route change
+  useEffect(() => {
+    setMobileOpen(false)
+    setActiveMenu(null)
+  }, [pathname])
 
   const shouldReduceMotion = useReducedMotion()
   const motionProps = shouldReduceMotion

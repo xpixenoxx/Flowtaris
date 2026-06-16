@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/ui/PageTransition';
 import { Cpu, Workflow, Box, ShieldCheck, Database, Cloud } from 'lucide-react';
 
 const iconMap = [Cpu, Workflow, Box, ShieldCheck, Database, Cloud];
@@ -10,8 +10,15 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
   const displayServices = dynamicServices.length > 0
     ? dynamicServices.map((ds, idx) => {
       const heroData = ds.services_hero && ds.services_hero.length > 0 ? ds.services_hero[0] : null;
+      const formattedTitle = ds.name
+        ? ds.name
+            .replace(/\bcoupa\b/gi, 'Coupa')
+            .replace(/\bnetsuite\b/gi, 'NetSuite')
+            .replace(/\bconsulting\b/gi, 'Consulting')
+            .replace(/\bimplementation\b/gi, 'Implementation')
+        : '';
       return {
-        title: ds.name,
+        title: formattedTitle || ds.name,
         href: `/services/${ds.slug}`,
         num: `0${idx + 1}`.slice(-2),
         color: heroData?.color || '#E8A020',

@@ -106,7 +106,7 @@ export function CaseStudySimpleListEditor({
                   <button onClick={handleSaveEdit} disabled={isPending} className="p-1.5 text-green-600 hover:bg-green-100 rounded-md">
                     <Check className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setEditingId(null)} disabled={isPending} className="p-1.5 text-slate-400 hover:bg-slate-200 rounded-md">
+                  <button onClick={() => setEditingId(null)} disabled={isPending} className="p-1.5 text-slate-500 hover:bg-slate-200 rounded-md">
                     <X className="w-4 h-4" />
                   </button>
                 </>
@@ -115,14 +115,14 @@ export function CaseStudySimpleListEditor({
                   <button
                     onClick={() => { setEditingId(item.id); setEditName(item.name) }}
                     disabled={isPending}
-                    className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-md"
+                    className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-md"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
                     disabled={isPending}
-                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md"
+                    className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-md"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -132,7 +132,7 @@ export function CaseStudySimpleListEditor({
           </li>
         ))}
         {items.length === 0 && !isAdding && (
-          <li className="text-xs text-slate-400 text-center py-4 border border-dashed border-slate-200 rounded-lg">
+          <li className="text-xs text-slate-500 text-center py-4 border border-dashed border-slate-200 rounded-lg">
             No {itemName.toLowerCase()}s added yet.
           </li>
         )}

@@ -164,8 +164,8 @@ export function HeroImagesSection({ heroId, initialImages }: { heroId: string, i
                 <p className="text-sm text-slate-500 truncate">{img.image_url}</p>
               </div>
               <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                <button onClick={() => startEdit(img)} disabled={isPending} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"><Pencil className="w-4 h-4" /></button>
-                <button onClick={() => handleDelete(img.id)} disabled={isPending} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"><Trash2 className="w-4 h-4" /></button>
+                <button onClick={() => startEdit(img)} disabled={isPending} className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"><Pencil className="w-4 h-4" /></button>
+                <button onClick={() => handleDelete(img.id)} disabled={isPending} className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"><Trash2 className="w-4 h-4" /></button>
               </div>
             </div>
           )

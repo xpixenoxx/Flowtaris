@@ -74,7 +74,7 @@ export function IntegrationsList({ initialIntegrations }: { initialIntegrations:
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-navy-900 text-sm mb-1 truncate">{item.name}</h3>
                 <div className="flex gap-4 mt-1 text-xs text-slate-500">
-                  <span className="font-mono text-slate-400">/{item.slug}</span>
+                  <span className="font-mono text-slate-500">/{item.slug}</span>
                   <span>SVG 1: {item.svg_slot_1 ? 'Provided' : 'Empty'}</span>
                   <span>SVG 2: {item.svg_slot_2 ? 'Provided' : 'Empty'}</span>
                 </div>

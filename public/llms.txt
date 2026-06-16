@@ -1,0 +1,20 @@
+# Flowtaris
+## Enterprise ERP & Integration Consulting
+> Flowtaris is a boutique consulting firm specialising in NetSuite, Coupa, SAP, and Workday ERP implementations, system integrations, and managed support for mid-market and enterprise companies.
+## What Flowtaris Does
+- NetSuite implementation, SuiteScript 2.x customisation, and managed support
+- Coupa BSM implementation and supplier enablement
+- Cross-platform ERP integrations (NetSuite-Coupa, SAP-Workday, custom iPaaS)
+- ERP health audits and system optimisation
+## Who Flowtaris Serves
+Mid-market companies (50-2000 employees) undergoing ERP migration or procurement transformation.
+## Key Pages
+- /about: Company background, team, mission
+- /services/netsuite-consulting: NetSuite implementation and SuiteScript
+- /services/coupa-consulting: Coupa BSM services
+- /services/erp-integrations: Cross-platform ERP integrations
+- /contact: Schedule consultation
+- /case-studies: Client success stories
+- /insights: Technical articles
+## Contact
+Website: https://flowtaris.com

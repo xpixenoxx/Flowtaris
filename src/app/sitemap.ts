@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 const BASE_URL = 'https://flowtaris.com'
 
@@ -33,6 +34,42 @@ const STATIC_ROUTES: { url: string; priority: number; changeFrequency: MetadataR
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const supabase = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+
+  const [
+    { data: blogs },
+    { data: caseStudies },
+    { data: integrations }
+  ] = await Promise.all([
+    supabase.from('blog_posts').select('slug, updated_at').eq('published', true),
+    supabase.from('case_studies').select('slug, updated_at'),
+    supabase.from('integrations').select('slug, updated_at')
+  ])
+
+  const dynamicEntries: MetadataRoute.Sitemap = [
+    ...(blogs || []).map(b => ({
+      url: `${BASE_URL}/insights/${b.slug}`,
+      lastModified: new Date(b.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8
+    })),
+    ...(caseStudies || []).map(c => ({
+      url: `${BASE_URL}/case-studies/${c.slug}`,
+      lastModified: new Date(c.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8
+    })),
+    ...(integrations || []).map(i => ({
+      url: `${BASE_URL}/integrations/${i.slug}`,
+      lastModified: new Date(i.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8
+    }))
+  ]
+
   // Static routes
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
     url:             `${BASE_URL}${route.url}`,
@@ -41,5 +78,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority:        route.priority,
   }))
 
-  return staticEntries
+  return [...staticEntries, ...dynamicEntries]
 }

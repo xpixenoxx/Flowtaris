@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 
 type ConsentState = {
@@ -40,6 +40,10 @@ export function useCookieConsent() {
 export function CookieConsent() {
   const [visible, setVisible]       = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+  const motionProps = shouldReduceMotion
+    ? { initial: false, animate: false, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } }
 
   useEffect(() => {
     const stored = getStoredConsent()
@@ -66,10 +70,7 @@ export function CookieConsent() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          {...motionProps}
           className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md
                      z-50 bg-white rounded-2xl border border-slate-200 p-5
                      shadow-[0_8px_40px_rgba(10,22,40,0.15)]"
@@ -95,13 +96,13 @@ export function CookieConsent() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-semibold text-navy-800">Analytics Cookies</p>
-                  <p className="text-xs text-slate-400">Help us understand site usage (GA4, PostHog)</p>
+                  <p className="text-xs text-slate-500">Help us understand site usage (GA4, PostHog)</p>
                 </div>
               </div>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-semibold text-navy-800">Essential Cookies</p>
-                  <p className="text-xs text-slate-400">Required for the site to function</p>
+                  <p className="text-xs text-slate-500">Required for the site to function</p>
                 </div>
                 <span className="text-xs text-emerald-500 font-medium flex-shrink-0">Always on</span>
               </div>
@@ -126,7 +127,7 @@ export function CookieConsent() {
             </button>
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="w-full py-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+              className="w-full py-1.5 text-xs text-slate-500 hover:text-slate-600 transition-colors"
             >
               {showDetails ? 'Hide details' : 'Manage preferences'}
             </button>

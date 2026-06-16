@@ -110,7 +110,7 @@ export function IntegrationsExecutionTraceEditor({ integrationId, initialCards }
             </div>
           ))}
           {cards.length === 0 && (
-            <div className="col-span-full py-8 text-center text-slate-400 text-sm border-2 border-dashed border-slate-200 rounded-lg">
+            <div className="col-span-full py-8 text-center text-slate-500 text-sm border-2 border-dashed border-slate-200 rounded-lg">
               No trace steps added yet.
             </div>
           )}

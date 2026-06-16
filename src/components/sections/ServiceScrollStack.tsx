@@ -27,7 +27,7 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-[#0A1628] leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-sora)' }}>
-              Our Service <span className="text-slate-400">for modern enterprise.</span>
+              Our Service <span className="text-slate-500">for modern enterprise.</span>
             </h1>
           </div>
           <p className="text-slate-500 max-w-sm text-sm leading-relaxed lg:pb-3 font-light">

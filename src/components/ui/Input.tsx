@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {hint && !error && (
-          <p id={`${inputId}-hint`} className="mt-1.5 text-xs text-slate-400">
+          <p id={`${inputId}-hint`} className="mt-1.5 text-xs text-slate-500">
             {hint}
           </p>
         )}
@@ -90,7 +90,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {hint && !error && (
-          <p className="mt-1.5 text-xs text-slate-400">{hint}</p>
+          <p className="mt-1.5 text-xs text-slate-500">{hint}</p>
         )}
         {error && (
           <p className="error-message" role="alert">

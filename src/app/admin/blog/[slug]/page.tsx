@@ -51,7 +51,7 @@ export default async function AdminBlogDetailPage({
       <div>
         <Link
           href="/admin/blog"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-700 mb-4 transition-colors group"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 mb-4 transition-colors group"
         >
           <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
           All Blog Posts
@@ -59,7 +59,7 @@ export default async function AdminBlogDetailPage({
         <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
           {blog.name}
         </h1>
-        <p className="text-slate-400 mt-0.5 text-xs font-mono">/blog/{blog.slug}</p>
+        <p className="text-slate-500 mt-0.5 text-xs font-mono">/blog/{blog.slug}</p>
         <p className="text-slate-500 mt-1 text-sm">
           Manage the content sections of this blog post.
         </p>
@@ -71,7 +71,7 @@ export default async function AdminBlogDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Hero Section</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit the title, description, image, and author details for this blog post.
             </p>
           </div>
@@ -82,7 +82,7 @@ export default async function AdminBlogDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Topics & Content</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Add, edit or delete topics. Each topic can have multiple sub-descriptions.
             </p>
           </div>
@@ -93,7 +93,7 @@ export default async function AdminBlogDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Frequently Asked Questions</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Add FAQs with questions and answers.
             </p>
           </div>

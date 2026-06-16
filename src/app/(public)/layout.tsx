@@ -11,35 +11,43 @@ export const metadata: Metadata = {
   },
 }
 
+import { unstable_cache } from 'next/cache'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+
+const getLayoutData = unstable_cache(
+  async () => {
+    const supabase = createSupabaseClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    
+    const [
+      { data: dynamicServices },
+      { data: settingsData },
+      { data: socialLinks }
+    ] = await Promise.all([
+      supabase.from('services').select('id, name, slug, priority, services_hero(color, normal_description)').order('priority', { ascending: false }),
+      supabase.from('site_settings').select('*'),
+      supabase.from('social_links').select('*').order('priority', { ascending: false })
+    ])
+    
+    return { dynamicServices, settingsData, socialLinks }
+  },
+  ['layout-data-cache'],
+  { revalidate: 60, tags: ['layout-data'] }
+)
+
 export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const supabase = await createClient()
+  const { dynamicServices, settingsData, socialLinks } = await getLayoutData()
 
-  // Fetch dynamic services and their hero colors for the Navigation
-  const { data: dynamicServices } = await supabase
-    .from('services')
-    .select('id, name, slug, priority, services_hero(color, normal_description)')
-    .order('priority', { ascending: false })
-
-  const { data: settingsData } = await supabase
-    .from('site_settings')
-    .select('*')
-
-  const settingsMap = (settingsData as { key: string, value: string }[])?.reduce((acc, curr) => {
-    acc[curr.key] = curr.value;
-    return acc;
-  }, {} as Record<string, string>) || {
-    company_name: 'Flowtaris',
-    logo_url: '/images/logo.png'
-  }
-
-  const { data: socialLinks } = await supabase
-    .from('social_links')
-    .select('*')
-    .order('priority', { ascending: false })
+  const settingsMap = (settingsData || []).reduce((acc: any, curr: any) => {
+    acc[curr.key] = curr.value
+    return acc
+  }, {})
 
   return (
     <div className="relative min-h-screen bg-white flex flex-col">

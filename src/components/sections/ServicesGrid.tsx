@@ -151,12 +151,7 @@ export function ServicesGrid({ dynamicServices = [] }: { dynamicServices?: any[]
   return (
     <section className="bg-[#FAFAFA] py-24 relative">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        <div className="flex items-center gap-3 mb-16">
-          <div className="h-[1px] w-8 bg-[#E8A020]" />
-          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#E8A020]">
-            Core Portfolio
-          </span>
-        </div>
+
 
         {/* Elite Institutional Grid System */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -173,7 +168,7 @@ export function ServicesGrid({ dynamicServices = [] }: { dynamicServices?: any[]
 
                 {/* Numbering */}
                 <div className="flex justify-between items-start mb-16 relative z-10">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-[0.2em] group-hover:text-[var(--brand-color)] transition-colors duration-500">
+                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] group-hover:text-[var(--brand-color)] transition-colors duration-500">
                     No. {`0${index + 1}`.slice(-2)}
                   </span>
                 </div>
@@ -203,7 +198,7 @@ export function ServicesGrid({ dynamicServices = [] }: { dynamicServices?: any[]
                 {/* Footer CTA */}
                 <div className="mt-16 flex items-center gap-4 relative z-10">
                   <div className="h-[1px] w-8 group-hover:w-12 bg-slate-300 group-hover:bg-[var(--brand-color)] transition-all duration-500 ease-out" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-[var(--brand-color)] transition-colors duration-500">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 group-hover:text-[var(--brand-color)] transition-colors duration-500">
                     Explore Configuration
                   </span>
                 </div>

@@ -129,7 +129,7 @@ export function AboutTopicsEditor({ initialTopics }: { initialTopics: AboutTopic
             </div>
           ))}
           {topics.length === 0 && (
-            <div className="py-8 text-center text-slate-400 text-sm border-2 border-dashed border-slate-200 rounded-lg">
+            <div className="py-8 text-center text-slate-500 text-sm border-2 border-dashed border-slate-200 rounded-lg">
               No topics added yet.
             </div>
           )}
@@ -183,7 +183,7 @@ export function AboutTopicsEditor({ initialTopics }: { initialTopics: AboutTopic
                           <button
                             type="button"
                             onClick={() => handleRemoveDescription(idx)}
-                            className="p-2 h-fit text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                            className="p-2 h-fit text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

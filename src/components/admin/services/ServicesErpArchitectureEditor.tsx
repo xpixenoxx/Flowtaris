@@ -38,7 +38,7 @@ function ErpMainEditor({ serviceId, initialData }: { serviceId: string; initialD
     <form onSubmit={save} className="space-y-3">
       <div>
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Section Small Description</label>
-        <p className="text-xs text-slate-400 mb-2">The subtitle text beneath the &ldquo;Engineering the ERP Architecture&rdquo; heading.</p>
+        <p className="text-xs text-slate-500 mb-2">The subtitle text beneath the &ldquo;Engineering the ERP Architecture&rdquo; heading.</p>
         <textarea
           rows={3}
           value={smallDesc}
@@ -193,7 +193,7 @@ function CardRow({
   return (
     <div className="p-4 border border-slate-100 bg-white rounded-xl flex gap-4 items-start group hover:border-slate-200 hover:shadow-sm transition-all">
       <div className="flex flex-col items-center gap-1 flex-shrink-0">
-        <span className="text-xs font-bold text-slate-400 px-2 py-0.5 bg-slate-50 rounded border border-slate-100">#{priority}</span>
+        <span className="text-xs font-bold text-slate-500 px-2 py-0.5 bg-slate-50 rounded border border-slate-100">#{priority}</span>
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-slate-800 mb-1">{card.title}</p>
@@ -208,10 +208,10 @@ function CardRow({
         {msg && <span className={`text-xs mt-1 block ${msg.startsWith('Error') ? 'text-red-600' : 'text-emerald-600'}`}>{msg}</span>}
       </div>
       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-        <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors" title="Edit">
+        <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors" title="Edit">
           <Pencil className="w-3.5 h-3.5" />
         </button>
-        <button onClick={remove} disabled={deleting} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors disabled:opacity-50" title="Delete">
+        <button onClick={remove} disabled={deleting} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-500 hover:text-red-600 transition-colors disabled:opacity-50" title="Delete">
           <Trash2 className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -335,12 +335,12 @@ export function ServicesErpArchitectureEditor({
           <h3 className="text-sm font-bold text-slate-700 flex items-center gap-2">
             <span className="w-5 h-5 bg-orange-100 text-orange-600 rounded text-[10px] flex items-center justify-center font-bold">C</span>
             ERP Architecture Cards
-            <span className="ml-1 text-xs text-slate-400 font-normal">(sorted by priority, high → low)</span>
+            <span className="ml-1 text-xs text-slate-500 font-normal">(sorted by priority, high → low)</span>
           </h3>
         </div>
         <div className="space-y-3">
           {cards.length === 0 && (
-            <p className="text-sm text-slate-400 py-4 text-center">No cards yet. Add one below.</p>
+            <p className="text-sm text-slate-500 py-4 text-center">No cards yet. Add one below.</p>
           )}
           {cards.map((card) => (
             <CardRow

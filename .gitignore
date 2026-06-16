@@ -46,3 +46,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+error_log.txt
+db_error_log.txt
+test_db.js

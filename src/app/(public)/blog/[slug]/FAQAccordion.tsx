@@ -18,7 +18,7 @@ export function FAQAccordion({ faqs }: { faqs: { question: string; answer: strin
               className="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:bg-slate-50 transition-colors"
             >
               <h1 className="font-bold text-lg text-slate-900 m-0 leading-tight">{faq.question}</h1>
-              <span className={`transition-transform duration-300 ease-in-out shrink-0 ml-4 ${isOpen ? '-rotate-180 text-[#E8A020]' : 'text-slate-400'}`}>
+              <span className={`transition-transform duration-300 ease-in-out shrink-0 ml-4 ${isOpen ? '-rotate-180 text-[#E8A020]' : 'text-slate-500'}`}>
                 <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
               </span>
             </button>

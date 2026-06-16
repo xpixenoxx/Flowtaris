@@ -63,7 +63,7 @@ export default async function AdminServiceDetailPage({
       <div>
         <Link
           href="/admin/services"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-700 mb-4 transition-colors group"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 mb-4 transition-colors group"
         >
           <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
           All Services
@@ -71,7 +71,7 @@ export default async function AdminServiceDetailPage({
         <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
           {service.name}
         </h1>
-        <p className="text-slate-400 mt-0.5 text-xs font-mono">/services/{service.slug}</p>
+        <p className="text-slate-500 mt-0.5 text-xs font-mono">/services/{service.slug}</p>
         <p className="text-slate-500 mt-1 text-sm">
           Manage the 5 content sections of this service page.
         </p>
@@ -83,7 +83,7 @@ export default async function AdminServiceDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Hero Section</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit the hero headline and supporting description shown at the top of the service page.
             </p>
           </div>
@@ -94,7 +94,7 @@ export default async function AdminServiceDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Why Choose Service</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Add, edit or delete cards. Each card has a main description and a small description.
             </p>
           </div>
@@ -105,7 +105,7 @@ export default async function AdminServiceDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">A Complete Business Management Suite</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit the section small description and manage sub-sections (title, description, and image).
             </p>
           </div>
@@ -120,7 +120,7 @@ export default async function AdminServiceDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Engineering the ERP Architecture</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit the section description and manage architecture cards with title, description, tags, and priority ordering.
             </p>
           </div>
@@ -135,7 +135,7 @@ export default async function AdminServiceDetailPage({
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Deep Module Expertise</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Add, edit or delete module expertise cards. Each card has a title and small description.
             </p>
           </div>

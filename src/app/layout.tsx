@@ -5,13 +5,14 @@ import { CustomCursor } from '@/components/ui/CustomCursor'
 import { PageTransition } from '@/components/ui/PageTransition'
 import { Analytics } from '@/components/analytics/Analytics'
 import { CookieConsent } from '@/components/analytics/CookieConsent'
+import { ServiceWorkerRegistration } from '@/app/sw'
 import '@/styles/globals.css'
 
 const sora = Sora({
   subsets: ['latin'],
   variable: '--font-sora',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '600', '700', '800'],
 })
 
 const dmSans = DM_Sans({
@@ -24,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains',
   display: 'swap',
-  weight: ['400', '500'],
+  weight: ['400'],
 })
 
 export const metadata: Metadata = {
@@ -55,6 +56,14 @@ export const metadata: Metadata = {
     title: 'Flowtaris — Enterprise ERP & Integration Consulting',
     description:
       'Flowtaris delivers secure, scalable and audit-ready ERP consulting, integrations and automation across NetSuite, Coupa, SAP, Workday and enterprise platforms.',
+    images: [
+      {
+        url: 'https://flowtaris.com/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'Flowtaris — Enterprise ERP Consulting',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -101,6 +110,7 @@ export default function RootLayout({
         </ToastProvider>
         <Analytics />
         <CookieConsent />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   )

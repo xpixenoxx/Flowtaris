@@ -106,7 +106,7 @@ function FaqRow({ faq, onDeleted }: { faq: BlogFaq; onDeleted: () => void }) {
 
   return (
     <div className="p-4 border border-slate-100 bg-white rounded-xl flex gap-4 items-start group hover:border-slate-200 hover:shadow-sm transition-all">
-      <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-xs font-bold text-slate-400">
+      <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-xs font-bold text-slate-500">
         {faq.sort_order}
       </div>
       <div className="flex-1 min-w-0">
@@ -117,7 +117,7 @@ function FaqRow({ faq, onDeleted }: { faq: BlogFaq; onDeleted: () => void }) {
       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
         <button
           onClick={() => setEditing(true)}
-          className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors"
+          className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors"
           title="Edit"
         >
           <Pencil className="w-3.5 h-3.5" />
@@ -125,7 +125,7 @@ function FaqRow({ faq, onDeleted }: { faq: BlogFaq; onDeleted: () => void }) {
         <button
           onClick={remove}
           disabled={deleting}
-          className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors disabled:opacity-50"
+          className="p-1.5 rounded-lg hover:bg-red-50 text-slate-500 hover:text-red-600 transition-colors disabled:opacity-50"
           title="Delete"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -245,7 +245,7 @@ export function BlogFaqsEditor({ blogId, initialFaqs }: { blogId: string; initia
     <div className="space-y-4">
       <div className="space-y-3">
         {faqs.length === 0 && (
-          <p className="text-sm text-slate-400 py-4 text-center">No FAQs yet. Add one below.</p>
+          <p className="text-sm text-slate-500 py-4 text-center">No FAQs yet. Add one below.</p>
         )}
         {faqs.map((faq) => (
           <FaqRow key={faq.id} faq={faq} onDeleted={() => removeFaq(faq.id)} />

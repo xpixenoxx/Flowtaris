@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 export function PageTransition() {
   const pathname = usePathname()
@@ -24,67 +25,90 @@ export function PageTransition() {
       const t = setTimeout(() => {
         setShow(false)
         prevPath.current = pathname
-      }, 900)
+      }, 1000)
       return () => clearTimeout(t)
     }
     return undefined
   }, [pathname])
 
+  const columns = [0, 1, 2, 3, 4]
+
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
-          key="curtain"
-          initial={{ scaleY: 0, originY: 1 }}
-          animate={{ scaleY: 1, originY: 1 }}
-          exit={{ scaleY: 0, originY: 0 }}
-          transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9998] flex items-center justify-center"
-          style={{ background: '#060D1A', transformOrigin: 'bottom' }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 h-[2px]"
-            style={{ background: 'linear-gradient(90deg, transparent, #E8A020, transparent)' }}
-          />
-          <div
-            className="absolute bottom-0 left-0 right-0 h-[2px]"
-            style={{ background: 'linear-gradient(90deg, transparent, #E8A020, transparent)' }}
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-            className="flex flex-col items-center gap-3"
-          >
-            <div
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '12px',
-                background: '#0A1628',
-                border: '1.5px solid rgba(232,160,32,0.5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+        <div className="fixed inset-0 z-[9998] flex w-screen h-screen overflow-hidden pointer-events-none">
+          {/* Staggered Shutter Columns */}
+          {columns.map((i) => (
+            <motion.div
+              key={i}
+              initial={{ y: '-100%' }}
+              animate={{ y: '0%' }}
+              exit={{ y: '100%' }}
+              transition={{
+                duration: 0.7,
+                ease: [0.76, 0, 0.24, 1],
+                delay: i * 0.05,
               }}
+              style={{
+                background: 'linear-gradient(to bottom, #0F2040 0%, #060D1A 100%)',
+              }}
+              className="h-full flex-1 relative border-r border-white/[0.015] last:border-r-0 pointer-events-auto"
             >
-              <span style={{ fontSize: '28px', fontWeight: '700', color: '#E8A020', fontFamily: 'var(--font-sora)' }}>
-                F
-              </span>
-            </div>
+              {/* Gold Sweeping Line */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-[2px]"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, #E8A020, #F5C860, transparent)',
+                  boxShadow: '0 0 12px rgba(232, 160, 32, 0.6)'
+                }}
+              />
+            </motion.div>
+          ))}
 
-            <div className="text-center">
-              <p style={{ fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(232,160,32,0.6)', fontFamily: 'var(--font-jetbrains)' }}>
-                Flowtaris
-              </p>
-              <p style={{ fontSize: '18px', fontWeight: '600', color: 'white', fontFamily: 'var(--font-sora)', marginTop: '4px' }}>
-                {label}
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
+          {/* Central Logo & Tagline Container */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.35, delay: 0.25 }}
+              className="flex flex-col items-center max-w-xl w-[90%] text-center"
+            >
+              <div className="relative mb-6">
+                {/* Logo glow pulse */}
+                <div className="absolute -inset-4 rounded-full bg-gold-500/10 blur-xl opacity-60 animate-pulse pointer-events-none" />
+                <Image
+                  src="/images/logo.png"
+                  alt="Flowtaris Logo"
+                  width={112}
+                  height={112}
+                  className="w-24 h-24 md:w-28 md:h-28 object-contain relative z-10 filter drop-shadow-[0_0_12px_rgba(232,160,32,0.4)]"
+                  priority
+                />
+              </div>
+
+              {/* Tagline */}
+              <motion.h1
+                initial={{ y: 15, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -15, opacity: 0 }}
+                transition={{ delay: 0.35, duration: 0.4 }}
+                style={{
+                  fontFamily: 'var(--font-sora)',
+                  fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+                  fontWeight: '700',
+                  letterSpacing: '-0.02em',
+                  background: 'linear-gradient(135deg, #FFF 30%, #F9DFA0 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  lineHeight: '1.2'
+                }}
+              >
+                The Science of Business Flow
+              </motion.h1>
+            </motion.div>
+          </div>
+        </div>
       )}
     </AnimatePresence>
   )

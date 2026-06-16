@@ -77,7 +77,7 @@ export function WhyChooseUsSectorsList({ initialSectors }: { initialSectors: Why
               <button
                 onClick={() => handleDelete(item.id)}
                 disabled={deletingId === item.id}
-                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded disabled:opacity-50 transition-colors shrink-0"
+                className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded disabled:opacity-50 transition-colors shrink-0"
                 title="Delete Sector"
               >
                 {deletingId === item.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}

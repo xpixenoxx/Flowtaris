@@ -37,7 +37,7 @@ export default async function AdminAboutPage() {
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Hero Section</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Edit the H1 tag, description, and image URL for the About page hero.
             </p>
           </div>
@@ -48,7 +48,7 @@ export default async function AdminAboutPage() {
         <div>
           <div className="mb-5">
             <h2 className="text-base font-bold text-slate-800">Topics</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Add multiple topics with their descriptions to display on the About page.
             </p>
           </div>

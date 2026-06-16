@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, Variants } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, Variants, useReducedMotion } from 'framer-motion'
 import {
   Menu, X, ArrowRight, Database, Cloud, Webhook,
   ShieldCheck, ArrowLeftRight, Component,
@@ -11,6 +11,7 @@ import {
   Cpu, Network, Lock, Zap
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFocusTrap } from '@/hooks/useFocusTrap'
 
 const NAV_LINKS = [
   { label: 'About', href: '/about' },
@@ -22,6 +23,11 @@ const NAV_LINKS = [
 // The Ultra-Premium "Command Center" Mega Menu (Flowtaris Brand Colors)
 // ─────────────────────────────────────────────────────────────────────────────
 function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter: () => void, onLeave: () => void, dynamicServices?: any[] }) {
+  const shouldReduceMotion = useReducedMotion()
+  const motionProps = shouldReduceMotion
+    ? { initial: false, animate: false, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } }
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -84,8 +90,8 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
 
   return (
     <motion.div
-      variants={containerVariants}
-      initial="hidden" animate="show" exit="exit"
+      {...(shouldReduceMotion ? motionProps : { variants: containerVariants, initial: "hidden", animate: "show", exit: "exit" })}
+      role="menu"
       onMouseMove={handleMouseMove} onMouseEnter={onEnter} onMouseLeave={onLeave}
       className="absolute top-[90px] left-1/2 -translate-x-1/2 w-[840px] h-[480px] p-3 rounded-[32px] bg-white/80 backdrop-blur-[60px] border border-white shadow-[0_40px_100px_-20px_rgba(10,22,40,0.15),0_0_0_1px_rgba(10,22,40,0.03)] overflow-hidden pointer-events-auto flex gap-3"
     >
@@ -100,7 +106,7 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
       />
 
       {/* ── Left Block: The Morphing Hero Card (Col Span 4) ── */}
-      <motion.div variants={itemVariants} className="flex-[1.1] relative">
+      <motion.div {...(shouldReduceMotion ? motionProps : { variants: itemVariants })} className="flex-[1.1] relative">
         <Link
           href="/services"
           className="absolute inset-0 rounded-[24px] bg-gradient-to-br from-white via-slate-50/80 to-[#F0F4F8] border border-slate-200/60 p-8 flex flex-col justify-between overflow-hidden group shadow-[0_8px_30px_rgba(10,22,40,0.06)] hover:shadow-[0_16px_40px_-10px_rgba(10,22,40,0.12)] transition-all duration-500"
@@ -110,10 +116,7 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
           <AnimatePresence mode="wait">
             <motion.div
               key={hoveredIdx ?? 'default'}
-              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
-              transition={{ duration: 0.3 }}
+              {...motionProps}
               className="relative z-10 flex flex-col h-full"
             >
               <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center mb-6 text-[#E8A020] shadow-[0_4px_12px_rgba(0,0,0,0.04)] group-hover:scale-110 transition-transform duration-500">
@@ -157,7 +160,7 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
         onMouseLeave={() => setHoveredIdx(null)}
       >
         {displayServices.map((item, idx) => (
-          <motion.div key={idx} variants={itemVariants} className="relative group" onMouseEnter={() => setHoveredIdx(idx)}>
+          <motion.div key={idx} {...(shouldReduceMotion ? motionProps : { variants: itemVariants })} className="relative group" onMouseEnter={() => setHoveredIdx(idx)}>
             <Link
               href={item.href}
               className="absolute inset-0 rounded-[20px] bg-white/60 hover:bg-white border border-slate-200/60 p-4 flex gap-4 items-center group-hover:-translate-y-[3px] group-hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08),0_0_0_1px_rgba(232,160,32,0.2)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
@@ -209,6 +212,11 @@ function CommandCenterMenu({ onEnter, onLeave, dynamicServices = [] }: { onEnter
 // Integrations Mega Menu
 // ─────────────────────────────────────────────────────────────────────────────
 function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: () => void }) {
+  const shouldReduceMotion = useReducedMotion()
+  const motionProps = shouldReduceMotion
+    ? { initial: false, animate: false, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } }
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -253,8 +261,8 @@ function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: 
 
   return (
     <motion.div
-      variants={containerVariants}
-      initial="hidden" animate="show" exit="exit"
+      {...(shouldReduceMotion ? motionProps : { variants: containerVariants, initial: "hidden", animate: "show", exit: "exit" })}
+      role="menu"
       onMouseMove={handleMouseMove} onMouseEnter={onEnter} onMouseLeave={onLeave}
       className="absolute top-[90px] left-1/2 -translate-x-1/2 w-[840px] h-[480px] p-3 rounded-[32px] bg-white/80 backdrop-blur-[60px] border border-white shadow-[0_40px_100px_-20px_rgba(10,22,40,0.15),0_0_0_1px_rgba(10,22,40,0.03)] overflow-hidden pointer-events-auto flex gap-3"
     >
@@ -268,7 +276,7 @@ function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: 
         }}
       />
 
-      <motion.div variants={itemVariants} className="flex-[1.1] relative">
+      <motion.div {...(shouldReduceMotion ? motionProps : { variants: itemVariants })} className="flex-[1.1] relative">
         <Link
           href="/integrations"
           className="absolute inset-0 rounded-[24px] bg-gradient-to-br from-white via-slate-50/80 to-[#F0F4F8] border border-slate-200/60 p-8 flex flex-col justify-between overflow-hidden group shadow-[0_8px_30px_rgba(10,22,40,0.06)] hover:shadow-[0_16px_40px_-10px_rgba(10,22,40,0.12)] transition-all duration-500"
@@ -278,10 +286,7 @@ function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: 
           <AnimatePresence mode="wait">
             <motion.div
               key={hoveredIdx ?? 'default'}
-              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
-              transition={{ duration: 0.3 }}
+              {...motionProps}
               className="relative z-10 flex flex-col h-full"
             >
               <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center mb-6 text-[#E8A020] shadow-[0_4px_12px_rgba(0,0,0,0.04)] group-hover:scale-110 transition-transform duration-500">
@@ -322,7 +327,7 @@ function IntegrationsMenu({ onEnter, onLeave }: { onEnter: () => void, onLeave: 
         onMouseLeave={() => setHoveredIdx(null)}
       >
         {INTEGRATIONS.map((item, idx) => (
-          <motion.div key={idx} variants={itemVariants} className="relative group" onMouseEnter={() => setHoveredIdx(idx)}>
+          <motion.div key={idx} {...(shouldReduceMotion ? motionProps : { variants: itemVariants })} className="relative group" onMouseEnter={() => setHoveredIdx(idx)}>
             <Link
               href={item.href}
               className="absolute inset-0 rounded-[20px] bg-white/60 hover:bg-white border border-slate-200/60 p-4 flex gap-4 items-center group-hover:-translate-y-[3px] group-hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08),0_0_0_1px_rgba(232,160,32,0.2)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
@@ -372,6 +377,13 @@ export function Navigation({ dynamicServices = [], settings = { company_name: 'F
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const navTimer = useRef<NodeJS.Timeout | null>(null)
+
+  const shouldReduceMotion = useReducedMotion()
+  const motionProps = shouldReduceMotion
+    ? { initial: false, animate: false, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } }
+
+  const drawerRef = useFocusTrap(mobileOpen)
 
   // Scroll detection
   useEffect(() => {
@@ -438,15 +450,31 @@ export function Navigation({ dynamicServices = [], settings = { company_name: 'F
               onMouseEnter={() => handleMouseEnter('services')}
               onMouseLeave={handleMouseLeave}
             >
-              <div
+              <button
+                onFocus={() => handleMouseEnter('services')}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    handleMouseLeave()
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setActiveMenu(null)
+                  } else if (e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    document.querySelector<HTMLElement>('[role="menu"] a')?.focus()
+                  }
+                }}
+                aria-expanded={activeMenu === 'services'}
+                aria-haspopup="true"
                 className={cn(
-                  "text-[14px] font-semibold transition-all duration-300 uppercase tracking-widest text-navy-700 hover:text-navy-950",
+                  "text-[14px] font-semibold transition-all duration-300 uppercase tracking-widest text-navy-700 hover:text-navy-950 bg-transparent border-none outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E8A020] rounded-sm",
                   activeMenu === 'services' && "text-navy-950 !font-bold"
                 )}
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 Services
-              </div>
+              </button>
             </div>
 
             {/* Integrations Dropdown Trigger */}
@@ -455,15 +483,31 @@ export function Navigation({ dynamicServices = [], settings = { company_name: 'F
               onMouseEnter={() => handleMouseEnter('integrations')}
               onMouseLeave={handleMouseLeave}
             >
-              <div
+              <button
+                onFocus={() => handleMouseEnter('integrations')}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    handleMouseLeave()
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setActiveMenu(null)
+                  } else if (e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    document.querySelector<HTMLElement>('[role="menu"] a')?.focus()
+                  }
+                }}
+                aria-expanded={activeMenu === 'integrations'}
+                aria-haspopup="true"
                 className={cn(
-                  "text-[14px] font-semibold transition-all duration-300 uppercase tracking-widest text-navy-700 hover:text-navy-950",
+                  "text-[14px] font-semibold transition-all duration-300 uppercase tracking-widest text-navy-700 hover:text-navy-950 bg-transparent border-none outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E8A020] rounded-sm",
                   activeMenu === 'integrations' && "text-navy-950 !font-bold"
                 )}
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 Integrations
-              </div>
+              </button>
             </div>
 
             {/* Other Links */}
@@ -518,14 +562,12 @@ export function Navigation({ dynamicServices = [], settings = { company_name: 'F
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            {...motionProps}
             className="fixed inset-0 z-40 bg-[#060D1A]/40 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileOpen(false)}
           >
             {/* Simple mobile menu implementation */}
-            <div className="absolute right-0 top-0 bottom-0 w-[80vw] bg-white shadow-2xl p-6">
+            <div ref={drawerRef as any} role="dialog" aria-modal="true" className="absolute right-0 top-0 bottom-0 w-[80vw] bg-white shadow-2xl p-6">
               <button onClick={() => setMobileOpen(false)}><X className="mb-8 text-navy-950" /></button>
               <div className="flex flex-col gap-6">
                 <Link href="/services" className="text-xl font-bold text-navy-950">Services</Link>

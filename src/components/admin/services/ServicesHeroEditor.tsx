@@ -40,7 +40,7 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
           Hero Description <span className="text-red-500">*</span>
         </label>
-        <p className="text-xs text-slate-400 mb-2">The large headline text displayed in the hero section.</p>
+        <p className="text-xs text-slate-500 mb-2">The large headline text displayed in the hero section.</p>
         <textarea
           required
           rows={3}
@@ -55,7 +55,7 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
           Normal Description
         </label>
-        <p className="text-xs text-slate-400 mb-2">The supporting paragraph text below the hero headline.</p>
+        <p className="text-xs text-slate-500 mb-2">The supporting paragraph text below the hero headline.</p>
         <textarea
           rows={4}
           value={normalDesc}
@@ -69,7 +69,7 @@ export function ServicesHeroEditor({ serviceId, initialData }: Props) {
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
           Hero Background Color
         </label>
-        <p className="text-xs text-slate-400 mb-2">Select the background color for this service's hero section.</p>
+        <p className="text-xs text-slate-500 mb-2">Select the background color for this service's hero section.</p>
         <div className="flex items-center gap-3">
           <input
             type="color"

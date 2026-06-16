@@ -204,7 +204,7 @@ export function HowWeWorkSection() {
 
                   {/* Menu Text */}
                   <div className="relative z-10 flex items-center gap-5 ml-4">
-                    <div className={`text-sm font-bold tracking-widest transition-colors duration-500 ${isActive ? 'text-[#E8A020]' : 'text-slate-400 group-hover:text-[#E8A020]/70'}`} style={{ fontFamily: 'var(--font-jetbrains)' }}>
+                    <div className={`text-sm font-bold tracking-widest transition-colors duration-500 ${isActive ? 'text-[#E8A020]' : 'text-slate-500 group-hover:text-[#E8A020]/70'}`} style={{ fontFamily: 'var(--font-jetbrains)' }}>
                       0{idx + 1}
                     </div>
                     <div className={`text-lg font-black transition-colors duration-500 ${isActive ? 'text-navy-900' : 'text-slate-500 group-hover:text-navy-700'}`} style={{ fontFamily: 'var(--font-sora)' }}>

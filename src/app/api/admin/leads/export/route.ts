@@ -30,6 +30,18 @@ export async function GET() {
   if (!leads) return NextResponse.json({ error: 'No data' }, { status: 500 })
 
   const headers = ['Name', 'Company', 'Email', 'Type', 'Platform', 'Service', 'Timeline', 'Challenge', 'Status', 'Source', 'Country', 'Date']
+  
+  function sanitizeCSVField(value: string | null | undefined): string {
+    if (value === null || value === undefined) return ''
+    const strValue = String(value)
+    const dangerous = ['=', '+', '-', '@', '\t', '\r']
+    if (dangerous.some(char => strValue.startsWith(char))) {
+      return `'${strValue}` // prefix with apostrophe — Excel treats it as text
+    }
+    return strValue.includes(',') || strValue.includes('"') || strValue.includes('\n')
+      ? `"${strValue.replace(/"/g, '""')}"` : strValue
+  }
+
   const rows = leads.map((l) => [
     l.name,
     l.company ?? '',
@@ -47,7 +59,7 @@ export async function GET() {
 
   const csv = [
     headers.join(','),
-    ...rows.map((row) => row.map((cell) => `"${cell}"`).join(',')),
+    ...rows.map((row) => row.map((cell) => sanitizeCSVField(cell)).join(',')),
   ].join('\n')
 
   return new NextResponse(csv, {

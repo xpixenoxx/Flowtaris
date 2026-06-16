@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import CardSwap, { Card } from '@/components/ui/CardSwap'
 
 import LogoLoop from '@/components/ui/LogoLoop'
@@ -37,7 +38,7 @@ export function HeroSection({ title, description, technologies, heroImages }: He
               {title || "ERP Implementation for Companies Outgrowing Chaos"}
             </h1>
             <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-              {description || "A lightweight, hardware-accelerated React component for creating beautiful card swapping animations. No complex configuration required."}
+              {description || "Boutique ERP consulting firm helping mid-market companies implement, integrate, and optimise NetSuite, Coupa, SAP, and Workday platforms"}
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -59,10 +60,10 @@ export function HeroSection({ title, description, technologies, heroImages }: He
                 height={445}
               >
                 {heroImages && heroImages.length > 0 ? (
-                  heroImages.map((img) => (
+                  heroImages.map((img, index) => (
                     <Card key={img.id} className="flex flex-col overflow-hidden border border-white/10 bg-black rounded-xl relative group">
                       {/* Background Image */}
-                      <img src={img.image_url} alt={img.topic} className="absolute inset-0 w-full h-full object-cover" />
+                      <Image src={img.image_url} alt={img.topic || 'Hero image'} width={498} height={445} priority={index === 0} className="absolute inset-0 w-full h-full object-cover" />
 
                       {/* Card Header (Top Bar) */}
                       <div className="w-full h-10 flex items-center px-4 gap-2 border-b border-white/10 bg-black/20 backdrop-blur-md relative z-10 shrink-0">
@@ -83,9 +84,9 @@ export function HeroSection({ title, description, technologies, heroImages }: He
                       <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
                     </div>
                     <div className="p-6 md:p-8 flex-1 flex flex-col justify-end text-white">
-                      <h3 className="text-xl md:text-2xl font-bold mb-2">React Bits</h3>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2">NetSuite Consulting</h3>
                       <p className="text-sm md:text-base text-gray-400">
-                        Seamlessly integrate smooth, GSAP-powered animations into your application with a simple wrapper component.
+                        Implementation & SuiteScript
                       </p>
                     </div>
                   </Card>,
@@ -96,9 +97,22 @@ export function HeroSection({ title, description, technologies, heroImages }: He
                       <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
                     </div>
                     <div className="p-6 md:p-8 flex-1 flex flex-col justify-end text-white">
-                      <h3 className="text-xl md:text-2xl font-bold mb-2">TypeScript Ready</h3>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2">Coupa BSM</h3>
                       <p className="text-sm md:text-base text-gray-400">
-                        Fully typed props and refs for a flawless developer experience right out of the box.
+                        Procurement Transformation
+                      </p>
+                    </div>
+                  </Card>,
+                  <Card key="fallback-3" className="flex flex-col overflow-hidden border border-white/10 bg-black rounded-xl">
+                    <div className="w-full h-10 flex items-center px-4 gap-2 border-b border-white/10 bg-white/5 shrink-0">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                    </div>
+                    <div className="p-6 md:p-8 flex-1 flex flex-col justify-end text-white">
+                      <h3 className="text-xl md:text-2xl font-bold mb-2">ERP Integrations</h3>
+                      <p className="text-sm md:text-base text-gray-400">
+                        Connect your entire stack
                       </p>
                     </div>
                   </Card>
@@ -134,20 +148,22 @@ export function HeroSection({ title, description, technologies, heroImages }: He
               return (
                 <div className="group relative flex flex-col items-center justify-center cursor-pointer pb-6">
                   {src ? (
-                    <img
+                    <Image
                       src={src}
                       alt={title}
+                      width={75}
+                      height={75}
                       className="w-[75px] h-[75px] object-contain transition-all duration-500 filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
                     />
                   ) : (
-                    <div className="transition-all duration-500 text-slate-400 group-hover:text-[#0A1628] filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100">
+                    <div className="transition-all duration-500 text-slate-500 group-hover:text-[#0A1628] filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100">
                       {'node' in item ? item.node : null}
                     </div>
                   )}
-                  {/* H1 Tag for Name (appears on hover) */}
-                  <h1 className="absolute bottom-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-[#0A1628] font-bold text-sm tracking-wide whitespace-nowrap" style={{ fontFamily: 'var(--font-sora)' }}>
+                  {/* Tag for Name (appears on hover) */}
+                  <span className="absolute bottom-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-[#0A1628] font-bold text-sm tracking-wide whitespace-nowrap" style={{ fontFamily: 'var(--font-sora)' }}>
                     {title}
-                  </h1>
+                  </span>
                 </div>
               );
             }}

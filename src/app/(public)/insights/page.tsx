@@ -112,7 +112,7 @@ export default async function InsightsPage() {
                     </p>
                   )}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-xs text-slate-400">
+                    <div className="flex items-center gap-4 text-xs text-slate-500">
                       {featured.published_at && (
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5" />
@@ -182,7 +182,7 @@ export default async function InsightsPage() {
                       </p>
                     )}
                     <div className="flex items-center justify-between mt-auto">
-                      <div className="flex items-center gap-3 text-xs text-slate-400">
+                      <div className="flex items-center gap-3 text-xs text-slate-500">
                         {post.read_time_minutes && (
                           <span className="flex items-center gap-1">
                             <Clock className="w-3 h-3" />
@@ -207,7 +207,7 @@ export default async function InsightsPage() {
           {/* Empty state */}
           {(!posts || posts.length === 0) && (
             <AnimatedSection className="text-center py-24">
-              <p className="text-slate-400 mb-4">Insights coming soon.</p>
+              <p className="text-slate-500 mb-4">Insights coming soon.</p>
               <Link
                 href="/contact"
                 className="text-sm text-gold-500 hover:text-gold-400 font-medium transition-colors"

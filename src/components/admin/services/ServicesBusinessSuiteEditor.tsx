@@ -34,7 +34,7 @@ function SuiteMainEditor({ serviceId, initialData }: { serviceId: string; initia
     <form onSubmit={save} className="space-y-3">
       <div>
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Section Small Description</label>
-        <p className="text-xs text-slate-400 mb-2">The subtitle text beneath the &ldquo;A Complete Business Management Suite&rdquo; heading.</p>
+        <p className="text-xs text-slate-500 mb-2">The subtitle text beneath the &ldquo;A Complete Business Management Suite&rdquo; heading.</p>
         <textarea
           rows={3}
           value={smallDesc}
@@ -151,7 +151,7 @@ function ItemRow({ item, onDeleted }: { item: ServicesBusinessSuiteItem; onDelet
         <img src={item.image_url} alt={item.title} className="w-14 h-14 rounded-lg object-cover flex-shrink-0 border border-slate-100" />
       ) : (
         <div className="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
-          <ImageIcon className="w-5 h-5 text-slate-400" />
+          <ImageIcon className="w-5 h-5 text-slate-500" />
         </div>
       )}
       <div className="flex-1 min-w-0">
@@ -160,10 +160,10 @@ function ItemRow({ item, onDeleted }: { item: ServicesBusinessSuiteItem; onDelet
         {msg && <span className={`text-xs mt-1 block ${msg.startsWith('Error') ? 'text-red-600' : 'text-emerald-600'}`}>{msg}</span>}
       </div>
       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-        <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors" title="Edit">
+        <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors" title="Edit">
           <Pencil className="w-3.5 h-3.5" />
         </button>
-        <button onClick={remove} disabled={deleting} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors disabled:opacity-50" title="Delete">
+        <button onClick={remove} disabled={deleting} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-500 hover:text-red-600 transition-colors disabled:opacity-50" title="Delete">
           <Trash2 className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -273,7 +273,7 @@ export function ServicesBusinessSuiteEditor({
         </h3>
         <div className="space-y-3">
           {items.length === 0 && (
-            <p className="text-sm text-slate-400 py-4 text-center">No sub-sections yet. Add one below.</p>
+            <p className="text-sm text-slate-500 py-4 text-center">No sub-sections yet. Add one below.</p>
           )}
           {items.map((item) => (
             <ItemRow key={item.id} item={item} onDeleted={() => removeItem(item.id)} />

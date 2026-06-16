@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 
-export function InteractiveCaseList({ cases }: { cases: any[] }) {
+export function InteractiveCaseList({ cases, title = "More Engagements" }: { cases: any[], title?: string | null }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   
   // To make a trailing image effect
@@ -34,12 +34,14 @@ export function InteractiveCaseList({ cases }: { cases: any[] }) {
   return (
     <section className="bg-white py-24 relative" ref={containerRef}>
       <div className="container-content relative z-10">
-        <div className="flex items-center gap-3 mb-16">
-          <div className="h-px w-8 bg-slate-300" />
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500">
-            More Engagements
-          </span>
-        </div>
+        {title && (
+          <div className="flex items-center gap-3 mb-16">
+            <div className="h-px w-8 bg-slate-300" />
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500">
+              {title}
+            </span>
+          </div>
+        )}
 
         <div className="flex flex-col border-t border-slate-200">
           {cases.map((cs, idx) => {
@@ -83,7 +85,7 @@ export function InteractiveCaseList({ cases }: { cases: any[] }) {
                       </div>
                     )}
                     
-                    <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-slate-200 text-slate-400 bg-white group-hover:bg-gold-500 group-hover:text-navy-950 group-hover:border-gold-500 transition-all duration-300 shadow-sm">
+                    <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-slate-200 text-slate-500 bg-white group-hover:bg-gold-500 group-hover:text-navy-950 group-hover:border-gold-500 transition-all duration-300 shadow-sm">
                       <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
                     </div>
                   </div>

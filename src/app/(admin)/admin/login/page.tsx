@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { AdminLoginForm } from '@/components/admin/AdminLoginForm'
 
 export const metadata: Metadata = {
@@ -12,11 +13,13 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex items-center gap-2.5 justify-center mb-8">
-          <div className="w-9 h-9 rounded-lg bg-navy-800 border border-gold-500/30
-                          flex items-center justify-center">
-            <span className="text-gold-500 font-bold text-lg leading-none"
-                  style={{ fontFamily: 'var(--font-sora)' }}>F</span>
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="Flowtaris"
+            width={40}
+            height={40}
+            className="w-9 h-9 object-contain"
+          />
           <div>
             <div className="text-white font-bold text-base tracking-wide"
                  style={{ fontFamily: 'var(--font-sora)' }}>FLOWTARIS</div>

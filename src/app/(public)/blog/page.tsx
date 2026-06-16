@@ -118,7 +118,7 @@ export default async function BlogsPage({
           {/* Search */}
           <div className="relative mb-3 w-full md:w-auto">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-4 w-4 text-slate-400" />
+              <Search className="h-4 w-4 text-slate-500" />
             </div>
             <input 
               type="text" 

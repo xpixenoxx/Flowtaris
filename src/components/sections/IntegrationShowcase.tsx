@@ -49,7 +49,7 @@ export async function IntegrationShowcase({ hideViewAll = false }: IntegrationSh
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#0A1628] leading-[1.1] tracking-tight" style={{ fontFamily: 'var(--font-sora)' }}>
-              We connect the systems <span className="text-slate-400">your business depends on.</span>
+              We connect the systems <span className="text-slate-500">your business depends on.</span>
             </h2>
           </div>
           

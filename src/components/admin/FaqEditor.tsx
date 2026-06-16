@@ -51,7 +51,7 @@ export function FaqEditor({ faq }: { faq: any }) {
     <div className="space-y-6">
       <div>
         <label className="label">Page Slug</label>
-        <p className="text-xs text-slate-400 mb-2">Which page should this FAQ appear on? (e.g. &quot;home&quot;, &quot;services/netsuite-consulting&quot;)</p>
+        <p className="text-xs text-slate-500 mb-2">Which page should this FAQ appear on? (e.g. &quot;home&quot;, &quot;services/netsuite-consulting&quot;)</p>
         <input
           type="text"
           value={formData.page_slug}

@@ -44,7 +44,7 @@ function LeadRow({ lead, onUpdate, onDelete }: { lead: Lead, onUpdate: () => voi
           </div>
           <div>
             <h3 className="text-sm font-semibold text-navy-900 truncate">
-              {lead.name} <span className="text-slate-400 font-normal">({lead.company || 'No Company'})</span>
+              {lead.name} <span className="text-slate-500 font-normal">({lead.company || 'No Company'})</span>
             </h3>
             <p className="text-xs text-slate-500 mt-1">{lead.work_email}</p>
           </div>
@@ -55,7 +55,7 @@ function LeadRow({ lead, onUpdate, onDelete }: { lead: Lead, onUpdate: () => voi
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 uppercase tracking-wider">
               {lead.form_type}
             </span>
-            <p className="text-[10px] text-slate-400 mt-1">
+            <p className="text-[10px] text-slate-500 mt-1">
               {formatDistanceToNow(new Date(lead.created_at), { addSuffix: true })}
             </p>
           </div>
@@ -81,12 +81,12 @@ function LeadRow({ lead, onUpdate, onDelete }: { lead: Lead, onUpdate: () => voi
 
             <button
               onClick={handleDelete}
-              className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
               title="Delete lead"
             >
               <Trash2 className="w-4 h-4" />
             </button>
-            <button className="p-1 text-slate-400">
+            <button className="p-1 text-slate-500">
               {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </button>
           </div>

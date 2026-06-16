@@ -19,7 +19,7 @@ export function CaseStudySidebar({
         {platforms.length > 0 && (
           <div className="card p-5">
             <h3
-              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-400 mb-3"
+              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-500 mb-3"
               style={{ fontFamily: 'var(--font-jetbrains)' }}
             >
               Technology Stack
@@ -41,7 +41,7 @@ export function CaseStudySidebar({
         {services.length > 0 && (
           <div className="card p-5 mt-4">
             <h3
-              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-400 mb-3"
+              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-500 mb-3"
               style={{ fontFamily: 'var(--font-jetbrains)' }}
             >
               Services Delivered
@@ -61,7 +61,7 @@ export function CaseStudySidebar({
         {industries.length > 0 && (
           <div className="card p-5 mt-4">
             <h3
-              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-400 mb-3"
+              className="text-xs font-mono uppercase tracking-[0.14em] text-slate-500 mb-3"
               style={{ fontFamily: 'var(--font-jetbrains)' }}
             >
               Industry

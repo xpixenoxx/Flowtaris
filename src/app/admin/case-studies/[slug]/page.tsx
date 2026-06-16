@@ -29,7 +29,7 @@ export default async function AdminCaseStudyDetailPage({
         <div>
           <Link
             href="/admin/case-studies"
-            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-700 mb-4 transition-colors group"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 mb-4 transition-colors group"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
             All Case Studies
@@ -37,7 +37,7 @@ export default async function AdminCaseStudyDetailPage({
           <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
             {caseStudy.title}
           </h1>
-          <p className="text-slate-400 mt-0.5 text-xs font-mono">/case-studies/{caseStudy.slug}</p>
+          <p className="text-slate-500 mt-0.5 text-xs font-mono">/case-studies/{caseStudy.slug}</p>
           <div className="flex items-center gap-2 mt-2">
             <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${
               caseStudy.status === 'published'

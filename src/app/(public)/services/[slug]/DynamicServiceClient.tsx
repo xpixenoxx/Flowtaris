@@ -2,8 +2,27 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import * as Icons from 'lucide-react'
+import Image from 'next/image'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { BarChart3, Database, ShieldCheck, Check, Globe, Cloud, Layout, Server, Settings, Users, ArrowRight, Zap, Code, Shield } from 'lucide-react'
+
+const iconRegistry: Record<string, React.ElementType> = {
+  Database,
+  BarChart3,
+  ShieldCheck,
+  Check,
+  Globe,
+  Cloud,
+  Layout,
+  Server,
+  Settings,
+  Users,
+  ArrowRight,
+  Zap,
+  Code,
+  Shield
+}
+
 import { cn } from '@/lib/utils'
 
 export function DynamicServiceClient({
@@ -18,6 +37,10 @@ export function DynamicServiceClient({
 }: any) {
   const [activeTab, setActiveTab] = useState(businessItems[0] || null)
   const [scrolled, setScrolled] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+  const motionProps = shouldReduceMotion
+    ? { initial: false, animate: false, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } }
 
   // Scroll detection for sticky nav
   useEffect(() => {
@@ -68,9 +91,7 @@ export function DynamicServiceClient({
             {/* Left: Copy */}
             <motion.div
               className="lg:w-[55%]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              {...motionProps}
             >
               <h1 className="text-[42px] lg:text-[56px] font-extrabold text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
                 {heroTitle}
@@ -93,17 +114,17 @@ export function DynamicServiceClient({
             <div className="lg:w-[45%] relative h-[400px] lg:h-[500px] w-full hidden md:block">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-full max-w-[450px] aspect-square">
-                  <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
+                  <motion.div {...motionProps}
                     className="absolute top-0 right-10 w-64 h-64 rounded-full bg-[#141736]/40 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <Icons.BarChart3 className="w-16 h-16 text-white opacity-90" strokeWidth={1} />
+                    <BarChart3 className="w-16 h-16 text-white opacity-90" strokeWidth={1} />
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
+                  <motion.div {...motionProps}
                     className="absolute bottom-10 left-0 w-56 h-56 rounded-full bg-[#FFD166]/80 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <Icons.Database className="w-16 h-16 text-[#141736] opacity-90" strokeWidth={1} />
+                    <Database className="w-16 h-16 text-[#141736] opacity-90" strokeWidth={1} />
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.4 }}
+                  <motion.div {...motionProps}
                     className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
-                    <Icons.ShieldCheck className="w-12 h-12 text-white opacity-90" strokeWidth={1} />
+                    <ShieldCheck className="w-12 h-12 text-white opacity-90" strokeWidth={1} />
                   </motion.div>
                 </div>
               </div>
@@ -128,7 +149,7 @@ export function DynamicServiceClient({
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {whyChoose.map((benefit: any, i: number) => {
-                const IconComp = (Icons as any)[benefit.icon || 'Database'] || Icons.Database
+                const IconComp = iconRegistry[benefit.icon || 'Database'] || Database
                 return (
                   <div 
                     key={i} 
@@ -200,7 +221,7 @@ export function DynamicServiceClient({
                   {activeTab && (
                     <motion.div
                       key={activeTab.id}
-                      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                      {...motionProps}
                       className="flex flex-col h-full"
                     >
                       <h3 className="text-[28px] font-bold text-[#141736] mb-6" style={{ fontFamily: 'var(--font-sora)' }}>
@@ -211,7 +232,7 @@ export function DynamicServiceClient({
                       </p>
                       {activeTab.image_url && (
                         <div className="mt-auto w-full aspect-video relative rounded bg-slate-100 overflow-hidden border border-slate-200">
-                          <img src={activeTab.image_url} alt={activeTab.title} className="w-full h-full object-cover" />
+                          <Image src={activeTab.image_url} alt={activeTab.title} width={800} height={450} className="w-full h-full object-cover" />
                         </div>
                       )}
                     </motion.div>
@@ -264,7 +285,7 @@ export function DynamicServiceClient({
                       <div className="flex flex-wrap gap-4">
                         {step.tags.map((feature: string, i: number) => (
                           <div key={i} className="flex items-center gap-2 bg-[#F8FAFC] border border-slate-200 rounded-[4px] px-4 py-2">
-                            <Icons.Check className="w-4 h-4" style={{ color: bgColor }} />
+                            <Check className="w-4 h-4" style={{ color: bgColor }} />
                             <span className="text-[13px] font-bold text-slate-700">{feature.trim()}</span>
                           </div>
                         ))}
@@ -296,7 +317,7 @@ export function DynamicServiceClient({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {deepModules.map((module: any, idx: number) => {
-                const IconComp = (Icons as any)[module.icon || 'Globe'] || Icons.Globe
+                const IconComp = iconRegistry[module.icon || 'Globe'] || Globe
                 return (
                   <div 
                     key={idx} 

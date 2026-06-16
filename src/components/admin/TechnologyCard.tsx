@@ -82,7 +82,7 @@ export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
           <button onClick={handleSave} disabled={isPending} className="p-2 text-green-600 hover:bg-green-100 rounded disabled:opacity-50 transition-colors" title="Save">
             <Check className="w-4 h-4" />
           </button>
-          <button onClick={() => setIsEditing(false)} disabled={isPending} className="p-2 text-slate-400 hover:bg-slate-200 rounded disabled:opacity-50 transition-colors" title="Cancel">
+          <button onClick={() => setIsEditing(false)} disabled={isPending} className="p-2 text-slate-500 hover:bg-slate-200 rounded disabled:opacity-50 transition-colors" title="Cancel">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -92,7 +92,7 @@ export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
 
   return (
     <div className="p-3 border border-slate-200 rounded-lg flex items-center bg-white shadow-sm hover:shadow-md transition-shadow group">
-      <div className="cursor-grab active:cursor-grabbing p-2 text-slate-400 hover:text-slate-600">
+      <div className="cursor-grab active:cursor-grabbing p-2 text-slate-500 hover:text-slate-600">
         <GripVertical className="w-5 h-5" />
       </div>
 
@@ -105,16 +105,16 @@ export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
         {tech.name ? (
           <p className="text-sm font-semibold text-navy-900 truncate" title={tech.name}>{tech.name}</p>
         ) : (
-          <p className="text-sm font-semibold text-slate-400 italic">Unnamed Technology</p>
+          <p className="text-sm font-semibold text-slate-500 italic">Unnamed Technology</p>
         )}
-        <p className="text-xs text-slate-400 truncate mt-0.5" title={tech.logo_url}>{tech.logo_url}</p>
+        <p className="text-xs text-slate-500 truncate mt-0.5" title={tech.logo_url}>{tech.logo_url}</p>
       </div>
 
       <div className="flex items-center gap-1">
         <button
           onClick={() => setIsEditing(true)}
           disabled={isPending}
-          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded disabled:opacity-50 transition-colors"
+          className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded disabled:opacity-50 transition-colors"
           title="Edit Technology"
         >
           <Pencil className="w-4 h-4" />
@@ -122,7 +122,7 @@ export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
         <button
           onClick={handleDelete}
           disabled={isPending}
-          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded disabled:opacity-50 transition-colors"
+          className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded disabled:opacity-50 transition-colors"
           title="Delete Technology"
         >
           <Trash2 className="w-4 h-4" />

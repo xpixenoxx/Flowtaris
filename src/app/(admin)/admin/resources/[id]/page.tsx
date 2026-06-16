@@ -31,7 +31,7 @@ export default async function ResourceEditPage({ params }: Props) {
         <h1 className="text-2xl font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
           {resource ? 'Edit Resource' : 'New Resource'}
         </h1>
-        <p className="text-sm text-slate-400 mt-0.5">
+        <p className="text-sm text-slate-500 mt-0.5">
           {resource ? `Editing: ${resource.title}` : 'Create a new downloadable resource'}
         </p>
       </div>

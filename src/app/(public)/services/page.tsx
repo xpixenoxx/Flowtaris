@@ -26,16 +26,11 @@ export default async function ServicesPage() {
         
         <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-8 bg-[#E8A020]" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#E8A020]">
-                Institutional Capabilities
-              </span>
-            </div>
+
             
             <h1 className="text-5xl md:text-7xl lg:text-[80px] font-light leading-[1.05] tracking-tight mb-8 text-[#0A1628]" style={{ fontFamily: 'var(--font-sora)' }}>
               Enterprise scale. <br />
-              <span className="text-slate-400">Surgical precision.</span>
+              <span className="text-slate-500">Surgical precision.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-500 font-light max-w-2xl leading-relaxed">

@@ -101,7 +101,7 @@ function CardRow({ card, onDeleted }: { card: ServicesWhyChoose; onDeleted: () =
       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
         <button
           onClick={() => setEditing(true)}
-          className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors"
+          className="p-1.5 rounded-lg hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors"
           title="Edit"
         >
           <Pencil className="w-3.5 h-3.5" />
@@ -109,7 +109,7 @@ function CardRow({ card, onDeleted }: { card: ServicesWhyChoose; onDeleted: () =
         <button
           onClick={remove}
           disabled={deleting}
-          className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors disabled:opacity-50"
+          className="p-1.5 rounded-lg hover:bg-red-50 text-slate-500 hover:text-red-600 transition-colors disabled:opacity-50"
           title="Delete"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -216,7 +216,7 @@ export function ServicesWhyChooseEditor({ serviceId, initialCards }: { serviceId
     <div className="space-y-4">
       <div className="space-y-3">
         {cards.length === 0 && (
-          <p className="text-sm text-slate-400 py-4 text-center">No cards yet. Add one below.</p>
+          <p className="text-sm text-slate-500 py-4 text-center">No cards yet. Add one below.</p>
         )}
         {cards.map((card) => (
           <CardRow key={card.id} card={card} onDeleted={() => removeCard(card.id)} />

@@ -23,11 +23,7 @@ const leadSchema = z.object({
 // Rate limiting: simple in-memory for edge (replace with Upstash for production)
 const submissions = new Map<string, number>()
 
-export async function GET() {
-  const supabase = await createClient()
-  const { data, error } = await supabase.from('leads').select('*')
-  return NextResponse.json({ data, error })
-}
+// ─── GET handler removed for security (SEC-03) ───
 
 export async function POST(req: NextRequest) {
   try {
@@ -104,7 +100,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Save to database
-    const supabase = await createClient()
+    const { createClient: createServiceClient } = await import('@supabase/supabase-js')
+    const supabase = createServiceClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
     const { error: dbError } = await supabase.from('leads').insert({
       form_type,
       name,
@@ -123,9 +123,7 @@ export async function POST(req: NextRequest) {
     })
 
     if (dbError) {
-      const fs = require('fs')
-      fs.writeFileSync('db_error_log.txt', JSON.stringify(dbError, null, 2))
-      console.error('[Form Submission] Database error:', dbError)
+      console.error('[forms/submit] error:', { message: dbError.message, timestamp: new Date().toISOString() })
       return NextResponse.json({ error: 'Database error. Did you run the SQL migration?' }, { status: 500 })
     }
 

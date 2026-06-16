@@ -79,7 +79,7 @@ export async function InsightsPreview() {
                     <Badge variant="navy">{post.topic_cluster}</Badge>
                   )}
                   {post.read_time_minutes && (
-                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                    <span className="flex items-center gap-1 text-xs text-slate-500">
                       <Clock className="w-3 h-3" />
                       {post.read_time_minutes} min read
                     </span>
@@ -100,7 +100,7 @@ export async function InsightsPreview() {
 
                 <div className="flex items-center justify-between mt-auto">
                   {post.published_at && (
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-slate-500">
                       {formatDateShort(post.published_at)}
                     </span>
                   )}

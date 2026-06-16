@@ -1,7 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { organizationSchema } from '@/lib/schema'
+
+export const metadata: Metadata = {
+  title: "About Flowtaris — Enterprise ERP Consulting Experts",
+  description: "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks.",
+  openGraph: {
+    title: "About Flowtaris — Enterprise ERP Consulting Experts",
+    description: "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks.",
+    url: "https://flowtaris.com/about",
+    type: "website"
+  }
+}
 
 export default async function AboutPage() {
   const supabase = await createClient()
@@ -24,6 +37,24 @@ export default async function AboutPage() {
 
   return (
     <main className="bg-[#FAFAFA] min-h-screen font-sans text-slate-800 selection:bg-[#E8A020] selection:text-white pb-0">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              organizationSchema(),
+              {
+                "@type": "AboutPage",
+                "@id": "https://flowtaris.com/about/#webpage",
+                "url": "https://flowtaris.com/about",
+                "name": "About Flowtaris — Enterprise ERP Consulting Experts",
+                "description": "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks."
+              }
+            ]
+          })
+        }}
+      />
       
       {/* ── Section 1: Cinematic Hero (50/50 Split) ── */}
       <section className="pt-32 md:pt-48 pb-20 px-6 lg:px-12 max-w-[1400px] mx-auto">
@@ -79,9 +110,9 @@ export default async function AboutPage() {
                 </h2>
               </div>
               <div className="space-y-8 text-xl text-slate-600 font-light leading-relaxed">
-                <p>For the last decade, organizations have purchased point solutions to solve individual problems. They bought NetSuite for finance, Coupa for procurement, and Workday for HR.</p>
-                <p>But solving individual problems created a massive collective problem: data silos. Finance teams are now spending thousands of hours manually reconciling journal entries across isolated platforms.</p>
-                <p>At Flowtaris, we believe the next era of enterprise agility is not about buying more software. It’s about building automated, SOX-compliant data pipelines between the software you already own. We architect systems where data flows autonomously.</p>
+                <p>For the last decade, mid-market and enterprise organizations across North America and Europe have purchased isolated point solutions. While deploying Oracle NetSuite Cloud ERP for financials, Coupa BSM for procurement, and Workday HCM for human resources solved immediate departmental needs, it created fragmented architectures.</p>
+                <p>These disconnected data silos mean finance and accounting teams spend thousands of hours manually reconciling journal entries, AP/AR ledgers, and multi-subsidiary consolidations across platforms. Missing SuiteScript 2.x customizations or failing iPaaS integrations severely delay month-end close.</p>
+                <p>At Flowtaris, our certified NetSuite and Coupa architects believe true enterprise agility requires automated, SOX-compliant data pipelines. Serving the technology, SaaS, manufacturing, and healthcare sectors, our boutique consultancy engineers systems where financial data flows autonomously between core platforms.</p>
               </div>
             </div>
           </section>
@@ -92,10 +123,10 @@ export default async function AboutPage() {
                 {/* Left column intentionally blank */}
               </div>
               <div className="space-y-8 text-xl text-slate-600 font-light leading-relaxed">
-                <p>Flowtaris was founded in 2021 by a team of former Big 4 ERP implementation leaders who witnessed the same failure patterns repeating across Fortune 500 deployments.</p>
-                <p>Time and time again, massive consulting firms would deploy core ERPs, only to leave behind fragile, manual integration points that required armies of administrators to maintain.</p>
-                <p>We realized that standard implementation wasn't enough. Organizations needed deep, technical specialists who understood both the functional business requirements and the complex API architectures necessary to make systems talk natively.</p>
-                <p>Today, Flowtaris is the premier boutique consultancy exclusively focused on the NetSuite, Coupa, and Workday ecosystem—managing billions of dollars in transaction flows for the world's most innovative companies.</p>
+                <p>Flowtaris was founded in 2021 in London by a specialized team of former Big 4 ERP implementation leaders. We witnessed the same failure patterns repeating across complex Fortune 500 deployments: poorly mapped charts of accounts, hardcoded integration logic, and ignored change management.</p>
+                <p>Massive systems integrators consistently deployed core ERPs like SAP S/4HANA or NetSuite OneWorld, only to leave behind fragile, manual CSV uploads and broken REST APIs that required armies of administrators to maintain.</p>
+                <p>Standard deployment isn't enough for high-growth companies (50-2000 employees). Organizations need deep, technical ERP specialists holding active NetSuite ERP Consultant and Coupa Platform certifications who understand complex API limits, SuiteTalk, and native Web Services.</p>
+                <p>Today, Flowtaris operates globally as the premier boutique systems integration consultancy exclusively focused on the NetSuite, Coupa, SAP, and Workday ecosystem—engineering highly secure architectures managing billions in transaction flows for innovative B2B enterprises.</p>
               </div>
             </div>
           </section>
@@ -108,13 +139,26 @@ export default async function AboutPage() {
           Trusted to architect the backbone of industry leaders.
         </h2>
         
-        {/* Minimalist Logo Cloud */}
-        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-          <div className="text-xl font-bold font-mono tracking-widest text-slate-400">NETSUITE</div>
-          <div className="text-xl font-bold font-mono tracking-widest text-slate-400">COUPA</div>
-          <div className="text-xl font-bold font-mono tracking-widest text-slate-400">SAP</div>
-          <div className="text-xl font-bold font-mono tracking-widest text-slate-400">WORKDAY</div>
-          <div className="text-xl font-bold font-mono tracking-widest text-slate-400">BOOMI</div>
+        {/* Partner Certifications */}
+        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 mt-8">
+          <div className="flex flex-col items-center group">
+            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
+              <span className="font-bold text-slate-700">NetSuite</span>
+            </div>
+            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Solution Provider</span>
+          </div>
+          <div className="flex flex-col items-center group">
+            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
+              <span className="font-bold text-slate-700">Coupa</span>
+            </div>
+            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Certified Partner</span>
+          </div>
+          <div className="flex flex-col items-center group">
+            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
+              <span className="font-bold text-slate-700">SAP</span>
+            </div>
+            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Silver Partner</span>
+          </div>
         </div>
       </section>
 

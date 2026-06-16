@@ -58,7 +58,7 @@ export default async function ResourcesPage() {
                         {resourceTypeLabels[resource.resource_type] ?? resource.resource_type}
                       </Badge>
                       {resource.is_gated ? (
-                        <div className="flex items-center gap-1 text-xs text-slate-400">
+                        <div className="flex items-center gap-1 text-xs text-slate-500">
                           <Lock className="w-3 h-3" /> Gated
                         </div>
                       ) : (
@@ -97,7 +97,7 @@ export default async function ResourcesPage() {
             </StaggeredGrid>
           ) : (
             <AnimatedSection className="text-center py-24">
-              <p className="text-slate-400 mb-2">Resources coming soon.</p>
+              <p className="text-slate-500 mb-2">Resources coming soon.</p>
               <p className="text-sm text-slate-300">
                 Check back shortly or{' '}
                 <Link href="/contact" className="text-gold-500 hover:underline">

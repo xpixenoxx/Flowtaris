@@ -124,7 +124,7 @@ export function SeoEditor({ overrides, userId }: { overrides: any[]; userId: str
                 <h2 className="text-lg font-bold text-navy-900" style={{ fontFamily: 'var(--font-sora)' }}>
                   {isCreating ? 'New Override' : `Editing /${formData.page_slug}`}
                 </h2>
-                <p className="text-sm text-slate-400">Leaves fields empty to use site defaults.</p>
+                <p className="text-sm text-slate-500">Leaves fields empty to use site defaults.</p>
               </div>
               {!isCreating && (
                 <button onClick={handleDelete} className="p-2 text-red-500 hover:bg-red-50 rounded-md transition-colors">
@@ -137,7 +137,7 @@ export function SeoEditor({ overrides, userId }: { overrides: any[]; userId: str
               <div>
                 <label className="label">Route Path (Slug)</label>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-400 font-mono text-sm">flowtaris.com/</span>
+                  <span className="text-slate-500 font-mono text-sm">flowtaris.com/</span>
                   <input
                     type="text"
                     value={newSlug}

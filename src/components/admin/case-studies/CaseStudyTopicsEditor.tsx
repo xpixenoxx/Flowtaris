@@ -122,7 +122,7 @@ export function CaseStudyTopicsEditor({
                   <button
                     onClick={() => handleDelete(item.id)}
                     disabled={isPending}
-                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md"
+                    className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-md"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -132,7 +132,7 @@ export function CaseStudyTopicsEditor({
           </li>
         ))}
         {items.length === 0 && !isAdding && (
-          <li className="text-xs text-slate-400 text-center py-6 border border-dashed border-slate-200 rounded-xl">
+          <li className="text-xs text-slate-500 text-center py-6 border border-dashed border-slate-200 rounded-xl">
             No topics added yet.
           </li>
         )}

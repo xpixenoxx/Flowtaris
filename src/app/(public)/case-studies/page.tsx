@@ -1,115 +1,54 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { CTASection } from '@/components/sections/CTASection'
-import { CaseStudiesHero } from '@/components/sections/CaseStudiesHero'
-import { FeaturedShowcase } from '@/components/sections/FeaturedShowcase'
 import { InteractiveCaseList } from '@/components/sections/InteractiveCaseList'
-import { Award, TrendingUp, CheckCircle } from 'lucide-react'
-import { AnimatedSection } from '@/components/ui/AnimatedSection'
+import { FeaturedShowcase } from '@/components/sections/FeaturedShowcase'
 
 export const metadata: Metadata = {
-  title: 'Case Studies | Proven Enterprise ERP Transformation Results — Flowtaris',
-  description:
-    'Explore 6 in-depth enterprise ERP case studies. See measurable results from Flowtaris NetSuite, Coupa, SAP, and Workday implementations — real outcomes, real numbers, real businesses.',
-  keywords: [
-    'ERP case studies', 'NetSuite implementation results', 'Coupa deployment success',
-    'SAP S4HANA transformation', 'Workday integration case study', 'enterprise ERP consulting outcomes',
-    'Flowtaris case studies', 'ERP ROI examples', 'cloud ERP success stories',
-  ],
-  openGraph: {
-    title: 'Enterprise ERP Case Studies — Proven Results | Flowtaris',
-    description:
-      'Real-world ERP transformation results. See how Flowtaris delivered measurable outcomes across NetSuite, Coupa, SAP, Workday, and Boomi for leading enterprises worldwide.',
-    url: 'https://flowtaris.com/case-studies',
-    type: 'website',
-    images: [{ url: 'https://flowtaris.com/og-case-studies.png', width: 1200, height: 630 }],
-  },
-  alternates: { canonical: 'https://flowtaris.com/case-studies' },
+  title: 'Client Case Studies — Flowtaris ERP Solutions',
+  description: 'Read how Flowtaris engineers complex NetSuite, Coupa, and Workday architectures for high-growth enterprises.'
 }
-
-export const revalidate = 3600
 
 export default async function CaseStudiesPage() {
   const supabase = await createClient()
+  const { data: caseStudies } = await supabase.from('case_studies').select('*').order('created_at', { ascending: false })
 
-  const { data: caseStudies } = await supabase
-    .from('case_studies')
-    .select(
-      'slug, title, outcome_summary, platforms, services, industries, metrics, is_featured, cover_image_url, published_at'
-    )
-    .eq('status', 'published')
-    .order('is_featured', { ascending: false })
-    .order('published_at', { ascending: false })
-
-  const allCards = caseStudies ?? []
-  const featured = allCards.filter((cs) => cs.is_featured)
-  const rest = allCards.filter((cs) => !cs.is_featured)
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Flowtaris Enterprise ERP Case Studies',
-    description: 'In-depth case studies of enterprise ERP implementations delivered by Flowtaris.',
-    url: 'https://flowtaris.com/case-studies',
-    numberOfItems: allCards.length,
-    itemListElement: allCards.map((cs, idx) => ({
-      '@type': 'ListItem',
-      position: idx + 1,
-      url: `https://flowtaris.com/case-studies/${cs.slug}`,
-      name: cs.title,
-    })),
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Flowtaris Case Studies",
+    "mainEntity": (caseStudies || []).map(cs => ({
+      "@type": "Article",
+      "headline": cs.title,
+      "url": `https://flowtaris.com/case-studies/${cs.slug}`
+    }))
   }
 
+  const featured = caseStudies?.slice(0, 3) || []
+  const rest = caseStudies?.slice(3) || []
+
   return (
-    <main className="flex min-h-screen flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <main className="bg-[#FAFAFA] min-h-screen font-sans text-slate-800">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       
-      <CaseStudiesHero />
-      
+      {/* Minimal Header */}
+      <div className="pt-32 pb-8 px-6 md:px-12 max-w-[1440px] mx-auto">
+        <h1 className="text-4xl md:text-5xl font-light text-[#0A1628] tracking-tight" style={{ fontFamily: 'var(--font-sora)' }}>
+          Case Studies
+        </h1>
+      </div>
+
       {featured.length > 0 && <FeaturedShowcase featured={featured} />}
 
-      {/* Stats row */}
-      <section className="bg-white border-b border-slate-100">
-        <div className="container-content py-10">
-          <AnimatedSection className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '50+', label: 'Enterprise Projects', icon: Award },
-              { value: '99%', label: 'Client Retention Rate', icon: TrendingUp },
-              { value: '$200M+', label: 'In Process Savings', icon: CheckCircle },
-              { value: '6', label: 'Industry Verticals', icon: Award },
-            ].map(({ value, label, icon: Icon }) => (
-              <div key={label} className="flex flex-col items-center md:items-start gap-1">
-                <span
-                  className="text-3xl font-bold text-navy-900"
-                  style={{ fontFamily: 'var(--font-sora)' }}
-                >
-                  {value}
-                </span>
-                <span className="text-sm text-slate-500 text-center md:text-left">{label}</span>
-              </div>
-            ))}
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {allCards.length === 0 && (
-        <section className="bg-slate-50 py-24 text-center">
-          <p className="text-slate-500 mb-4">Case studies coming soon.</p>
-        </section>
-      )}
-      
-      {allCards.length > 0 && <InteractiveCaseList cases={rest.length > 0 ? rest : allCards} />}
-
-      {/* Wrapping CTA in a dark context if needed, but CTA is usually its own section */}
-      <CTASection
-        title="Ready to Write Your Own Success Story?"
-        description="Join the enterprises that trust Flowtaris to architect, deploy and optimise their mission-critical ERP ecosystems. Every engagement begins with a strategic consultation."
-        primaryCTA={{ label: 'Book a Consultation', href: '/contact' }}
-        secondaryCTA={{ label: 'Explore Our Services', href: '/services' }}
-      />
+      <div className="relative z-10 bg-[#FAFAFA]">
+        {rest.length > 0 && <InteractiveCaseList cases={rest} title="More Engagements" />}
+        
+        {(!caseStudies || caseStudies.length === 0) && (
+          <div className="py-24 text-center text-slate-500 font-light">
+            No case studies published yet.
+          </div>
+        )}
+      </div>
     </main>
   )
 }

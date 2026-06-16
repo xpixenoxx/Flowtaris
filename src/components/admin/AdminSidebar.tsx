@@ -8,6 +8,7 @@ import {
   Settings, Shield, LogOut, Star, Database, Cpu, Link2, Info,
   type LucideIcon
 } from 'lucide-react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 
@@ -60,9 +61,13 @@ export function AdminSidebar({ role }: { role: string }) {
     <aside className="w-64 flex-shrink-0 bg-navy-950 flex-col h-full border-r border-navy-800 hidden lg:flex">
       {/* Logo */}
       <div className="px-5 py-5 border-b border-navy-800 flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg bg-navy-800 border border-gold-500/30 flex items-center justify-center">
-          <span className="text-gold-500 font-bold text-sm" style={{ fontFamily: 'var(--font-sora)' }}>F</span>
-        </div>
+        <Image
+          src="/images/logo.png"
+          alt="Flowtaris"
+          width={40}
+          height={40}
+          className="w-8 h-8 object-contain"
+        />
         <div>
           <div className="text-white font-bold text-sm tracking-wide" style={{ fontFamily: 'var(--font-sora)' }}>FLOWTARIS</div>
           <div className="text-[9px] text-navy-500 tracking-[0.12em] uppercase" style={{ fontFamily: 'var(--font-jetbrains)' }}>Admin Panel</div>

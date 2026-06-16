@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.content ? (
                 <ContentRenderer content={post.content} />
               ) : (
-                <p className="text-slate-400 italic">Content coming soon.</p>
+                <p className="text-slate-500 italic">Content coming soon.</p>
               )}
             </article>
 
@@ -146,7 +146,7 @@ export default async function BlogPostPage({ params }: Props) {
               {/* Author */}
               <div className="card p-5">
                 <p
-                  className="text-[11px] font-mono uppercase tracking-[0.14em] text-slate-400 mb-3"
+                  className="text-[11px] font-mono uppercase tracking-[0.14em] text-slate-500 mb-3"
                   style={{ fontFamily: 'var(--font-jetbrains)' }}
                 >
                   Published by
@@ -162,7 +162,7 @@ export default async function BlogPostPage({ params }: Props) {
                     >
                       Flowtaris Team
                     </div>
-                    <div className="text-xs text-slate-400">Enterprise ERP Consultants</div>
+                    <div className="text-xs text-slate-500">Enterprise ERP Consultants</div>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params }: Props) {
               {related && related.length > 0 && (
                 <div className="card p-5">
                   <p
-                    className="text-[11px] font-mono uppercase tracking-[0.14em] text-slate-400 mb-4"
+                    className="text-[11px] font-mono uppercase tracking-[0.14em] text-slate-500 mb-4"
                     style={{ fontFamily: 'var(--font-jetbrains)' }}
                   >
                     Related Articles
@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }: Props) {
                           {r.title}
                         </p>
                         {r.read_time_minutes && (
-                          <p className="text-xs text-slate-400 flex items-center gap-1">
+                          <p className="text-xs text-slate-500 flex items-center gap-1">
                             <Clock className="w-3 h-3" /> {r.read_time_minutes} min
                           </p>
                         )}
@@ -235,11 +235,12 @@ export default async function BlogPostPage({ params }: Props) {
 /** Server-side markdown renderer — no 'use client' needed */
 async function ContentRenderer({ content }: { content: string }) {
   const { marked } = await import('marked')
+  const DOMPurify = (await import('isomorphic-dompurify')).default
   const html = await marked(content, { gfm: true, breaks: true })
   return (
     <div
       className="prose-flowtaris"
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html as string) }}
     />
   )
 }

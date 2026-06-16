@@ -8,7 +8,7 @@ import {
   deleteBlogTopic,
 } from '@/app/actions/blog-actions'
 import { BlogTopic } from '@/types/database'
-import { createClient } from '@/lib/supabase/client'
+import { uploadImage } from '@/app/actions/upload-actions'
 
 function TopicRow({ topic, onDeleted }: { topic: BlogTopic; onDeleted: () => void }) {
   const [editing, setEditing] = useState(false)
@@ -58,18 +58,17 @@ function TopicRow({ topic, onDeleted }: { topic: BlogTopic; onDeleted: () => voi
     setSaving(true)
     setMsg('Uploading image...')
     try {
-      const supabase = createClient()
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
-      const filePath = `blog-topics/${fileName}`
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('bucket', 'images')
+      formData.append('folder', 'blog-topics')
+
+      const { publicUrl, error } = await uploadImage(formData)
       
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, file)
-        
-      if (uploadError) throw new Error(uploadError.message)
+      if (error || !publicUrl) {
+        throw new Error(error || 'Upload failed')
+      }
       
-      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath)
       setImageUrl(publicUrl)
       setMsg('Image uploaded successfully.')
     } catch (err: any) {
@@ -356,18 +355,17 @@ function AddTopicForm({ blogId, onAdded }: { blogId: string; onAdded: () => void
     setSaving(true)
     setMsg('Uploading image...')
     try {
-      const supabase = createClient()
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
-      const filePath = `blog-topics/${fileName}`
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('bucket', 'images')
+      formData.append('folder', 'blog-topics')
+
+      const { publicUrl, error } = await uploadImage(formData)
       
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, file)
-        
-      if (uploadError) throw new Error(uploadError.message)
+      if (error || !publicUrl) {
+        throw new Error(error || 'Upload failed')
+      }
       
-      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath)
       setImageUrl(publicUrl)
       setMsg('Image uploaded successfully.')
     } catch (err: any) {

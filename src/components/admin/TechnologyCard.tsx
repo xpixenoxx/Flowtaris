@@ -4,7 +4,7 @@ import { deleteTechnology, updateTechnology } from '@/app/actions/extra-actions'
 import { ModernTechnology } from '@/types/database'
 import { Trash2, GripVertical, Pencil, X, Check } from 'lucide-react'
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { uploadImage } from '@/app/actions/upload-actions'
 
 export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
   const [isPending, setIsPending] = useState(false)
@@ -30,18 +30,17 @@ export function TechnologyCard({ tech }: { tech: ModernTechnology }) {
       let logo_url = tech.logo_url
       
       if (editFile) {
-        const supabase = createClient()
-        const fileExt = editFile.name.split('.').pop()
-        const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
-        const filePath = `technologies/${fileName}`
+        const uploadFormData = new FormData()
+        uploadFormData.append('file', editFile)
+        uploadFormData.append('bucket', 'images')
+        uploadFormData.append('folder', 'technologies')
+
+        const { publicUrl, error } = await uploadImage(uploadFormData)
         
-        const { error: uploadError } = await supabase.storage
-          .from('images')
-          .upload(filePath, editFile)
-          
-        if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`)
+        if (error || !publicUrl) {
+          throw new Error(`Upload failed: ${error || 'Unknown error'}`)
+        }
         
-        const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath)
         logo_url = publicUrl
       }
 

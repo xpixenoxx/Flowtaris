@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { addTechnology } from '@/app/actions/extra-actions'
-import { createClient } from '@/lib/supabase/client'
+import { uploadImage } from '@/app/actions/upload-actions'
 
 export function TechnologyForm() {
   const [isPending, setIsPending] = useState(false)
@@ -20,18 +20,17 @@ export function TechnologyForm() {
       let logo_url = ''
       
       if (file && file.size > 0) {
-        const supabase = createClient()
-        const fileExt = file.name.split('.').pop()
-        const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
-        const filePath = `technologies/${fileName}`
+        const uploadFormData = new FormData()
+        uploadFormData.append('file', file)
+        uploadFormData.append('bucket', 'images')
+        uploadFormData.append('folder', 'technologies')
+
+        const { publicUrl, error } = await uploadImage(uploadFormData)
         
-        const { error: uploadError } = await supabase.storage
-          .from('images')
-          .upload(filePath, file)
-          
-        if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`)
+        if (error || !publicUrl) {
+          throw new Error(`Upload failed: ${error || 'Unknown error'}`)
+        }
         
-        const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath)
         logo_url = publicUrl
       } else {
         throw new Error('Please select an image file.')

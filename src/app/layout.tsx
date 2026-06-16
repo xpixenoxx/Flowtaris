@@ -120,7 +120,7 @@ export default async function RootLayout({
           <CookieConsent />
           <ServiceWorkerRegistration />
           
-          <SchemaInjector nonce={nonce} schema={{
+          <SchemaInjector schema={{
             "@context": "https://schema.org",
             "@type": ["Organization", "ProfessionalService"],
             "@id": "https://flowtaris.com/#organization",
@@ -182,7 +182,7 @@ export default async function RootLayout({
             }
           }} />
 
-          <SchemaInjector nonce={nonce} schema={{
+          <SchemaInjector schema={{
             "@context": "https://schema.org",
             "@type": "WebSite",
             "@id": "https://flowtaris.com/#website",
@@ -202,7 +202,7 @@ export default async function RootLayout({
             }
           }} />
 
-          <SchemaInjector nonce={nonce} schema={{
+          <SchemaInjector schema={{
             "@context": "https://schema.org",
             "@type": "WebPage",
             "url": "https://flowtaris.com/",

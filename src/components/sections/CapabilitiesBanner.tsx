@@ -1,16 +1,24 @@
-'use client';
-
 import React from 'react';
+import { createClient } from '@/lib/supabase/server';
 
-const stats = [
-  { value: '#1', label: 'ERP Software' },
-  { value: '25+', label: 'Business Modules' },
-  { value: '50+', label: 'Industries Served' },
-  { value: '100+', label: 'Service Locations' },
-  { value: '5K+', label: 'Enterprise Customers' },
-];
+export async function CapabilitiesBanner() {
+  const supabase = await createClient();
+  
+  const { data: dbStats } = await supabase
+    .from('management_capabilities')
+    .select('*')
+    .order('display_order', { ascending: true });
 
-export function CapabilitiesBanner() {
+  const defaultStats = [
+    { metric_value: '#1', metric_label: 'ERP Software', counter_value: '', counter_label: '' },
+    { metric_value: '25+', metric_label: 'Business Modules', counter_value: '', counter_label: '' },
+    { metric_value: '50+', metric_label: 'Industries Served', counter_value: '', counter_label: '' },
+    { metric_value: '100+', metric_label: 'Service Locations', counter_value: '', counter_label: '' },
+    { metric_value: '5K+', metric_label: 'Enterprise Customers', counter_value: '', counter_label: '' },
+  ];
+
+  const stats = dbStats && dbStats.length > 0 ? dbStats : defaultStats;
+
   return (
     <section className="bg-[#FAFAFA] pb-16 pt-4 font-sans px-4 md:px-8">
       {/* The massive gradient pill container */}
@@ -48,12 +56,20 @@ export function CapabilitiesBanner() {
                     className="text-3xl md:text-4xl lg:text-[56px] leading-none font-black mb-2 tracking-tighter transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/stat:-translate-y-1 group-hover/stat:scale-110 bg-gradient-to-br from-[#FDE047] via-[#E8A020] to-[#D97706] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(232,160,32,0.3)]" 
                     style={{ fontFamily: 'var(--font-sora)' }}
                   >
-                    {stat.value}
+                    {stat.metric_value}
                   </div>
                   {/* Sharp modern label */}
                   <div className="text-white/90 text-[10px] md:text-xs lg:text-sm font-bold tracking-[0.2em] uppercase text-center">
-                    {stat.label}
+                    {stat.metric_label}
                   </div>
+                  
+                  {/* Optional Counter display below if it exists */}
+                  {(stat.counter_value || stat.counter_label) && (
+                    <div className="mt-2 text-center">
+                      {stat.counter_value && <div className="text-lg font-bold text-[#E8A020]">{stat.counter_value}</div>}
+                      {stat.counter_label && <div className="text-[9px] uppercase tracking-wider text-white/70">{stat.counter_label}</div>}
+                    </div>
+                  )}
                 </div>
                 
                 {/* Minimalist Glass Divider */}

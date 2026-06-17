@@ -309,3 +309,14 @@ export type Lead = {
   created_at: string;
   updated_at: string;
 };
+
+export type ManagementCapability = {
+  id: string;
+  metric_value: string;
+  metric_label: string;
+  counter_value: string;
+  counter_label: string;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+};

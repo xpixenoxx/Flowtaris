@@ -9,34 +9,40 @@ interface Post {
   id: string
   title: string
   excerpt: string
-  category: string
+  categories: string[]
   date: string
   author: string
+  authorDesignation?: string
   image: string
 }
 
-export function BlogListClient({ initialPosts }: { initialPosts: Post[] }) {
+export function BlogListClient({ initialPosts, allCategories }: { initialPosts: Post[], allCategories: string[] }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
   const limit = 6 // 6 regular posts per page
 
-  const categories = ['All', 'Engineering', 'Architecture', 'Strategy', 'Security & Compliance']
+  const categories = ['All', ...allCategories]
 
   // Filter posts based on category and search query
   const filteredPosts = useMemo(() => {
     return initialPosts.filter(post => {
-      const matchesCategory = activeCategory === 'All' || post.category.toLowerCase() === activeCategory.toLowerCase();
+      const matchesCategory = activeCategory === 'All' || post.categories.some(cat => cat.toLowerCase() === activeCategory.toLowerCase());
       const matchesSearch = searchQuery === '' || 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.category.toLowerCase().includes(searchQuery.toLowerCase());
+        post.categories.some(cat => cat.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     });
   }, [initialPosts, activeCategory, searchQuery]);
 
-  const featuredPost = filteredPosts[0]
-  const regularPosts = filteredPosts.slice(1)
+  const isFiltering = activeCategory !== 'All' || searchQuery !== '';
+  
+  // Only show the featured post on the default 'All' view without search
+  const featuredPost = isFiltering ? null : initialPosts[0];
+  
+  // Always show all matching posts in the grid, including the featured one
+  const regularPosts = filteredPosts;
 
   // Paginate regular posts
   const totalPages = Math.ceil(regularPosts.length / limit)
@@ -67,37 +73,56 @@ export function BlogListClient({ initialPosts }: { initialPosts: Post[] }) {
             </h1>
           </div>
 
-          {/* Featured Post (Horizontal 2-Column) */}
-          {featuredPost ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-8 bg-white rounded-[2rem] p-4 border border-slate-100 shadow-sm">
-              <Link href={`/blog/${featuredPost.id}`} className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-slate-100 block">
+          {/* Featured Post */}
+          {featuredPost && (
+            <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch mb-16 bg-white rounded-[2.5rem] p-3 border border-slate-200/60 shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_-4px_rgba(10,22,40,0.12)] transition-all duration-500">
+              
+              {/* Image side (spans 7 cols) */}
+              <Link href={`/blog/${featuredPost.id}`} className="relative aspect-[4/3] lg:aspect-auto lg:h-[480px] lg:col-span-7 rounded-[2rem] overflow-hidden bg-slate-100 block">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/40 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                 <Image 
                   src={featuredPost.image} 
                   alt={featuredPost.title} 
                   fill 
-                  className="object-cover hover:scale-105 transition-transform duration-500" 
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" 
                 />
               </Link>
-              <div className="p-6 lg:pr-12">
-                <span className="inline-block bg-slate-100 text-[#0A1628] text-xs font-bold px-3.5 py-1.5 rounded-full mb-4 uppercase tracking-wider">
-                  {featuredPost.category}
-                </span>
+
+              {/* Content side (spans 5 cols) */}
+              <div className="p-8 lg:p-12 lg:col-span-5 flex flex-col justify-center relative bg-white rounded-r-[2.5rem]">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-1 bg-[#E8A020] rounded-full" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#E8A020]">Featured</span>
+                </div>
+
                 <Link href={`/blog/${featuredPost.id}`}>
-                  <h2 className="text-3xl font-bold text-[#0A1628] leading-snug mb-4 hover:text-[#E8A020] transition-colors" style={{ fontFamily: 'var(--font-sora)' }}>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-[#0A1628] leading-[1.25] mb-6 hover:text-[#E8A020] transition-colors duration-300" style={{ fontFamily: 'var(--font-sora)' }}>
                     {featuredPost.title}
                   </h2>
                 </Link>
-                <p className="text-slate-600 text-lg mb-8 line-clamp-3 leading-relaxed">
+
+                <p className="text-slate-500 text-lg mb-10 line-clamp-3 leading-relaxed font-medium">
                   {featuredPost.excerpt}
                 </p>
-                <Link href={`/blog/${featuredPost.id}`} className="inline-flex items-center text-[#0A1628] font-bold hover:text-[#E8A020] transition-colors group">
-                  <span className="border-b-2 border-[#0A1628] group-hover:border-[#E8A020] pb-1 transition-colors">Learn More</span>
-                </Link>
+
+                <div className="flex items-center justify-between mt-auto">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center border-2 border-white shadow-sm ring-1 ring-slate-100">
+                      <span className="text-[#0A1628] font-bold text-lg" style={{ fontFamily: 'var(--font-sora)' }}>{featuredPost.author.charAt(0)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-[#0A1628]">{featuredPost.author}</span>
+                      <span className="text-xs text-slate-500 font-semibold">{featuredPost.authorDesignation} • {featuredPost.date}</span>
+                    </div>
+                  </div>
+                  
+                  <Link href={`/blog/${featuredPost.id}`} className="w-12 h-12 rounded-full bg-[#0A1628] text-white flex items-center justify-center group-hover:bg-[#E8A020] transition-colors duration-300 shadow-md hover:shadow-lg">
+                    <svg className="w-5 h-5 transform group-hover:translate-x-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white rounded-3xl border border-slate-100 shadow-sm">
-              <p className="text-slate-500">No blog posts found matching your filters.</p>
             </div>
           )}
         </div>
@@ -147,40 +172,65 @@ export function BlogListClient({ initialPosts }: { initialPosts: Post[] }) {
               <Link 
                 href={`/blog/${post.id}`} 
                 key={post.id} 
-                className="group flex flex-col bg-[#fafafa] rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300"
+                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-4px_rgba(10,22,40,0.1)] hover:-translate-y-1 transition-all duration-500 relative"
               >
-                <div className="p-3 pb-0">
-                  <div className="relative aspect-[3/2] w-full rounded-xl overflow-hidden bg-slate-200">
-                    <Image 
-                      src={post.image} 
-                      alt={post.title} 
-                      fill 
-                      className="object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                  </div>
+                {/* Image Section */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/20 to-transparent z-10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <Image 
+                    src={post.image} 
+                    alt={post.title} 
+                    fill 
+                    className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" 
+                  />
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">
-                    {post.category}
-                  </span>
-                  <h3 className="text-xl font-bold text-[#0A1628] mb-3 leading-snug group-hover:text-[#E8A020] transition-colors" style={{ fontFamily: 'var(--font-sora)' }}>
+
+                {/* Content Section */}
+                <div className="p-8 flex flex-col flex-1 relative bg-white">
+                  <div className="w-10 h-1 bg-[#E8A020] mb-6 rounded-full transform origin-left group-hover:scale-x-150 transition-transform duration-500" />
+                  
+                  <h3 className="text-2xl font-bold text-[#0A1628] mb-4 leading-[1.3] group-hover:text-[#E8A020] transition-colors duration-300" style={{ fontFamily: 'var(--font-sora)' }}>
                     {post.title}
                   </h3>
+                  
                   {post.excerpt && (
-                    <p className="text-slate-600 text-sm line-clamp-2 mt-auto leading-relaxed">
+                    <p className="text-slate-500 text-sm line-clamp-3 mb-8 leading-relaxed font-medium">
                       {post.excerpt}
                     </p>
                   )}
+                  
+                  {/* Author / Meta Section */}
+                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-100/80">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center border-2 border-white shadow-sm ring-1 ring-slate-100">
+                        <span className="text-[#0A1628] font-bold text-sm" style={{ fontFamily: 'var(--font-sora)' }}>
+                          {post.author.charAt(0)}
+                        </span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-bold text-[#0A1628] leading-tight">{post.author}</span>
+                        <span className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">{post.date}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#E8A020] transition-colors duration-300">
+                      <svg className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          featuredPost && (
-            <div className="text-center py-12">
-              <p className="text-slate-500">No additional posts found in this category.</p>
-            </div>
-          )
+          <div className="text-center py-12">
+            <p className="text-slate-500">
+              {featuredPost 
+                ? "No additional posts found in this category."
+                : "No blog posts found matching your filters."}
+            </p>
+          </div>
         )}
         
         {/* Pagination Controls */}

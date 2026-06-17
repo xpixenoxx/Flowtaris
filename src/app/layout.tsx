@@ -8,6 +8,7 @@ import { Analytics } from '@/components/analytics/Analytics'
 import { CookieConsent } from '@/components/analytics/CookieConsent'
 import { ServiceWorkerRegistration } from '@/app/sw'
 import SchemaInjector from '@/components/SchemaInjector'
+import { Toaster } from 'sonner'
 import '@/styles/globals.css'
 
 const sora = Sora({
@@ -116,6 +117,7 @@ export default async function RootLayout({
           <ToastProvider>
             {children}
           </ToastProvider>
+          <Toaster position="top-center" richColors />
           <Analytics />
           <CookieConsent />
           <ServiceWorkerRegistration />

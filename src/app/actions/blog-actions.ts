@@ -8,10 +8,13 @@ import {
   BlogFaq,
 } from '@/types/database'
 
-function revalidateBlog(slug: string) {
+function revalidateBlog(slug?: string) {
   revalidatePath('/admin/blog')
-  revalidatePath(`/admin/blog/${slug}`)
-  revalidatePath(`/blog/${slug}`)
+  revalidatePath('/admin/blog-categories')
+  if (slug) {
+    revalidatePath(`/admin/blog/${slug}`)
+    revalidatePath(`/blog/${slug}`)
+  }
   revalidatePath(`/blog`)
 }
 
@@ -43,7 +46,8 @@ export async function deleteBlog(id: string) {
 export async function upsertBlogHero(
   blogId: string,
   id: string | null,
-  data: Pick<BlogHero, 'title' | 'description' | 'image_url' | 'publication_date' | 'author_name' | 'author_designation'>
+  data: Pick<BlogHero, 'title' | 'description' | 'image_url' | 'publication_date' | 'author_name' | 'author_designation'>,
+  categoryIds: string[] = []
 ) {
   const supabase = await createClient()
   if (id) {
@@ -52,6 +56,20 @@ export async function upsertBlogHero(
   } else {
     const { error } = await supabase.from('blogs_hero').insert([{ ...data, blog_id: blogId }])
     if (error) throw new Error(error.message)
+  }
+
+  // Handle categories
+  // 1. Delete existing relations
+  await supabase.from('blog_category_relations').delete().eq('blog_id', blogId)
+  
+  // 2. Insert new relations
+  if (categoryIds.length > 0) {
+    const relations = categoryIds.map(categoryId => ({
+      blog_id: blogId,
+      category_id: categoryId
+    }))
+    const { error: relError } = await supabase.from('blog_category_relations').insert(relations)
+    if (relError) throw new Error(relError.message)
   }
 }
 
@@ -107,4 +125,28 @@ export async function deleteBlogFaq(id: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('blogs_faqs').delete().eq('id', id)
   if (error) throw new Error(error.message)
+}
+
+// ==========================================
+// BLOG CATEGORIES
+// ==========================================
+export async function createBlogCategory(name: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('blog_categories').insert([{ name }])
+  if (error) throw new Error(error.message)
+  revalidateBlog()
+}
+
+export async function updateBlogCategory(id: string, name: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('blog_categories').update({ name }).eq('id', id)
+  if (error) throw new Error(error.message)
+  revalidateBlog()
+}
+
+export async function deleteBlogCategory(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('blog_categories').delete().eq('id', id)
+  if (error) throw new Error(error.message)
+  revalidateBlog()
 }

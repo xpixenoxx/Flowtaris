@@ -74,6 +74,25 @@ export default function AdminDashboardPage() {
             Manage Cards →
           </Link>
         </div>
+
+        {/* Career Submissions Card */}
+        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col">
+          <div className="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-4">
+            <Users className="w-6 h-6 text-emerald-600" />
+          </div>
+          <h3 className="font-semibold text-navy-900 text-lg mb-2">Career Submissions</h3>
+          <p className="text-slate-500 text-sm mb-6 flex-1">
+            Review and manage job applications submitted from the Careers page.
+          </p>
+          <div className="flex gap-4">
+            <Link href="/admin/job-applications" className="text-sm font-medium text-emerald-600 hover:text-emerald-700">
+              View Submissions →
+            </Link>
+            <Link href="/admin/careers" className="text-sm font-medium text-blue-600 hover:text-blue-700">
+              Manage Jobs →
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )

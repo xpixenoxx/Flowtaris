@@ -2,15 +2,17 @@
 
 import { useState } from 'react'
 import { upsertBlogHero } from '@/app/actions/blog-actions'
-import { BlogHero } from '@/types/database'
+import { BlogHero, BlogCategory } from '@/types/database'
 import { ImageUpload } from '@/components/admin/ImageUpload'
 
 interface Props {
   blogId: string
   initialData: BlogHero | null
+  allCategories?: BlogCategory[]
+  initialSelectedCategories?: string[]
 }
 
-export function BlogHeroEditor({ blogId, initialData }: Props) {
+export function BlogHeroEditor({ blogId, initialData, allCategories = [], initialSelectedCategories = [] }: Props) {
   const [isPending, setIsPending] = useState(false)
   const [message, setMessage] = useState('')
   const [title, setTitle] = useState(initialData?.title ?? '')
@@ -19,6 +21,15 @@ export function BlogHeroEditor({ blogId, initialData }: Props) {
   const [publicationDate, setPublicationDate] = useState(initialData?.publication_date ?? '')
   const [authorName, setAuthorName] = useState(initialData?.author_name ?? '')
   const [authorDesignation, setAuthorDesignation] = useState(initialData?.author_designation ?? '')
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialSelectedCategories)
+
+  function toggleCategory(categoryId: string) {
+    setSelectedCategories(prev => 
+      prev.includes(categoryId) 
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId]
+    )
+  }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -32,7 +43,7 @@ export function BlogHeroEditor({ blogId, initialData }: Props) {
         publication_date: publicationDate || null,
         author_name: authorName || null,
         author_designation: authorDesignation || null,
-      })
+      }, selectedCategories)
       setMessage('Saved successfully!')
     } catch (err: unknown) {
       setMessage(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
@@ -66,6 +77,25 @@ export function BlogHeroEditor({ blogId, initialData }: Props) {
           placeholder="Brief description of the blog post..."
         />
       </div>
+
+      {allCategories && allCategories.length > 0 && (
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-1.5">Categories</label>
+          <div className="flex flex-wrap gap-2">
+            {allCategories.map(cat => (
+              <label key={cat.id} className="flex items-center gap-2 cursor-pointer bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(cat.id)}
+                  onChange={() => toggleCategory(cat.id)}
+                  className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="text-sm font-medium text-slate-700">{cat.name}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
 
       <ImageUpload
         label="Hero Image"

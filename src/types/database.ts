@@ -320,3 +320,42 @@ export type ManagementCapability = {
   created_at: string;
   updated_at: string;
 };
+
+export type BlogCategory = {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BlogCategoryRelation = {
+  blog_id: string;
+  category_id: string;
+};
+
+export type Career = {
+  id: string;
+  position_name: string;
+  short_description: string;
+  full_description: string;
+  responsibilities: string | null;
+  requirements: string | null;
+  category: string;
+  location: string;
+  employment_type: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type JobApplication = {
+  id: string;
+  career_id: string | null;
+  name: string;
+  email: string;
+  phone: string | null;
+  message: string | null;
+  resume_url: string | null;
+  status: string;
+  created_at: string;
+};

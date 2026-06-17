@@ -33,14 +33,21 @@ export default async function AdminBlogDetailPage({
     { data: heroData },
     { data: topicsData },
     { data: faqsData },
+    { data: allCategoriesData },
+    { data: blogCategoryRelations },
   ] = await Promise.all([
     supabase.from('blogs_hero').select('*').eq('blog_id', blogId).limit(1).maybeSingle(),
     supabase.from('blogs_topics').select('*').eq('blog_id', blogId).order('sort_order', { ascending: true }),
     supabase.from('blogs_faqs').select('*').eq('blog_id', blogId).order('sort_order', { ascending: true }),
+    supabase.from('blog_categories').select('*').order('name'),
+    supabase.from('blog_category_relations').select('category_id').eq('blog_id', blogId),
   ])
 
+  const allCategories = allCategoriesData || [];
+  const selectedCategoryIds = blogCategoryRelations?.map(r => r.category_id) || [];
+
   const tabs = [
-    { id: 'hero',   label: 'Hero' },
+    { id: 'hero',   label: 'Hero & Categories' },
     { id: 'topics', label: 'Topics', badge: String(topicsData?.length ?? 0) },
     { id: 'faqs',   label: 'FAQs',   badge: String(faqsData?.length ?? 0) },
   ]
@@ -70,12 +77,17 @@ export default async function AdminBlogDetailPage({
         {/* ── 1. HERO ───────────────────────────────────────── */}
         <div>
           <div className="mb-5">
-            <h2 className="text-base font-bold text-slate-800">Hero Section</h2>
+            <h2 className="text-base font-bold text-slate-800">Hero Section & Categories</h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Edit the title, description, image, and author details for this blog post.
+              Edit the title, description, image, categories, and author details for this blog post.
             </p>
           </div>
-          <BlogHeroEditor blogId={blogId} initialData={heroData ?? null} />
+          <BlogHeroEditor 
+            blogId={blogId} 
+            initialData={heroData ?? null} 
+            allCategories={allCategories}
+            initialSelectedCategories={selectedCategoryIds}
+          />
         </div>
 
         {/* ── 2. TOPICS ─────────────────────────── */}

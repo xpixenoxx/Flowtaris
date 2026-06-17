@@ -166,7 +166,7 @@ export function HeroSection({ title, description, technologies, heroImages }: He
                     </div>
                   )}
                   {/* Tag for Name (appears on hover) */}
-                  <span className="absolute bottom-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-[#0A1628] font-bold text-sm tracking-wide whitespace-nowrap" style={{ fontFamily: 'var(--font-sora)' }}>
+                  <span className="absolute bottom-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 text-[#0A1628] font-bold text-lg md:text-xl tracking-wide whitespace-nowrap" style={{ fontFamily: 'var(--font-sora)' }}>
                     {title}
                   </span>
                 </div>

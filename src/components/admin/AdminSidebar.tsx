@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, Users, FileText, BookOpen,
   FolderOpen, HelpCircle, Search, ImageIcon,
-  Settings, Shield, LogOut, Star, Database, Cpu, Link2, Info,
+  Settings, Shield, LogOut, Star, Database, Cpu, Link2, Info, Briefcase,
   type LucideIcon
 } from 'lucide-react'
 import Image from 'next/image'
@@ -29,7 +29,10 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Capabilities', href: '/admin/management-capabilities', icon: Star, roles: ['super_admin', 'content_manager'] },
   { label: 'About',        href: '/admin/about',        icon: Info,            roles: ['super_admin', 'content_manager'] },
   { label: 'Contact Forms',href: '/admin/leads',        icon: Users,           roles: ['super_admin', 'lead_manager'] },
+  { label: 'Career Submissions', href: '/admin/job-applications', icon: Briefcase, roles: ['super_admin', 'content_manager'] },
   { label: 'Blog',         href: '/admin/blog',         icon: BookOpen,        roles: ['super_admin', 'content_manager'] },
+  { label: 'Blog Categories', href: '/admin/blog-categories', icon: FolderOpen, roles: ['super_admin', 'content_manager'] },
+  { label: 'Careers',      href: '/admin/careers',      icon: Users,           roles: ['super_admin', 'content_manager'] },
   { label: 'Case Studies', href: '/admin/case-studies',  icon: Star,            roles: ['super_admin', 'content_manager'] },
   { label: 'Resources',    href: '/admin/resources',    icon: FolderOpen,      roles: ['super_admin', 'content_manager'] },
   { label: 'FAQs',         href: '/admin/faqs',         icon: HelpCircle,      roles: ['super_admin', 'content_manager', 'seo_manager'] },

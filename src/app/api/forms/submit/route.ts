@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
     const { createClient: createServiceClient } = await import('@supabase/supabase-js')
     const supabase = createServiceClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
     const { error: dbError } = await supabase.from('leads').insert({
       form_type,
@@ -124,12 +124,12 @@ export async function POST(req: NextRequest) {
 
     if (dbError) {
       console.error('[forms/submit] error:', { message: dbError.message, timestamp: new Date().toISOString() })
-      return NextResponse.json({ error: 'Database error. Did you run the SQL migration?' }, { status: 500 })
+      return NextResponse.json({ error: 'Database error. Did you run the SQL migration?', details: dbError.message }, { status: 500 })
     }
 
     return NextResponse.json({ success: true })
-  } catch (err) {
+  } catch (err: any) {
     console.error('[Form Submission] Unexpected error:', err)
-    return NextResponse.json({ error: 'An unexpected error occurred.' }, { status: 500 })
+    return NextResponse.json({ error: 'An unexpected error occurred.', details: err?.message || String(err) }, { status: 500 })
   }
 }

@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // 1. Generate Nonce and CSP first
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   const isProd = process.env.NODE_ENV === 'production'

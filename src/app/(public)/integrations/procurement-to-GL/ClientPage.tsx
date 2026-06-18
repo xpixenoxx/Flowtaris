@@ -58,10 +58,6 @@ export default function ProcurementToGLPage({ integration }: { integration: any 
                 Deploy Integration
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
-              <Link href="/contact?subject=api_specs" className="h-12 px-6 bg-white text-zinc-900 border border-zinc-200 rounded-lg font-medium text-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-zinc-400" />
-                API Specs
-              </Link>
             </motion.div>
           </div>
 

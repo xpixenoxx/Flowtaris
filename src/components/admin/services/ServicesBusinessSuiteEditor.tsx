@@ -9,6 +9,7 @@ import {
   deleteBusinessSuiteItem,
 } from '@/app/actions/services-actions'
 import { ServicesBusinessSuiteMain, ServicesBusinessSuiteItem } from '@/types/database'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 // ─── Section description editor ─────────────────────────────────────
 function SuiteMainEditor({ serviceId, initialData }: { serviceId: string; initialData: ServicesBusinessSuiteMain | null }) {
@@ -103,32 +104,32 @@ function ItemRow({ item, onDeleted }: { item: ServicesBusinessSuiteItem; onDelet
     return (
       <div className="p-4 border border-blue-200 bg-blue-50 rounded-xl space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
+              <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
+              <textarea
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Image URL</label>
-            <input
+            <ImageUpload
               value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="https://..."
+              onChange={setImageUrl}
+              label="Image"
             />
           </div>
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
-          <textarea
-            rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
         </div>
         <div className="flex items-center gap-3">
           <button onClick={save} disabled={saving} className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium disabled:opacity-50">
@@ -210,18 +211,23 @@ function AddItemForm({ serviceId, onAdded }: { serviceId: string; onAdded: () =>
     <form onSubmit={submit} className="p-4 border border-blue-200 bg-blue-50 rounded-xl space-y-3">
       <h4 className="text-sm font-bold text-slate-700">New Sub-Section</h4>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
-          <input required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. Financial Management" />
+        <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
+            <input required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. Financial Management" />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
+            <textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe this sub-section..." />
+          </div>
         </div>
         <div>
-          <label className="block text-xs font-semibold text-slate-600 mb-1">Image URL</label>
-          <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://..." />
+          <ImageUpload
+            value={imageUrl}
+            onChange={setImageUrl}
+            label="Image"
+          />
         </div>
-      </div>
-      <div>
-        <label className="block text-xs font-semibold text-slate-600 mb-1">Description</label>
-        <textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe this sub-section..." />
       </div>
       <div className="flex items-center gap-3">
         <button type="submit" disabled={saving} className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium disabled:opacity-50">

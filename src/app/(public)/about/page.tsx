@@ -19,13 +19,15 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
   const supabase = await createClient()
 
-  // Fetch Hero and Topics from Supabase
+  // Fetch Hero, Topics and Site Settings from Supabase
   const [
     { data: heroData },
     { data: topicsData },
+    { data: settingsData }
   ] = await Promise.all([
     supabase.from('about_hero').select('*').limit(1).maybeSingle(),
-    supabase.from('about_topics').select('*').order('created_at', { ascending: true })
+    supabase.from('about_topics').select('*').order('created_at', { ascending: true }),
+    supabase.from('site_settings').select('key, value').in('key', ['about_trusted_heading', 'about_trusted_partners'])
   ])
 
   // Fallbacks if data is not yet set
@@ -34,6 +36,27 @@ export default async function AboutPage() {
   const heroImage = heroData?.image_url || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
   
   const topics = topicsData && topicsData.length > 0 ? topicsData : []
+
+  const settingsMap = (settingsData || []).reduce((acc: any, curr) => {
+    acc[curr.key] = curr.value
+    return acc
+  }, {})
+
+  const trustedHeading = settingsMap['about_trusted_heading'] || 'Trusted to architect the backbone of industry leaders.'
+  let trustedPartners = []
+  try {
+    if (settingsMap['about_trusted_partners']) {
+      trustedPartners = JSON.parse(settingsMap['about_trusted_partners'])
+    } else {
+      trustedPartners = [
+        { id: '1', name: 'NetSuite', label: 'Solution Provider' },
+        { id: '2', name: 'Coupa', label: 'Certified Partner' },
+        { id: '3', name: 'SAP', label: 'Silver Partner' }
+      ]
+    }
+  } catch (e) {
+    console.error('Failed to parse trusted partners', e)
+  }
 
   return (
     <main className="bg-[#FAFAFA] min-h-screen font-sans text-slate-800 selection:bg-[#E8A020] selection:text-white pb-0">
@@ -138,29 +161,22 @@ export default async function AboutPage() {
       {/* ── Section 4: Investor / Client Trust ── */}
       <section className="py-32 px-6 lg:px-12 max-w-[1400px] mx-auto text-center border-t border-slate-200 mt-20">
         <h2 className="text-2xl font-bold text-[#0A1628] tracking-tight mb-16" style={{ fontFamily: 'var(--font-sora)' }}>
-          Trusted to architect the backbone of industry leaders.
+          {trustedHeading}
         </h2>
         
         {/* Partner Certifications */}
-        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 mt-8">
-          <div className="flex flex-col items-center group">
-            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
-              <span className="font-bold text-slate-700">NetSuite</span>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mt-8 place-items-center">
+          {trustedPartners.map((partner: any) => (
+            <div key={partner.id} className="flex flex-col items-center group w-full">
+              <div className="h-20 md:h-28 w-full max-w-[14rem] flex items-center justify-center relative transition-transform duration-300 group-hover:scale-105">
+                {partner.image_url ? (
+                  <Image src={partner.image_url} alt={partner.name} fill className="object-contain" />
+                ) : (
+                  <span className="font-bold text-slate-700 text-2xl text-center">{partner.name}</span>
+                )}
+              </div>
             </div>
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Solution Provider</span>
-          </div>
-          <div className="flex flex-col items-center group">
-            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
-              <span className="font-bold text-slate-700">Coupa</span>
-            </div>
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Certified Partner</span>
-          </div>
-          <div className="flex flex-col items-center group">
-            <div className="w-24 h-24 flex items-center justify-center bg-white border border-slate-200 rounded-full shadow-sm mb-4 group-hover:border-[#E8A020] transition-colors">
-              <span className="font-bold text-slate-700">SAP</span>
-            </div>
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Silver Partner</span>
-          </div>
+          ))}
         </div>
       </section>
 

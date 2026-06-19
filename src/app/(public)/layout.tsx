@@ -20,7 +20,7 @@ const getLayoutData = unstable_cache(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
-    
+
     const [
       { data: dynamicServices },
       { data: settingsData },
@@ -30,7 +30,7 @@ const getLayoutData = unstable_cache(
       supabase.from('site_settings').select('*'),
       supabase.from('social_links').select('*').order('priority', { ascending: false })
     ])
-    
+
     return { dynamicServices, settingsData, socialLinks }
   },
   ['layout-data-cache'],
@@ -52,10 +52,10 @@ export default async function PublicLayout({
   return (
     <div className="relative min-h-screen bg-white flex flex-col">
       <Navigation dynamicServices={dynamicServices || []} settings={settingsMap} />
-      
+
       {/* Offset for fixed nav */}
       <div className="h-[72px] flex-shrink-0" aria-hidden="true" />
-      
+
       {/* Main content */}
       <main className="flex-1 w-full" id="main-content">
         {children}

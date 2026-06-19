@@ -158,10 +158,10 @@ export function HeroSection({ title, description, technologies, heroImages }: He
                       alt={title}
                       width={300}
                       height={150}
-                      className="w-auto h-16 lg:h-[120px] object-contain transition-all duration-500 filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
+                      className="w-auto h-16 lg:h-[120px] object-contain transition-all duration-500"
                     />
                   ) : (
-                    <div className="transition-all duration-500 text-slate-500 group-hover:text-[#0A1628] filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 scale-100 lg:scale-[1.6] origin-bottom">
+                    <div className="transition-all duration-500 text-[#0A1628] scale-100 lg:scale-[1.6] origin-bottom">
                       {'node' in item ? item.node : null}
                     </div>
                   )}

@@ -34,7 +34,7 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
     : [];
 
   return (
-    <section className="bg-[#FAFAFA] py-32 lg:py-40 relative border-t border-slate-200">
+    <section className="bg-[#FAFAFA] pt-16 pb-32 lg:pt-20 lg:pb-40 relative border-t border-slate-200">
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
           <div className="max-w-3xl">
@@ -49,7 +49,7 @@ export function ServiceScrollStack({ dynamicServices = [] }: { dynamicServices?:
 
         {/* Premium Pencil Draft Grid System */}
         <div className="pt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 xl:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {displayServices.map((service, index) => {
               const isExpanded = expandedIdx === index;
               return (

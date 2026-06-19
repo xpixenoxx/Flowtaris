@@ -248,6 +248,16 @@ export type AboutTopic = {
   updated_at: string;
 };
 
+export type AboutTrustedPartner = {
+  id: string;
+  name: string;
+  label: string;
+  image_url?: string;
+  priority: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Blog = {
   id: string;
   name: string;

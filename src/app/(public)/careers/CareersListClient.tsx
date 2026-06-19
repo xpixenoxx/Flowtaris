@@ -8,20 +8,16 @@ import ApplicationModal from './ApplicationModal'
 
 export default function CareersListClient({ initialCareers }: { initialCareers: Career[] }) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [activeCategory, setActiveCategory] = useState('All')
   const [selectedCareer, setSelectedCareer] = useState<Career | null>(null)
-  
-  const categories = ['All', 'Engineering', 'Design', 'Marketing', 'Sales', 'Operations', 'HR', 'Finance', 'Other']
 
   const filteredCareers = useMemo(() => {
     return initialCareers.filter(career => {
-      const matchesCategory = activeCategory === 'All' || career.category === activeCategory
       const matchesSearch = searchQuery === '' || 
         career.position_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         career.short_description.toLowerCase().includes(searchQuery.toLowerCase())
-      return matchesCategory && matchesSearch
+      return matchesSearch
     })
-  }, [initialCareers, activeCategory, searchQuery])
+  }, [initialCareers, searchQuery])
 
   return (
     <>
@@ -45,22 +41,6 @@ export default function CareersListClient({ initialCareers }: { initialCareers: 
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-4 border border-slate-200 rounded-2xl text-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E8A020]/20 focus:border-[#E8A020] transition-all"
             />
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {categories.map((cat) => (
-              <button 
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
-                  activeCategory === cat 
-                    ? 'bg-[#0A1628] text-white shadow-md' 
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
           </div>
         </div>
       </section>
@@ -119,10 +99,10 @@ export default function CareersListClient({ initialCareers }: { initialCareers: 
             <h3 className="text-xl font-bold text-[#0A1628] mb-2" style={{ fontFamily: 'var(--font-sora)' }}>No open positions found</h3>
             <p className="text-slate-500">We couldn't find any job openings matching your criteria.</p>
             <button 
-              onClick={() => { setSearchQuery(''); setActiveCategory('All') }}
+              onClick={() => setSearchQuery('')}
               className="mt-6 text-[#E8A020] font-bold hover:text-[#d69018] transition-colors"
             >
-              Clear filters
+              Clear search
             </button>
           </div>
         )}

@@ -134,7 +134,7 @@ export function Footer({ settings = { company_name: 'FLOWTARIS' }, socialLinks =
               ))}
             </div>
             <div className="text-[11px] uppercase tracking-[0.15em] font-semibold text-white/30">
-              &copy; {currentYear} {settings?.company_name || 'FLOWTARIS'}
+              &copy; {settings?.company_name || 'Flowtaris'}. All Rights Reserved.
             </div>
           </div>
 

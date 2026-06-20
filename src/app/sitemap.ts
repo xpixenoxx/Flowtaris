@@ -18,6 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/careers`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/compare/workday-vs-netsuite`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${baseUrl}/compare/coupa-vs-ariba`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/compare/celigo-vs-boomi`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/compare/sap-vs-oracle`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/compare/mulesoft-vs-workato`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
     { url: `${baseUrl}/privacy-policy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-of-use`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
   ];

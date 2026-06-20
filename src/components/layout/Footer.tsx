@@ -66,8 +66,6 @@ const getSocialIcon = (link: SocialLink) => {
 }
 
 const FOOTER_LINKS = [
-  { label: 'Workday vs NetSuite', href: '/compare/workday-vs-netsuite' },
-  { label: 'Coupa vs SAP Ariba', href: '/compare/coupa-vs-ariba' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms & Conditions', href: '/terms-of-use' },

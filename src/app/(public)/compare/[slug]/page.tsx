@@ -72,6 +72,108 @@ const COMPARISONS = {
       costProfileB: 'Enterprise premium. Heavy upfront implementation costs and long time-to-value.',
     },
     verdict: 'If your goal is to rapidly control indirect spend with a system your employees will actually enjoy using, Coupa is the definitive choice. If you are a massive manufacturing enterprise deeply embedded in SAP and heavily reliant on direct materials sourcing, SAP Ariba is the necessary standard.'
+  },
+  'celigo-vs-boomi': {
+    systemA: 'Celigo',
+    systemB: 'Boomi',
+    themeA: 'text-sky-500',
+    bgA: 'bg-sky-500',
+    themeB: 'text-indigo-500',
+    bgB: 'bg-indigo-500',
+    title: 'Celigo vs Boomi: Enterprise iPaaS Comparison',
+    description: 'An architectural breakdown of Celigo integrator.io versus Dell Boomi. Discover which iPaaS aligns best with your ERP and engineering resources.',
+    executiveSummary: 'Celigo has built an empire by being the undisputed best-in-class iPaaS for the NetSuite ecosystem, offering pre-built templates that deploy in days. Boomi is the enterprise heavyweight, providing a massively scalable, low-code platform capable of handling complex, multi-endpoint orchestration across legacy on-premise and modern cloud environments.',
+    winnerA: ['NetSuite Ecosystem Dominance', 'Rapid Pre-built Deployments', 'SaaS-to-SaaS Integration', 'Ease of Use for Business Logic'],
+    winnerB: ['Complex Enterprise Orchestration', 'On-Premise & Hybrid Cloud', 'EDI & B2B Management', 'Massive Data Volume Handling'],
+    architecture: {
+      systemA: 'Cloud-native, multi-tenant iPaaS. Heavily optimized for SaaS REST APIs and JSON payload transformations.',
+      systemB: 'Distributed architecture. Uses lightweight Atom runtimes that can be deployed anywhere (cloud, on-premise, edge).',
+    },
+    features: [
+      { category: 'Development Experience', systemA: 'Intuitive UI tailored for NetSuite admins and business technologists. Fast learning curve.', systemB: 'Powerful drag-and-drop canvas. Steeper learning curve but unmatched flexibility for complex routing.', winner: 'A' },
+      { category: 'Pre-built Connectors', systemA: 'Integration Apps are highly polished, ready-to-use products (e.g., NetSuite to Shopify).', systemB: 'Massive library of connectors, but they act more as raw API wrappers requiring custom logic.', winner: 'Tie' },
+      { category: 'Hybrid Integration', systemA: 'Primarily designed for cloud-to-cloud SaaS integrations. Weak on-premise footprint.', systemB: 'Boomi Atoms can sit behind corporate firewalls to integrate legacy databases securely.', winner: 'B' },
+    ],
+    integration: {
+      apiSystemA: 'Excellent handling of modern RESTful endpoints, webhooks, and automatic JSON parsing.',
+      apiSystemB: 'Robust handling of SOAP, REST, EDI, and legacy flat files with complex data mapping tools.',
+      flowtarisPitch: 'The wrong iPaaS turns into technical debt within months. Flowtaris architects event-driven integration pipelines. We deploy Celigo when speed-to-market in a NetSuite environment is critical, and we deploy Boomi when building unified enterprise service buses across highly complex, hybrid landscapes.'
+    },
+    tco: {
+      timelineA: '4 to 8 Weeks',
+      timelineB: '3 to 6 Months',
+      costProfileA: 'Tiered based on endpoints and data volume. Highly cost-effective for mid-market.',
+      costProfileB: 'Enterprise pricing models. Cost-effective only when orchestrating a high volume of complex endpoints.',
+    },
+    verdict: 'Choose Celigo if NetSuite is the center of your universe and you need rapid, reliable SaaS integrations. Choose Boomi if you are a massive enterprise dealing with a complex hybrid landscape of legacy on-premise databases, EDI, and multiple cloud ERPs.'
+  },
+  'sap-vs-oracle': {
+    systemA: 'SAP S/4HANA',
+    systemB: 'Oracle Cloud ERP',
+    themeA: 'text-blue-700',
+    bgA: 'bg-blue-700',
+    themeB: 'text-red-600',
+    bgB: 'bg-red-600',
+    title: 'SAP S/4HANA vs Oracle Cloud: Global ERP Comparison',
+    description: 'The ultimate clash of Tier-1 ERP titans. Compare SAP S/4HANA against Oracle Cloud ERP to determine the right foundation for your global enterprise.',
+    executiveSummary: 'This is the heavyweight championship of enterprise software. SAP S/4HANA dominates global manufacturing, supply chain, and asset-intensive industries with its powerful in-memory database. Oracle Cloud ERP excels in financial services, professional services, and organizations prioritizing a unified, born-in-the-cloud financial suite.',
+    winnerA: ['Complex Manufacturing', 'Global Supply Chain & Logistics', 'In-Memory Processing Speed', 'Deep Industry-Specific Modules'],
+    winnerB: ['Global Financial Consolidation', 'Professional Services & Projects', 'Continuous Cloud Updates', 'Unified Suite Architecture'],
+    architecture: {
+      systemA: 'Built on the HANA in-memory database. Columnar data structure eliminates aggregates and drastically improves real-time analytics.',
+      systemB: 'Built natively for the Oracle Cloud generation. Unified data model across ERP, EPM, and SCM on Oracle Autonomous Database.',
+    },
+    features: [
+      { category: 'Financial Accounting', systemA: 'Universal Journal provides a single source of truth, but configuration is notoriously rigid.', systemB: 'Industry-leading financial consolidation, multi-ledger agility, and seamless EPM integration.', winner: 'B' },
+      { category: 'Manufacturing & Supply Chain', systemA: 'Unrivaled depth. Advanced Available-to-Promise (aATP), detailed MRP, and complex plant maintenance.', systemB: 'Strong, but often requires significant configuration to match SAP’s out-of-the-box manufacturing depth.', winner: 'A' },
+      { category: 'Cloud Modernization', systemA: 'Many customers still rely on hybrid or private cloud (RISE with SAP) due to complex legacy customizations.', systemB: 'True multi-tenant SaaS. All customers on the same version, receiving automatic quarterly updates.', winner: 'B' },
+    ],
+    integration: {
+      apiSystemA: 'OData APIs and BAPIs. SAP Business Technology Platform (BTP) is heavily pushed for side-by-side extensibility.',
+      apiSystemB: 'Modern REST APIs and SOAP services. Oracle Integration Cloud (OIC) acts as the native middleware layer.',
+      flowtarisPitch: 'Migrating to SAP S/4HANA or Oracle Cloud is not an IT project; it is business heart surgery. Flowtaris specializes in the architectural blueprints required to untangle legacy customizations and engineer clean, API-first integrations that preserve the ERP core.'
+    },
+    tco: {
+      timelineA: '18 to 36+ Months',
+      timelineB: '12 to 24+ Months',
+      costProfileA: 'Massive capital expenditure. High costs driven by complex data migration and custom code remediation.',
+      costProfileB: 'Subscription-based OpEx. High implementation costs, but predictable long-term maintenance.',
+    },
+    verdict: 'Choose SAP S/4HANA if your business physically creates, moves, or maintains complex physical goods globally. Choose Oracle Cloud ERP if your business is service-oriented, finance-heavy, and prioritizes agility and continuous cloud innovation.'
+  },
+  'mulesoft-vs-workato': {
+    systemA: 'MuleSoft',
+    systemB: 'Workato',
+    themeA: 'text-cyan-600',
+    bgA: 'bg-cyan-600',
+    themeB: 'text-teal-500',
+    bgB: 'bg-teal-500',
+    title: 'MuleSoft vs Workato: Integration Architecture Comparison',
+    description: 'Compare MuleSoft Anypoint Platform against Workato. Understand the architectural trade-offs between heavy API-led connectivity and agile workflow automation.',
+    executiveSummary: 'MuleSoft is the heavyweight champion of API-led connectivity, designed for IT teams building reusable, governed microservices across massive enterprises. Workato is the leader of the modern automation movement, designed to empower both IT and business teams to build complex, event-driven workflows at unprecedented speed.',
+    winnerA: ['API-Led Connectivity', 'Enterprise Governance & Security', 'Reusable Microservices', 'Complex Legacy Modernization'],
+    winnerB: ['Speed of Deployment', 'Business Team Collaboration', 'Event-Driven Workflows', 'SaaS Ecosystem Automation'],
+    architecture: {
+      systemA: 'Three-tiered API architecture (System, Process, Experience APIs). Deploys via Java-based Mule runtime engines.',
+      systemB: 'Cloud-native, serverless execution. "Recipes" operate on an event-driven, trigger-and-action architecture.',
+    },
+    features: [
+      { category: 'Development Agility', systemA: 'Requires specialized MuleSoft developers (Java/DataWeave). Long development lifecycles.', systemB: 'Low-code visual builder. Enables "Business Technologists" to deploy integrations in days.', winner: 'B' },
+      { category: 'Governance & Security', systemA: 'Industry-leading API Management. Fine-grained policy enforcement, throttling, and client management.', systemB: 'Strong security, but lacks the deep, granular API gateway management of MuleSoft.', winner: 'A' },
+      { category: 'Ecosystem Connectivity', systemA: 'Deep connectivity for legacy systems (SAP, mainframes, databases) alongside modern SaaS.', systemB: 'Massive library of intelligent SaaS connectors. Community-driven recipe sharing accelerates deployment.', winner: 'Tie' },
+    ],
+    integration: {
+      apiSystemA: 'RAML-first design. Best for building a curated library of reusable APIs for the enterprise.',
+      apiSystemB: 'Focuses on workflow automation rather than exposing APIs, though API endpoints can be generated.',
+      flowtarisPitch: 'Integration strategy dictates business agility. Flowtaris architects MuleSoft for enterprises requiring strict governance and reusable API layers. We deploy Workato when clients need to rapidly automate cross-functional processes like Quote-to-Cash or Employee Onboarding without building heavy infrastructure.'
+    },
+    tco: {
+      timelineA: '6 to 12+ Months',
+      timelineB: '4 to 12 Weeks',
+      costProfileA: 'Premium enterprise pricing. High implementation and specialized developer costs.',
+      costProfileB: 'Usage-based task pricing. High ROI driven by rapid deployment and reduced developer dependency.',
+    },
+    verdict: 'Choose MuleSoft if you are building an enterprise-wide, governed API network that will be consumed by internal and external developers. Choose Workato if your goal is to automate complex business processes across SaaS platforms as quickly as possible.'
   }
 }
 

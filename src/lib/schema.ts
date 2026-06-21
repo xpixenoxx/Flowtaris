@@ -10,7 +10,7 @@ export function organizationSchema() {
     name: 'Flowtaris',
     description:
       'Enterprise ERP consulting and integration partner specializing in NetSuite, Coupa, SAP, Workday, Ironclad, automation and managed support.',
-    url: 'https://flowtaris.com',
+    url: 'https://www.flowtaris.com',
     logo: absoluteUrl('/logo.png'),
     email: 'info@flowtaris.com',
     slogan: 'The Science of Business Flow',
@@ -45,7 +45,7 @@ export function serviceSchema(name: string, description: string, url: string) {
     provider: {
       '@type': 'Organization',
       name: 'Flowtaris',
-      url: 'https://flowtaris.com',
+      url: 'https://www.flowtaris.com',
     },
   }
 }

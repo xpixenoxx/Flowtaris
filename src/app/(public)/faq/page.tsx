@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: 'Frequently Asked Questions | Flowtaris',
   description: "Find answers to common questions about Flowtaris' enterprise ERP consulting, integration strategies, and implementation methodologies.",
   alternates: {
-    canonical: 'https://flowtaris.com/faq',
+    canonical: 'https://www.flowtaris.com/faq',
   },
   openGraph: {
     title: 'Frequently Asked Questions | Flowtaris',
     description: "Find answers to common questions about Flowtaris' enterprise ERP consulting, integration strategies, and implementation methodologies.",
-    url: 'https://flowtaris.com/faq',
+    url: 'https://www.flowtaris.com/faq',
     type: 'website',
   },
 }

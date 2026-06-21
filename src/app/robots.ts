@@ -59,8 +59,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      'https://flowtaris.com/sitemap.xml',
-      'https://flowtaris.com/sitemap-static.xml',
+      'https://www.flowtaris.com/sitemap.xml',
+      'https://www.flowtaris.com/sitemap-static.xml',
     ],
   };
 }

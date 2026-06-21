@@ -33,12 +33,12 @@ export async function generateMetadata({
     title: (cs as typeof cs & { meta_title?: string }).meta_title ?? `${cs.title} | Flowtaris Case Study`,
     description: (cs as typeof cs & { meta_description?: string }).meta_description ?? cs.outcome_summary,
     alternates: {
-      canonical: `https://flowtaris.com/case-studies/${slug}`,
+      canonical: `https://www.flowtaris.com/case-studies/${slug}`,
     },
     openGraph: {
       title: (cs as typeof cs & { meta_title?: string }).meta_title ?? `${cs.title} | Flowtaris Case Study`,
       description: (cs as typeof cs & { meta_description?: string }).meta_description ?? cs.outcome_summary,
-      url: `https://flowtaris.com/case-studies/${slug}`,
+      url: `https://www.flowtaris.com/case-studies/${slug}`,
       type: 'article',
     },
   }

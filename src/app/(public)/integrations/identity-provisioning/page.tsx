@@ -12,12 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.meta_title,
     description: data.meta_description,
     alternates: {
-      canonical: 'https://flowtaris.com/integrations/identity-provisioning',
+      canonical: 'https://www.flowtaris.com/integrations/identity-provisioning',
     },
     openGraph: {
       title: data.meta_title,
       description: data.meta_description,
-      url: 'https://flowtaris.com/integrations/identity-provisioning',
+      url: 'https://www.flowtaris.com/integrations/identity-provisioning',
       type: 'website',
     },
   }

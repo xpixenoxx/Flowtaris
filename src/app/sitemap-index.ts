@@ -11,11 +11,11 @@ import { MetadataRoute } from 'next';
 export default function sitemapIndex(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://flowtaris.com/sitemap.xml',
+      url: 'https://www.flowtaris.com/sitemap.xml',
       lastModified: new Date(),
     },
     {
-      url: 'https://flowtaris.com/sitemap-static.xml',
+      url: 'https://www.flowtaris.com/sitemap-static.xml',
       lastModified: new Date(),
     }
   ];

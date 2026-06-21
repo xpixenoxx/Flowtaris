@@ -69,5 +69,5 @@ Disallow: /api/
 Disallow: /_next/static/
 Disallow: /studio/
 
-Sitemap: https://flowtaris.com/sitemap.xml
-Sitemap: https://flowtaris.com/sitemap-static.xml
+Sitemap: https://www.flowtaris.com/sitemap.xml
+Sitemap: https://www.flowtaris.com/sitemap-static.xml

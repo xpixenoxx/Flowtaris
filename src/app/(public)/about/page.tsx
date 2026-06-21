@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: "About Flowtaris — Enterprise ERP Consulting Experts",
   description: "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks.",
   alternates: {
-    canonical: 'https://flowtaris.com/about',
+    canonical: 'https://www.flowtaris.com/about',
   },
   openGraph: {
     title: "About Flowtaris — Enterprise ERP Consulting Experts",
     description: "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks.",
-    url: "https://flowtaris.com/about",
+    url: "https://www.flowtaris.com/about",
     type: "website"
   }
 }
@@ -72,8 +72,8 @@ export default async function AboutPage() {
               organizationSchema(),
               {
                 "@type": "AboutPage",
-                "@id": "https://flowtaris.com/about/#webpage",
-                "url": "https://flowtaris.com/about",
+                "@id": "https://www.flowtaris.com/about/#webpage",
+                "url": "https://www.flowtaris.com/about",
                 "name": "About Flowtaris — Enterprise ERP Consulting Experts",
                 "description": "Flowtaris architects your NetSuite, Coupa, and Workday systems into a single, seamless pipeline—eliminating manual finance bottlenecks."
               }

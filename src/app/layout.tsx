@@ -32,7 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://flowtaris.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flowtaris.com'),
   title: {
     default: 'Flowtaris — Enterprise ERP & Integration Consulting',
     template: '%s | Flowtaris',
@@ -49,19 +49,19 @@ export const metadata: Metadata = {
     'Workday integrations',
     'managed ERP support',
   ],
-  authors: [{ name: 'Flowtaris', url: 'https://flowtaris.com' }],
+  authors: [{ name: 'Flowtaris', url: 'https://www.flowtaris.com' }],
   creator: 'Flowtaris',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://flowtaris.com',
+    url: 'https://www.flowtaris.com',
     siteName: 'Flowtaris',
     title: 'Flowtaris — Enterprise ERP & Integration Consulting',
     description:
       'Flowtaris delivers secure, scalable and audit-ready ERP consulting, integrations and automation across NetSuite, Coupa, SAP, Workday and enterprise platforms.',
     images: [
       {
-        url: 'https://flowtaris.com/og-default.png',
+        url: 'https://www.flowtaris.com/og-default.png',
         width: 1200,
         height: 630,
         alt: 'Flowtaris — Enterprise ERP Consulting',
@@ -125,18 +125,18 @@ export default async function RootLayout({
           <SchemaInjector schema={{
             "@context": "https://schema.org",
             "@type": ["Organization", "ProfessionalService"],
-            "@id": "https://flowtaris.com/#organization",
+            "@id": "https://www.flowtaris.com/#organization",
             "name": "Flowtaris Private Limited",
             "alternateName": "Flowtaris",
-            "url": "https://flowtaris.com",
+            "url": "https://www.flowtaris.com",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://flowtaris.com/images/logo.png",
+              "url": "https://www.flowtaris.com/images/logo.png",
               "width": 512,
               "height": 512
             },
             "description": "Flowtaris is a boutique, enterprise-grade ERP consulting firm specializing in NetSuite, Coupa, SAP, and Workday implementations, integrations, and managed support.",
-            "foundingDate": "2021",
+            "foundingDate": "2026",
             "numberOfEmployees": {
               "@type": "QuantitativeValue",
               "minValue": 10,
@@ -148,12 +148,7 @@ export default async function RootLayout({
               "email": "info@flowtaris.com",
               "availableLanguage": ["English"]
             },
-            "sameAs": [
-              "https://www.linkedin.com/company/flowtaris-private-limited",
-              "https://www.instagram.com/flowtaris_official",
-              "https://www.youtube.com/@Flowtaris",
-              "https://www.x.com/flowtaris"
-            ],
+            "sameAs": [],
             "areaServed": "Worldwide",
             "serviceType": "ERP Consulting",
             "slogan": "The Science of Business Flow",
@@ -174,43 +169,19 @@ export default async function RootLayout({
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
               "name": "ERP Consulting Services",
-              "url": "https://flowtaris.com/services"
+              "url": "https://www.flowtaris.com/services"
             }
           }} />
 
           <SchemaInjector schema={{
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "@id": "https://flowtaris.com/#website",
-            "url": "https://flowtaris.com",
+            "@id": "https://www.flowtaris.com/#website",
+            "url": "https://www.flowtaris.com",
             "name": "Flowtaris",
             "description": "Boutique ERP Consulting Firm",
             "publisher": {
-              "@id": "https://flowtaris.com/#organization"
-            },
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://flowtaris.com/search?q={search_term_string}"
-              },
-              "query-input": "required name=search_term_string"
-            }
-          }} />
-
-          <SchemaInjector schema={{
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "url": "https://flowtaris.com/",
-            "name": "Flowtaris",
-            "speakable": {
-              "@type": "SpeakableSpecification",
-              "cssSelector": [
-                ".hero-tagline",
-                ".service-description-card",
-                ".faq-answer-block",
-                ".contact-info-footer"
-              ]
+              "@id": "https://www.flowtaris.com/#organization"
             }
           }} />
         </PageTransitionProvider>

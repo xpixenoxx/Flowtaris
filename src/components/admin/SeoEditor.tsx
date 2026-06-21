@@ -137,7 +137,7 @@ export function SeoEditor({ overrides, userId }: { overrides: any[]; userId: str
               <div>
                 <label className="label">Route Path (Slug)</label>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-500 font-mono text-sm">flowtaris.com/</span>
+                  <span className="text-slate-500 font-mono text-sm">www.flowtaris.com/</span>
                   <input
                     type="text"
                     value={newSlug}
@@ -178,7 +178,7 @@ export function SeoEditor({ overrides, userId }: { overrides: any[]; userId: str
                   value={formData.canonical_url ?? ''}
                   onChange={(e) => setFormData({ ...formData, canonical_url: e.target.value })}
                   className="input font-mono text-sm"
-                  placeholder="https://flowtaris.com/..."
+                  placeholder="https://www.flowtaris.com/..."
                 />
               </div>
               

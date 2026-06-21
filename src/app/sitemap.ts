@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://flowtaris.com';
+  const baseUrl = 'https://www.flowtaris.com';
 
   const staticUrls: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/integrations`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/case-studies`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/insights`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
+    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/careers`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/compare/workday-vs-netsuite`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .eq('published', true);
 
     const blogUrls: MetadataRoute.Sitemap = (blogs || []).map((blog) => ({
-      url: `${baseUrl}/insights/${blog.slug}`,
+      url: `${baseUrl}/blog/${blog.slug}`,
       lastModified: blog.updated_at ? new Date(blog.updated_at) : new Date(),
       changeFrequency: 'never',
       priority: 0.75,

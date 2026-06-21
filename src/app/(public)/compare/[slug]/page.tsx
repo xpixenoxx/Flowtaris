@@ -185,12 +185,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${data.title} | Flowtaris`,
     description: data.description,
-    alternates: { canonical: `https://flowtaris.com/compare/${slug}` },
+    alternates: { canonical: `https://www.flowtaris.com/compare/${slug}` },
     openGraph: {
       title: data.title,
       description: data.description,
       type: 'article',
-      url: `https://flowtaris.com/compare/${slug}`,
+      url: `https://www.flowtaris.com/compare/${slug}`,
     }
   }
 }

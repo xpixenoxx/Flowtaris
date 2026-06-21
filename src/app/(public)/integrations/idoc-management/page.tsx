@@ -12,12 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.meta_title,
     description: data.meta_description,
     alternates: {
-      canonical: 'https://flowtaris.com/integrations/idoc-management',
+      canonical: 'https://www.flowtaris.com/integrations/idoc-management',
     },
     openGraph: {
       title: data.meta_title,
       description: data.meta_description,
-      url: 'https://flowtaris.com/integrations/idoc-management',
+      url: 'https://www.flowtaris.com/integrations/idoc-management',
       type: 'website',
     },
   }

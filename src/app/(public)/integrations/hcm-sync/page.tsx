@@ -12,12 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data.meta_title,
     description: data.meta_description,
     alternates: {
-      canonical: 'https://flowtaris.com/integrations/hcm-sync',
+      canonical: 'https://www.flowtaris.com/integrations/hcm-sync',
     },
     openGraph: {
       title: data.meta_title,
       description: data.meta_description,
-      url: 'https://flowtaris.com/integrations/hcm-sync',
+      url: 'https://www.flowtaris.com/integrations/hcm-sync',
       type: 'website',
     },
   }

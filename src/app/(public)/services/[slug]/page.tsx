@@ -23,12 +23,12 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     title: `${service.name} | Flowtaris — Enterprise ERP Consulting`,
     description,
     alternates: {
-      canonical: `https://flowtaris.com/services/${slug}`,
+      canonical: `https://www.flowtaris.com/services/${slug}`,
     },
     openGraph: {
       title: `${service.name} | Flowtaris`,
       description,
-      url: `https://flowtaris.com/services/${slug}`,
+      url: `https://www.flowtaris.com/services/${slug}`,
       type: 'website',
     },
   }

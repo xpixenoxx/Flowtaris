@@ -31,10 +31,10 @@
  * Reuse interval:          0 seconds
  *
  * ─── URLS ─────────────────────────────────────────────────────────
- * Site URL:                https://flowtaris.com
+ * Site URL:                https://www.flowtaris.com
  * Redirect allowlist:
  *   - http://localhost:3000/**
- *   - https://flowtaris.com/**
+ *   - https://www.flowtaris.com/**
  *   - https://*.vercel.app/**
  *
  * Dashboard path:
@@ -47,5 +47,5 @@ export const authConfig = {
   sessionExpirySeconds: 28800,
   refreshTokenRotation: true,
   passwordMinLength: 12,
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://flowtaris.com',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.flowtaris.com',
 } as const

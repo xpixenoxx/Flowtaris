@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description:
     'Flowtaris delivers secure, scalable and audit-ready ERP consulting, integrations and automation across NetSuite, Coupa, SAP, Workday and enterprise platforms.',
   alternates: {
-    canonical: 'https://flowtaris.com',
+    canonical: 'https://www.flowtaris.com',
   },
   openGraph: {
     title: 'Flowtaris — Enterprise ERP & Integration Consulting',
     description:
       'Flowtaris delivers secure, scalable and audit-ready ERP consulting, integrations and automation across NetSuite, Coupa, SAP, Workday and enterprise platforms.',
-    url: 'https://flowtaris.com',
+    url: 'https://www.flowtaris.com',
     type: 'website',
   },
 }
@@ -67,12 +67,12 @@ export default async function HomePage() {
       <SchemaInjector schema={{
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://flowtaris.com/#webpage",
-        "url": "https://flowtaris.com",
+        "@id": "https://www.flowtaris.com/#webpage",
+        "url": "https://www.flowtaris.com",
         "name": "Flowtaris | Enterprise ERP Consulting Firm",
         "description": "Flowtaris is a boutique ERP consulting firm architecting enterprise-grade NetSuite, Coupa, SAP, and Workday implementations.",
         "isPartOf": {
-          "@id": "https://flowtaris.com/#website"
+          "@id": "https://www.flowtaris.com/#website"
         },
         "about": [
           { "@type": "Thing", "name": "NetSuite" },
@@ -83,7 +83,7 @@ export default async function HomePage() {
         ],
         "primaryImageOfPage": {
           "@type": "ImageObject",
-          "url": "https://flowtaris.com/hero-image.jpg"
+          "url": "https://www.flowtaris.com/hero-image.jpg"
         },
         "speakable": {
           "@type": "SpeakableSpecification",

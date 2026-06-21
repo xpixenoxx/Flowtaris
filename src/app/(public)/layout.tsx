@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Flowtaris — Enterprise ERP & Integration Consulting',
+    default: 'Flowtaris',
     template: '%s | Flowtaris',
   },
 }

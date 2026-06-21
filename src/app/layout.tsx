@@ -34,7 +34,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flowtaris.com'),
   title: {
-    default: 'Flowtaris — Enterprise ERP & Integration Consulting',
+    default: 'Flowtaris',
     template: '%s | Flowtaris',
   },
   description:
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://www.flowtaris.com',
     siteName: 'Flowtaris',
-    title: 'Flowtaris — Enterprise ERP & Integration Consulting',
+    title: 'Flowtaris',
     description:
       'Flowtaris delivers secure, scalable and audit-ready ERP consulting, integrations and automation across NetSuite, Coupa, SAP, Workday and enterprise platforms.',
     images: [

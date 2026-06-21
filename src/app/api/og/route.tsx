@@ -116,7 +116,7 @@ export async function GET(req: NextRequest) {
           borderTop:     '1px solid rgba(232,160,32,0.15)',
         }}>
           <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
-            flowtaris.com
+            Flowtaris
           </span>
           <div style={{
             backgroundColor: '#E8A020',

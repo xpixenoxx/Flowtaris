@@ -6,12 +6,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/', '/studio/'],
+        disallow: ['/api/', '/_next/', '/studio/'],
       },
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/static/', '/studio/'],
+        disallow: ['/api/', '/_next/static/', '/studio/'],
       },
       {
         userAgent: ['Googlebot-Image', 'Googlebot-Video', 'Slurp'],
@@ -35,7 +35,7 @@ export default function robots(): MetadataRoute.Robots {
           'FacebookBot',
         ],
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/static/', '/studio/'],
+        disallow: ['/api/', '/_next/static/', '/studio/'],
       },
       {
         userAgent: 'Bytespider',
@@ -44,18 +44,18 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: ['AhrefsBot', 'SemrushBot'],
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/static/', '/studio/'],
+        disallow: ['/api/', '/_next/static/', '/studio/'],
         crawlDelay: 1,
       },
       {
         userAgent: ['MJ12bot', 'DotBot'],
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/static/', '/studio/'],
+        disallow: ['/api/', '/_next/static/', '/studio/'],
       },
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/_next/static/', '/studio/'],
+        disallow: ['/api/', '/_next/static/', '/studio/'],
       },
     ],
     sitemap: [
